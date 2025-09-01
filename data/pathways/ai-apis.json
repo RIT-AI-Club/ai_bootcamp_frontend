@@ -4,27 +4,162 @@
   "title": "APIs for AI (Python)",
   "shortTitle": "AI APIs",
   "instructor": "Olivier",
-  "description": "Build robust APIs for AI services and integrate ML models.",
-  "overview": "Comprehensive pathway covering ai apis fundamentals and advanced techniques.",
+  "description": "Build robust, scalable APIs for AI services and seamlessly integrate ML models into production applications.",
+  "overview": "This comprehensive pathway takes you from API fundamentals to building production-grade AI services. You'll learn to create REST APIs, integrate machine learning models, handle real-time predictions, and deploy scalable AI solutions using modern Python frameworks like FastAPI and Flask.",
   "duration": "6-8 weeks",
   "level": "intermediate",
-  "prerequisites": ["Basic programming knowledge"],
-  "learningOutcomes": ["Master core concepts", "Build practical projects", "Apply to real-world scenarios"],
-  "tools": ["Python", "Various specialized tools"],
+  "prerequisites": [
+    "Solid Python programming skills",
+    "Basic understanding of HTTP/REST principles", 
+    "Familiarity with machine learning concepts"
+  ],
+  "learningOutcomes": [
+    "Build production-ready AI APIs using FastAPI and Flask",
+    "Integrate ML models with REST and GraphQL endpoints",
+    "Implement authentication, rate limiting, and monitoring",
+    "Deploy AI services with Docker and cloud platforms",
+    "Handle real-time inference and batch processing"
+  ],
+  "tools": [
+    "Python",
+    "FastAPI",
+    "Flask", 
+    "SQLAlchemy",
+    "Docker",
+    "PostgreSQL",
+    "Redis",
+    "AWS/GCP"
+  ],
   "modules": [
     {
-      "id": "ai-apis-basics",
-      "title": "AI APIs Fundamentals",
-      "description": "Introduction to core concepts and principles.",
-      "duration": "2 weeks",
+      "id": "api-fundamentals",
+      "title": "API Development Fundamentals",
+      "description": "Master the basics of building RESTful APIs with Python, focusing on best practices for structure and design.",
+      "duration": "1.5 weeks",
       "difficulty": "beginner",
-      "topics": ["Fundamentals", "Core concepts", "Basic applications"],
+      "topics": [
+        "REST API design principles",
+        "HTTP methods and status codes", 
+        "Request/response handling",
+        "API documentation with OpenAPI"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "Building Your First API",
+          "duration": "45 min"
+        },
+        {
+          "type": "exercise", 
+          "title": "Create a Basic CRUD API"
+        }
+      ],
+      "completed": true
+    },
+    {
+      "id": "fastapi-mastery",
+      "title": "FastAPI for AI Services",
+      "description": "Deep dive into FastAPI for building high-performance AI APIs with automatic validation and documentation.",
+      "duration": "2 weeks",
+      "difficulty": "intermediate",
+      "topics": [
+        "FastAPI framework essentials",
+        "Pydantic models and validation",
+        "Async/await patterns",
+        "Dependency injection system"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "FastAPI Complete Guide", 
+          "duration": "90 min"
+        },
+        {
+          "type": "project",
+          "title": "Build an AI Prediction Service"
+        }
+      ],
+      "completed": true
+    },
+    {
+      "id": "ml-integration",
+      "title": "ML Model Integration",
+      "description": "Learn to seamlessly integrate trained ML models into your APIs for real-time predictions.",
+      "duration": "1.5 weeks", 
+      "difficulty": "intermediate",
+      "topics": [
+        "Model serialization and loading",
+        "Preprocessing pipelines", 
+        "Batch vs real-time inference",
+        "Model versioning strategies"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "ML Model Deployment Patterns",
+          "duration": "75 min"
+        },
+        {
+          "type": "exercise",
+          "title": "Deploy a Sklearn Model API"
+        }
+      ],
+      "completed": false
+    },
+    {
+      "id": "production-features",
+      "title": "Production-Ready Features", 
+      "description": "Implement essential production features like authentication, monitoring, and error handling.",
+      "duration": "1.5 weeks",
+      "difficulty": "advanced",
+      "topics": [
+        "JWT authentication and authorization",
+        "Rate limiting and throttling",
+        "Logging and monitoring",
+        "Error handling and validation"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "API Security Best Practices",
+          "duration": "60 min"  
+        },
+        {
+          "type": "project",
+          "title": "Secure AI Service with Auth"
+        }
+      ],
+      "completed": false
+    },
+    {
+      "id": "deployment-scaling",
+      "title": "Deployment & Scaling",
+      "description": "Deploy your AI APIs to the cloud and implement scaling strategies for high-traffic scenarios.",
+      "duration": "1 week",
+      "difficulty": "advanced", 
+      "topics": [
+        "Docker containerization",
+        "Cloud deployment (AWS, GCP)",
+        "Load balancing and auto-scaling",
+        "Performance optimization"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "Scaling AI APIs in Production", 
+          "duration": "80 min"
+        },
+        {
+          "type": "project",
+          "title": "Deploy to AWS with Auto-scaling"
+        }
+      ],
       "completed": false
     }
   ],
   "color": "from-teal-500 to-green-500",
-  "tags": ["ai-apis"],
-  "enrolledCount": 500,
-  "rating": 4.5,
-  "lastUpdated": "2025-01-01"
+  "tags": ["ai-apis", "python", "fastapi", "deployment", "production"],
+  "enrolledCount": 1350,
+  "rating": 4.7,
+  "lastUpdated": "2025-01-15"
 }

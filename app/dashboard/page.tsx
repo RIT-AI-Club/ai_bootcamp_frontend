@@ -4,12 +4,15 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { authService, User } from '@/lib/auth';
 import PathwayGrid from '@/components/PathwayGrid';
+import AchievementIcon from '@/components/AchievementIcon';
+import AchievementsModal from '@/components/AchievementsModal';
 
 export default function DashboardPage() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [showPremiumLoading, setShowPremiumLoading] = useState(false);
   const [premiumMessage, setPremiumMessage] = useState("Getting everything ready...");
+  const [showAchievementsModal, setShowAchievementsModal] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -158,6 +161,11 @@ export default function DashboardPage() {
           <div className="text-gray-100/95">
             <h2 className="text-2xl font-bold">Welcome, {user?.full_name}</h2>
             <p className="text-sm text-neutral-400 mt-1">{user?.email}</p>
+            
+            {/* Achievement Icon - positioned under email */}
+            <div className="mt-3">
+              <AchievementIcon onClick={() => setShowAchievementsModal(true)} />
+            </div>
           </div>
           
           <button
@@ -172,6 +180,12 @@ export default function DashboardPage() {
           <PathwayGrid />
         </div>
       </div>
+
+      {/* Achievements Modal */}
+      <AchievementsModal 
+        isOpen={showAchievementsModal} 
+        onClose={() => setShowAchievementsModal(false)} 
+      />
     </div>
   );
 }

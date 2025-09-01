@@ -1,30 +1,166 @@
 {
   "id": "image-generation",
-  "slug": "image-generation",
+  "slug": "image-generation", 
   "title": "Image Generation / Artistic",
   "shortTitle": "Image Generation",
   "instructor": "Roman",
-  "description": "Master AI-powered image generation and artistic creation tools.",
-  "overview": "Comprehensive pathway covering image generation fundamentals and advanced techniques.",
-  "duration": "6-8 weeks",
+  "description": "Create stunning AI-generated artwork and master the latest generative models for visual content creation.",
+  "overview": "Dive deep into the creative world of AI-generated imagery. From understanding fundamental generative models to creating professional-quality artwork, this pathway covers Stable Diffusion, DALL-E, Midjourney, and custom model training. Learn to prompt engineer, fine-tune models, and build creative AI applications.",
+  "duration": "7-9 weeks",
   "level": "intermediate",
-  "prerequisites": ["Basic programming knowledge"],
-  "learningOutcomes": ["Master core concepts", "Build practical projects", "Apply to real-world scenarios"],
-  "tools": ["Python", "Various specialized tools"],
+  "prerequisites": [
+    "Basic Python programming",
+    "Understanding of neural networks",
+    "Familiarity with image processing concepts",
+    "Creative mindset and artistic interest"
+  ],
+  "learningOutcomes": [
+    "Master state-of-the-art image generation models",
+    "Develop advanced prompt engineering skills", 
+    "Fine-tune and customize generative models",
+    "Create professional AI art workflows",
+    "Build commercial image generation applications"
+  ],
+  "tools": [
+    "Python",
+    "Stable Diffusion",
+    "PyTorch",
+    "Hugging Face",
+    "ComfyUI",
+    "AUTOMATIC1111",
+    "Midjourney",
+    "Photoshop/GIMP"
+  ],
   "modules": [
     {
-      "id": "image-generation-basics",
-      "title": "Image Generation Fundamentals",
-      "description": "Introduction to core concepts and principles.",
-      "duration": "2 weeks",
+      "id": "generative-foundations",
+      "title": "Generative AI Foundations", 
+      "description": "Understand the core principles behind generative adversarial networks, diffusion models, and transformer architectures.",
+      "duration": "1.5 weeks",
       "difficulty": "beginner",
-      "topics": ["Fundamentals", "Core concepts", "Basic applications"],
+      "topics": [
+        "GANs vs Diffusion Models",
+        "Latent space understanding",
+        "Neural network architectures",
+        "Training process fundamentals"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "Generative Models Explained",
+          "duration": "60 min"
+        },
+        {
+          "type": "exercise",
+          "title": "Explore Latent Spaces"
+        }
+      ],
+      "completed": true
+    },
+    {
+      "id": "stable-diffusion-mastery",
+      "title": "Stable Diffusion Deep Dive",
+      "description": "Master Stable Diffusion from basics to advanced techniques including ControlNet and custom models.",
+      "duration": "2.5 weeks", 
+      "difficulty": "intermediate",
+      "topics": [
+        "Stable Diffusion architecture",
+        "Advanced prompting techniques",
+        "ControlNet for precise control", 
+        "Inpainting and outpainting"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "Stable Diffusion Complete Guide",
+          "duration": "120 min"
+        },
+        {
+          "type": "project",
+          "title": "Create a Style-Specific Model"
+        }
+      ],
+      "completed": true
+    },
+    {
+      "id": "prompt-engineering-artistry",
+      "title": "Prompt Engineering & Artistry",
+      "description": "Develop mastery in crafting prompts that produce consistent, high-quality artistic results.",
+      "duration": "1.5 weeks",
+      "difficulty": "intermediate", 
+      "topics": [
+        "Advanced prompt structure",
+        "Style transfer techniques",
+        "Composition and lighting control",
+        "Negative prompting strategies"
+      ],
+      "resources": [
+        {
+          "type": "video", 
+          "title": "Prompt Engineering Masterclass",
+          "duration": "90 min"
+        },
+        {
+          "type": "exercise",
+          "title": "Create 50 Styled Variations"
+        }
+      ],
+      "completed": true
+    },
+    {
+      "id": "model-customization",
+      "title": "Fine-tuning & Custom Models",
+      "description": "Learn to train custom models, fine-tune existing ones, and create personalized art styles.",
+      "duration": "2 weeks",
+      "difficulty": "advanced",
+      "topics": [
+        "LoRA training techniques",
+        "DreamBooth customization", 
+        "Dataset preparation and curation",
+        "Hyperparameter optimization"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "Custom Model Training Workshop",
+          "duration": "150 min"
+        },
+        {
+          "type": "project", 
+          "title": "Train Your Personal Art Model"
+        }
+      ],
+      "completed": false
+    },
+    {
+      "id": "commercial-applications",
+      "title": "Commercial Art Applications",
+      "description": "Build production workflows and applications for commercial image generation projects.",
+      "duration": "1.5 weeks",
+      "difficulty": "advanced",
+      "topics": [
+        "Batch processing workflows",
+        "API integration and automation",
+        "Quality control and filtering",
+        "Rights and commercial usage"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "Commercial AI Art Pipeline",
+          "duration": "75 min"
+        },
+        {
+          "type": "project",
+          "title": "Build an Art Generation Service"
+        }
+      ],
       "completed": false
     }
   ],
   "color": "from-rose-500 to-red-500",
-  "tags": ["image-generation"],
-  "enrolledCount": 500,
-  "rating": 4.5,
-  "lastUpdated": "2025-01-01"
+  "tags": ["image-generation", "ai-art", "stable-diffusion", "creative-ai", "generative-models"],
+  "enrolledCount": 2340,
+  "rating": 4.8,
+  "lastUpdated": "2025-01-20"
 }
