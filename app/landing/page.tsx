@@ -1,12 +1,30 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import SignInModal from '@/components/SignInModal';
 import SignUpModal from '@/components/SignUpModal';
+import { authService } from '@/lib/auth';
 
 export default function LandingPage() {
   const [showSignIn, setShowSignIn] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    checkExistingAuth();
+  }, []);
+
+  const checkExistingAuth = async () => {
+    try {
+      const user = await authService.getCurrentUser();
+      if (user) {
+        router.push('/dashboard');
+      }
+    } catch (error) {
+      // User not authenticated, stay on landing page
+    }
+  };
 
   const handleSwitchToSignUp = () => {
     setShowSignIn(false);
