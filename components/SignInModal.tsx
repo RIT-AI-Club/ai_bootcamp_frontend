@@ -1,5 +1,9 @@
 'use client';
 
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { authService } from '@/lib/auth';
+
 interface SignInModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -7,7 +11,29 @@ interface SignInModalProps {
 }
 
 export default function SignInModal({ isOpen, onClose, onSwitchToSignUp }: SignInModalProps) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
   if (!isOpen) return null;
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+
+    try {
+      await authService.login(email, password);
+      onClose();
+      router.push('/dashboard');
+    } catch (err: any) {
+      setError(err.message || 'Login failed');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -30,7 +56,7 @@ export default function SignInModal({ isOpen, onClose, onSwitchToSignUp }: SignI
         </button>
 
         {/* Content */}
-        <div className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <h2 className="text-3xl font-black tracking-wider text-gray-100/95 text-center">
               SIGN IN
@@ -40,12 +66,22 @@ export default function SignInModal({ isOpen, onClose, onSwitchToSignUp }: SignI
             </p>
           </div>
 
+          {error && (
+            <div className="bg-red-900/20 border border-red-700/50 text-red-400 px-4 py-2 rounded-lg text-sm">
+              {error}
+            </div>
+          )}
+
           <div className="space-y-4">
             <div>
               <input
                 type="email"
                 placeholder="EMAIL"
-                className="w-full px-4 py-3 bg-black/30 border border-neutral-700 rounded-lg text-gray-100 placeholder-neutral-500 focus:outline-none focus:border-neutral-500 transition-colors tracking-wide"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                disabled={loading}
+                className="w-full px-4 py-3 bg-black/30 border border-neutral-700 rounded-lg text-gray-100 placeholder-neutral-500 focus:outline-none focus:border-neutral-500 transition-colors tracking-wide disabled:opacity-50"
               />
             </div>
             
@@ -53,7 +89,11 @@ export default function SignInModal({ isOpen, onClose, onSwitchToSignUp }: SignI
               <input
                 type="password"
                 placeholder="PASSWORD"
-                className="w-full px-4 py-3 bg-black/30 border border-neutral-700 rounded-lg text-gray-100 placeholder-neutral-500 focus:outline-none focus:border-neutral-500 transition-colors tracking-wide"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                disabled={loading}
+                className="w-full px-4 py-3 bg-black/30 border border-neutral-700 rounded-lg text-gray-100 placeholder-neutral-500 focus:outline-none focus:border-neutral-500 transition-colors tracking-wide disabled:opacity-50"
               />
             </div>
 
@@ -68,8 +108,12 @@ export default function SignInModal({ isOpen, onClose, onSwitchToSignUp }: SignI
             </div>
           </div>
 
-          <button className="w-full py-3 bg-gradient-to-r from-neutral-800 to-neutral-700 hover:from-neutral-700 hover:to-neutral-600 text-gray-100 font-semibold tracking-widest rounded-lg transition-all duration-200 shadow-lg">
-            SIGN IN
+          <button 
+            type="submit"
+            disabled={loading}
+            className="w-full py-3 bg-gradient-to-r from-neutral-800 to-neutral-700 hover:from-neutral-700 hover:to-neutral-600 text-gray-100 font-semibold tracking-widest rounded-lg transition-all duration-200 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {loading ? 'SIGNING IN...' : 'SIGN IN'}
           </button>
 
           <div className="relative">
@@ -109,7 +153,7 @@ export default function SignInModal({ isOpen, onClose, onSwitchToSignUp }: SignI
               Sign up
             </button>
           </p>
-        </div>
+        </form>
       </div>
     </div>
   );
