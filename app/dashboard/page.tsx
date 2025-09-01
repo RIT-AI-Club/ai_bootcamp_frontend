@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { authService, User } from '@/lib/auth';
+import PathwayGrid from '@/components/PathwayGrid';
 
 export default function DashboardPage() {
   const [user, setUser] = useState<User | null>(null);
@@ -63,10 +64,8 @@ export default function DashboardPage() {
           </button>
         </div>
         
-        <div className="flex items-center justify-center min-h-[calc(100vh-120px)]">
-          <h1 className="text-[clamp(2rem,10vw,8rem)] font-black tracking-wider text-gray-100/95 select-none text-center">
-            DASHBOARD
-          </h1>
+        <div className="py-8">
+          <PathwayGrid />
         </div>
       </div>
     </div>
