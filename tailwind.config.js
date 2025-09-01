@@ -51,11 +51,20 @@ module.exports = {
       },
       animation: {
         fadeIn: "fadeIn 0.2s ease-out",
+        "gradient-x": "gradient-x 2s ease infinite",
       },
       keyframes: {
         fadeIn: {
           "0%": { opacity: 0, transform: "translateY(5px)" },
           "100%": { opacity: 1, transform: "translateY(0)" },
+        },
+        "gradient-x": {
+          "0%, 100%": {
+            "background-position": "0% 50%"
+          },
+          "50%": {
+            "background-position": "100% 50%"
+          },
         },
       },
     }

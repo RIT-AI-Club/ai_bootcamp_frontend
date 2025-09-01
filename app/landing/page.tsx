@@ -9,6 +9,7 @@ import { authService } from '@/lib/auth';
 export default function LandingPage() {
   const [showSignIn, setShowSignIn] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
+  const [isHoveringBegin, setIsHoveringBegin] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -44,11 +45,22 @@ export default function LandingPage() {
         </div>
         
         <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4">
-          <h1 className="text-[clamp(2.5rem,12vw,10rem)] md:text-[clamp(3rem,15vw,12rem)] font-black tracking-wider text-gray-100/95 select-none text-center">
+          <h1 
+            className={`text-[clamp(2.5rem,12vw,10rem)] md:text-[clamp(3rem,15vw,12rem)] font-black tracking-wider select-none text-center transition-all duration-700 ease-in-out ${
+              isHoveringBegin 
+                ? 'bg-gradient-to-r from-blue-500 via-purple-500 via-green-500 via-yellow-500 via-rose-500 via-indigo-500 via-teal-500 via-violet-500 via-amber-500 via-sky-500 via-emerald-500 via-pink-500 to-cyan-500 bg-clip-text text-transparent animate-gradient-x' 
+                : 'text-gray-100/95'
+            }`}
+            style={{
+              backgroundSize: isHoveringBegin ? '400% 100%' : '100% 100%'
+            }}
+          >
             AI BOOTCAMP
           </h1>
           <button 
             onClick={() => setShowSignIn(true)}
+            onMouseEnter={() => setIsHoveringBegin(true)}
+            onMouseLeave={() => setIsHoveringBegin(false)}
             className="mt-8 md:mt-12 text-gray-100/90 hover:text-gray-100/60 transition-colors duration-200 cursor-pointer text-lg md:text-xl lg:text-2xl font-semibold tracking-widest"
           >
             BEGIN
