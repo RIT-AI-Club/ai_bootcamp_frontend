@@ -1,0 +1,30 @@
+{
+  "id": "mlops",
+  "slug": "mlops",
+  "title": "MLops (Google Colab)",
+  "shortTitle": "MLops",
+  "instructor": "Olivier",
+  "description": "Learn to deploy, monitor, and maintain ML models in production using modern MLOps practices.",
+  "overview": "Master the full ML lifecycle from development to production, including CI/CD for ML, model versioning, monitoring, and automated retraining pipelines.",
+  "duration": "8-10 weeks",
+  "level": "intermediate",
+  "prerequisites": ["Machine learning basics", "Python programming", "Basic DevOps knowledge"],
+  "learningOutcomes": ["Deploy ML models to production", "Set up ML pipelines", "Monitor model performance", "Implement automated retraining"],
+  "tools": ["Google Colab", "MLflow", "Kubernetes", "Docker", "GitHub Actions"],
+  "modules": [
+    {
+      "id": "mlops-basics",
+      "title": "MLOps Fundamentals",
+      "description": "Introduction to MLOps principles and practices.",
+      "duration": "2 weeks",
+      "difficulty": "intermediate",
+      "topics": ["ML lifecycle", "Version control for ML", "Experiment tracking", "Model registry"],
+      "completed": true
+    }
+  ],
+  "color": "from-green-500 to-emerald-500",
+  "tags": ["mlops", "deployment", "monitoring", "automation"],
+  "enrolledCount": 1034,
+  "rating": 4.8,
+  "lastUpdated": "2025-01-14"
+}

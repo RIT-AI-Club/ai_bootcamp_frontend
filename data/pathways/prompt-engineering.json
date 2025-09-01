@@ -1,0 +1,142 @@
+{
+  "id": "prompt-engineering",
+  "slug": "prompt-engineering",
+  "title": "Prompt Engineering",
+  "shortTitle": "Prompt Engineering",
+  "instructor": "Roman",
+  "description": "Master the art and science of crafting effective prompts for AI language models to get the best possible results.",
+  "overview": "Learn systematic approaches to prompt design, from basic techniques to advanced strategies. This pathway covers prompt optimization, few-shot learning, chain-of-thought reasoning, and working with different AI models effectively.",
+  "duration": "4-5 weeks",
+  "level": "beginner",
+  "prerequisites": [
+    "Basic understanding of AI/LLMs",
+    "No programming experience required"
+  ],
+  "learningOutcomes": [
+    "Design effective prompts for various use cases",
+    "Understand prompt engineering best practices",
+    "Master advanced techniques like chain-of-thought",
+    "Optimize prompts for different AI models",
+    "Build reliable AI-powered workflows"
+  ],
+  "tools": [
+    "OpenAI ChatGPT",
+    "Claude",
+    "Google Gemini",
+    "Prompt engineering frameworks",
+    "API interfaces"
+  ],
+  "modules": [
+    {
+      "id": "prompt-basics",
+      "title": "Prompt Engineering Fundamentals",
+      "description": "Learn the core principles of effective prompt design and communication with AI models.",
+      "duration": "1 week",
+      "difficulty": "beginner",
+      "topics": [
+        "Understanding language models",
+        "Basic prompt structure",
+        "Clear and specific instructions",
+        "Role-based prompting"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "Prompt Engineering Basics",
+          "duration": "30 min"
+        },
+        {
+          "type": "exercise",
+          "title": "Your First Effective Prompts"
+        }
+      ],
+      "completed": true
+    },
+    {
+      "id": "advanced-techniques",
+      "title": "Advanced Prompting Techniques",
+      "description": "Explore sophisticated methods for complex reasoning and problem-solving with AI.",
+      "duration": "1.5 weeks",
+      "difficulty": "intermediate",
+      "topics": [
+        "Chain-of-thought reasoning",
+        "Few-shot and zero-shot learning",
+        "Prompt chaining",
+        "Self-consistency methods"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "Chain-of-Thought Prompting",
+          "duration": "45 min"
+        },
+        {
+          "type": "project",
+          "title": "Complex Problem Solver"
+        }
+      ],
+      "completed": true
+    },
+    {
+      "id": "model-optimization",
+      "title": "Model-Specific Optimization",
+      "description": "Learn to tailor prompts for different AI models and their unique characteristics.",
+      "duration": "1 week",
+      "difficulty": "intermediate",
+      "topics": [
+        "GPT model variations",
+        "Claude prompt preferences",
+        "Gemini optimization",
+        "API parameter tuning"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "Model Comparison and Optimization",
+          "duration": "40 min"
+        },
+        {
+          "type": "exercise",
+          "title": "Cross-Model Testing Lab"
+        }
+      ],
+      "completed": true
+    },
+    {
+      "id": "production-prompts",
+      "title": "Production Prompt Systems",
+      "description": "Build reliable, scalable prompt systems for real-world applications.",
+      "duration": "1.5 weeks",
+      "difficulty": "advanced",
+      "topics": [
+        "Prompt templates and variables",
+        "Error handling and fallbacks",
+        "Performance monitoring",
+        "A/B testing prompts"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "Production Prompt Engineering",
+          "duration": "60 min"
+        },
+        {
+          "type": "project",
+          "title": "Enterprise Prompt System"
+        }
+      ],
+      "completed": true
+    }
+  ],
+  "color": "from-amber-500 to-yellow-500",
+  "tags": [
+    "prompt-engineering",
+    "llm",
+    "ai-communication",
+    "chain-of-thought",
+    "optimization"
+  ],
+  "enrolledCount": 2156,
+  "rating": 4.9,
+  "lastUpdated": "2025-01-10"
+}

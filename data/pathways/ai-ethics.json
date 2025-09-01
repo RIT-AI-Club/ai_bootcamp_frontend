@@ -1,0 +1,30 @@
+{
+  "id": "ai-ethics",
+  "slug": "ai-ethics",
+  "title": "AI Ethics",
+  "shortTitle": "AI Ethics",
+  "instructor": "Sage",
+  "description": "Explore ethical considerations in AI development and deployment.",
+  "overview": "Comprehensive pathway covering ai ethics fundamentals and advanced techniques.",
+  "duration": "6-8 weeks",
+  "level": "intermediate",
+  "prerequisites": ["Basic programming knowledge"],
+  "learningOutcomes": ["Master core concepts", "Build practical projects", "Apply to real-world scenarios"],
+  "tools": ["Python", "Various specialized tools"],
+  "modules": [
+    {
+      "id": "ai-ethics-basics",
+      "title": "AI Ethics Fundamentals",
+      "description": "Introduction to core concepts and principles.",
+      "duration": "2 weeks",
+      "difficulty": "beginner",
+      "topics": ["Fundamentals", "Core concepts", "Basic applications"],
+      "completed": false
+    }
+  ],
+  "color": "from-yellow-500 to-orange-500",
+  "tags": ["ai-ethics"],
+  "enrolledCount": 500,
+  "rating": 4.5,
+  "lastUpdated": "2025-01-01"
+}

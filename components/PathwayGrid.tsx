@@ -1,120 +1,17 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import PathwayCard, { Pathway } from './PathwayCard';
-
-const pathways: Pathway[] = [
-  {
-    id: 'computer-vision',
-    title: 'Computer Vision',
-    shortTitle: 'Computer Vision',
-    instructor: 'Olivier',
-    progress: 75,
-    color: 'from-blue-500 to-cyan-500'
-  },
-  {
-    id: 'reinforcement-learning',
-    title: 'Reinforcement Learning',
-    shortTitle: 'RL',
-    instructor: 'Roman',
-    progress: 45,
-    color: 'from-purple-500 to-pink-500'
-  },
-  {
-    id: 'mlops-colab',
-    title: 'MLops (Google Colab)',
-    shortTitle: 'MLops',
-    instructor: 'Olivier',
-    progress: 100,
-    color: 'from-green-500 to-emerald-500'
-  },
-  {
-    id: 'ai-ethics',
-    title: 'AI Ethics',
-    shortTitle: 'AI Ethics',
-    instructor: 'Sage',
-    progress: 30,
-    color: 'from-yellow-500 to-orange-500'
-  },
-  {
-    id: 'image-generation',
-    title: 'Image Generation / Artistic',
-    shortTitle: 'Image Generation',
-    instructor: 'Roman',
-    progress: 60,
-    color: 'from-rose-500 to-red-500'
-  },
-  {
-    id: 'llm-creation',
-    title: 'LLM creation (Google Collab)',
-    shortTitle: 'LLM Creation',
-    instructor: 'Roman',
-    progress: 20,
-    color: 'from-indigo-500 to-purple-500'
-  },
-  {
-    id: 'ai-apis',
-    title: 'APIs for AI (Python)',
-    shortTitle: 'AI APIs',
-    instructor: 'Olivier',
-    progress: 85,
-    color: 'from-teal-500 to-green-500'
-  },
-  {
-    id: 'devops',
-    title: 'DevOps (GitHub / GoogleCloud)',
-    shortTitle: 'DevOps',
-    instructor: 'Roman',
-    progress: 40,
-    color: 'from-slate-500 to-gray-500'
-  },
-  {
-    id: 'vibecoding',
-    title: 'Vibecoding (Free tools, N8N)',
-    shortTitle: 'Vibecoding',
-    instructor: 'Roman',
-    progress: 90,
-    color: 'from-violet-500 to-purple-500'
-  },
-  {
-    id: 'prompt-engineering',
-    title: 'Prompt Engineering',
-    shortTitle: 'Prompt Engineering',
-    instructor: 'Roman',
-    progress: 100,
-    color: 'from-amber-500 to-yellow-500'
-  },
-  {
-    id: 'ai-agents',
-    title: 'AI Agents (MCP, Tooling)',
-    shortTitle: 'AI Agents',
-    instructor: 'Olivier',
-    progress: 15,
-    color: 'from-sky-500 to-blue-500'
-  },
-  {
-    id: 'vector-db-rag',
-    title: 'Vector DB/RAG/Database',
-    shortTitle: 'Vector DB/RAG',
-    instructor: 'Olivier',
-    progress: 55,
-    color: 'from-emerald-500 to-teal-500'
-  },
-  {
-    id: 'ai-research',
-    title: 'AI research',
-    shortTitle: 'AI Research',
-    instructor: 'Roman',
-    progress: 10,
-    color: 'from-pink-500 to-rose-500'
-  }
-];
+import { PathwayManager } from '@/lib/pathways/pathway-manager';
 
 export default function PathwayGrid() {
+  const router = useRouter();
+  const pathways = PathwayManager.getPathwayMeta();
+
   const handlePathwayClick = (pathway: Pathway) => {
-    console.log(`Clicked on pathway: ${pathway.title}`);
-    // TODO: Navigate to pathway detail page
-    // router.push(`/pathway/${pathway.id}`);
+    console.log(`Navigating to pathway: ${pathway.title}`);
+    router.push(`/pathway/${pathway.slug}`);
   };
 
   return (

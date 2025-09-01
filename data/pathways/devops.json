@@ -1,0 +1,30 @@
+{
+  "id": "devops",
+  "slug": "devops",
+  "title": "DevOps (GitHub / GoogleCloud)",
+  "shortTitle": "DevOps",
+  "instructor": "Roman",
+  "description": "Master DevOps practices for AI and ML projects.",
+  "overview": "Comprehensive pathway covering devops fundamentals and advanced techniques.",
+  "duration": "6-8 weeks",
+  "level": "intermediate",
+  "prerequisites": ["Basic programming knowledge"],
+  "learningOutcomes": ["Master core concepts", "Build practical projects", "Apply to real-world scenarios"],
+  "tools": ["Python", "Various specialized tools"],
+  "modules": [
+    {
+      "id": "devops-basics",
+      "title": "DevOps Fundamentals",
+      "description": "Introduction to core concepts and principles.",
+      "duration": "2 weeks",
+      "difficulty": "beginner",
+      "topics": ["Fundamentals", "Core concepts", "Basic applications"],
+      "completed": false
+    }
+  ],
+  "color": "from-slate-500 to-gray-500",
+  "tags": ["devops"],
+  "enrolledCount": 500,
+  "rating": 4.5,
+  "lastUpdated": "2025-01-01"
+}

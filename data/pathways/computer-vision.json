@@ -1,0 +1,170 @@
+{
+  "id": "computer-vision",
+  "slug": "computer-vision",
+  "title": "Computer Vision",
+  "shortTitle": "Computer Vision",
+  "instructor": "Olivier",
+  "description": "Master the fundamentals of computer vision and learn to build AI systems that can see and understand the visual world.",
+  "overview": "This comprehensive computer vision pathway covers everything from basic image processing to advanced deep learning techniques. You'll learn to build systems that can detect objects, recognize faces, segment images, and understand visual scenes.",
+  "duration": "8-10 weeks",
+  "level": "intermediate",
+  "prerequisites": [
+    "Basic Python programming",
+    "Understanding of linear algebra",
+    "Basic machine learning concepts"
+  ],
+  "learningOutcomes": [
+    "Understand image processing fundamentals",
+    "Implement convolutional neural networks",
+    "Build object detection systems",
+    "Create image classification models",
+    "Master computer vision libraries (OpenCV, TensorFlow)"
+  ],
+  "tools": [
+    "Python",
+    "OpenCV",
+    "TensorFlow/Keras",
+    "PyTorch",
+    "NumPy",
+    "Matplotlib",
+    "Google Colab"
+  ],
+  "modules": [
+    {
+      "id": "cv-basics",
+      "title": "Computer Vision Fundamentals",
+      "description": "Introduction to digital images, pixel operations, and basic image processing techniques.",
+      "duration": "1 week",
+      "difficulty": "beginner",
+      "topics": [
+        "Digital image representation",
+        "Pixel operations and transformations",
+        "Color spaces and conversions",
+        "Image filtering and enhancement"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "Introduction to Computer Vision",
+          "duration": "45 min"
+        },
+        {
+          "type": "exercise",
+          "title": "Basic Image Operations Lab"
+        }
+      ],
+      "completed": true
+    },
+    {
+      "id": "feature-detection",
+      "title": "Feature Detection & Extraction",
+      "description": "Learn to identify and extract meaningful features from images using classical techniques.",
+      "duration": "1.5 weeks",
+      "difficulty": "intermediate",
+      "topics": [
+        "Edge detection (Canny, Sobel)",
+        "Corner detection (Harris, SIFT)",
+        "Feature descriptors",
+        "Template matching"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "Feature Detection Algorithms",
+          "duration": "60 min"
+        },
+        {
+          "type": "project",
+          "title": "Build a Feature Detector"
+        }
+      ],
+      "completed": true
+    },
+    {
+      "id": "cnn-basics",
+      "title": "Convolutional Neural Networks",
+      "description": "Deep dive into CNNs for computer vision applications.",
+      "duration": "2 weeks",
+      "difficulty": "intermediate",
+      "topics": [
+        "CNN architecture and components",
+        "Convolution and pooling layers",
+        "Popular CNN architectures",
+        "Transfer learning"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "CNN Fundamentals",
+          "duration": "90 min"
+        },
+        {
+          "type": "exercise",
+          "title": "Build Your First CNN"
+        }
+      ],
+      "completed": true
+    },
+    {
+      "id": "object-detection",
+      "title": "Object Detection",
+      "description": "Learn to detect and locate objects in images using modern deep learning approaches.",
+      "duration": "2 weeks",
+      "difficulty": "advanced",
+      "topics": [
+        "YOLO architecture",
+        "R-CNN family",
+        "Non-maximum suppression",
+        "Evaluation metrics"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "Object Detection with YOLO",
+          "duration": "75 min"
+        },
+        {
+          "type": "project",
+          "title": "Real-time Object Detection System"
+        }
+      ],
+      "completed": false
+    },
+    {
+      "id": "image-segmentation",
+      "title": "Image Segmentation",
+      "description": "Advanced techniques for pixel-level image understanding and segmentation.",
+      "duration": "1.5 weeks",
+      "difficulty": "advanced",
+      "topics": [
+        "Semantic segmentation",
+        "Instance segmentation",
+        "U-Net architecture",
+        "Mask R-CNN"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "Image Segmentation Techniques",
+          "duration": "80 min"
+        },
+        {
+          "type": "project",
+          "title": "Medical Image Segmentation"
+        }
+      ],
+      "completed": false
+    }
+  ],
+  "color": "from-blue-500 to-cyan-500",
+  "tags": [
+    "computer-vision",
+    "deep-learning",
+    "cnn",
+    "opencv",
+    "tensorflow"
+  ],
+  "enrolledCount": 1247,
+  "rating": 4.8,
+  "lastUpdated": "2025-01-15"
+}

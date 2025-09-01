@@ -1,0 +1,30 @@
+{
+  "id": "vibecoding",
+  "slug": "vibecoding",
+  "title": "Vibecoding (Free tools, N8N)",
+  "shortTitle": "Vibecoding",
+  "instructor": "Roman",
+  "description": "Low-code/no-code AI development with modern tools.",
+  "overview": "Comprehensive pathway covering vibecoding fundamentals and advanced techniques.",
+  "duration": "6-8 weeks",
+  "level": "intermediate",
+  "prerequisites": ["Basic programming knowledge"],
+  "learningOutcomes": ["Master core concepts", "Build practical projects", "Apply to real-world scenarios"],
+  "tools": ["Python", "Various specialized tools"],
+  "modules": [
+    {
+      "id": "vibecoding-basics",
+      "title": "Vibecoding Fundamentals",
+      "description": "Introduction to core concepts and principles.",
+      "duration": "2 weeks",
+      "difficulty": "beginner",
+      "topics": ["Fundamentals", "Core concepts", "Basic applications"],
+      "completed": false
+    }
+  ],
+  "color": "from-violet-500 to-purple-500",
+  "tags": ["vibecoding"],
+  "enrolledCount": 500,
+  "rating": 4.5,
+  "lastUpdated": "2025-01-01"
+}

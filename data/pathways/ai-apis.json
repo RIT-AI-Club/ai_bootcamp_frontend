@@ -1,0 +1,30 @@
+{
+  "id": "ai-apis",
+  "slug": "ai-apis",
+  "title": "APIs for AI (Python)",
+  "shortTitle": "AI APIs",
+  "instructor": "Olivier",
+  "description": "Build robust APIs for AI services and integrate ML models.",
+  "overview": "Comprehensive pathway covering ai apis fundamentals and advanced techniques.",
+  "duration": "6-8 weeks",
+  "level": "intermediate",
+  "prerequisites": ["Basic programming knowledge"],
+  "learningOutcomes": ["Master core concepts", "Build practical projects", "Apply to real-world scenarios"],
+  "tools": ["Python", "Various specialized tools"],
+  "modules": [
+    {
+      "id": "ai-apis-basics",
+      "title": "AI APIs Fundamentals",
+      "description": "Introduction to core concepts and principles.",
+      "duration": "2 weeks",
+      "difficulty": "beginner",
+      "topics": ["Fundamentals", "Core concepts", "Basic applications"],
+      "completed": false
+    }
+  ],
+  "color": "from-teal-500 to-green-500",
+  "tags": ["ai-apis"],
+  "enrolledCount": 500,
+  "rating": 4.5,
+  "lastUpdated": "2025-01-01"
+}

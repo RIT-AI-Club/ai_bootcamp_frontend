@@ -1,0 +1,195 @@
+import { PathwayData, PathwayMeta } from './types';
+
+// Import all pathway JSON files
+const pathwayModules = {
+  'computer-vision': () => import('@/data/pathways/computer-vision.json'),
+  'reinforcement-learning': () => import('@/data/pathways/reinforcement-learning.json'),
+  'mlops': () => import('@/data/pathways/mlops.json'),
+  'ai-ethics': () => import('@/data/pathways/ai-ethics.json'),
+  'image-generation': () => import('@/data/pathways/image-generation.json'),
+  'llm-creation': () => import('@/data/pathways/llm-creation.json'),
+  'ai-apis': () => import('@/data/pathways/ai-apis.json'),
+  'devops': () => import('@/data/pathways/devops.json'),
+  'vibecoding': () => import('@/data/pathways/vibecoding.json'),
+  'prompt-engineering': () => import('@/data/pathways/prompt-engineering.json'),
+  'ai-agents': () => import('@/data/pathways/ai-agents.json'),
+  'vector-db-rag': () => import('@/data/pathways/vector-db-rag.json'),
+  'ai-research': () => import('@/data/pathways/ai-research.json'),
+};
+
+// Pathway metadata for quick access (used in dashboard grid)
+export const PATHWAY_META: PathwayMeta[] = [
+  {
+    id: 'computer-vision',
+    slug: 'computer-vision',
+    title: 'Computer Vision',
+    shortTitle: 'Computer Vision',
+    instructor: 'Olivier',
+    color: 'from-blue-500 to-cyan-500',
+    progress: 75,
+  },
+  {
+    id: 'reinforcement-learning',
+    slug: 'reinforcement-learning',
+    title: 'Reinforcement Learning',
+    shortTitle: 'RL',
+    instructor: 'Roman',
+    color: 'from-purple-500 to-pink-500',
+    progress: 45,
+  },
+  {
+    id: 'mlops',
+    slug: 'mlops',
+    title: 'MLops (Google Colab)',
+    shortTitle: 'MLops',
+    instructor: 'Olivier',
+    color: 'from-green-500 to-emerald-500',
+    progress: 100,
+  },
+  {
+    id: 'ai-ethics',
+    slug: 'ai-ethics',
+    title: 'AI Ethics',
+    shortTitle: 'AI Ethics',
+    instructor: 'Sage',
+    color: 'from-yellow-500 to-orange-500',
+    progress: 30,
+  },
+  {
+    id: 'image-generation',
+    slug: 'image-generation',
+    title: 'Image Generation / Artistic',
+    shortTitle: 'Image Generation',
+    instructor: 'Roman',
+    color: 'from-rose-500 to-red-500',
+    progress: 60,
+  },
+  {
+    id: 'llm-creation',
+    slug: 'llm-creation',
+    title: 'LLM creation (Google Collab)',
+    shortTitle: 'LLM Creation',
+    instructor: 'Roman',
+    color: 'from-indigo-500 to-purple-500',
+    progress: 20,
+  },
+  {
+    id: 'ai-apis',
+    slug: 'ai-apis',
+    title: 'APIs for AI (Python)',
+    shortTitle: 'AI APIs',
+    instructor: 'Olivier',
+    color: 'from-teal-500 to-green-500',
+    progress: 85,
+  },
+  {
+    id: 'devops',
+    slug: 'devops',
+    title: 'DevOps (GitHub / GoogleCloud)',
+    shortTitle: 'DevOps',
+    instructor: 'Roman',
+    color: 'from-slate-500 to-gray-500',
+    progress: 40,
+  },
+  {
+    id: 'vibecoding',
+    slug: 'vibecoding',
+    title: 'Vibecoding (Free tools, N8N)',
+    shortTitle: 'Vibecoding',
+    instructor: 'Roman',
+    color: 'from-violet-500 to-purple-500',
+    progress: 90,
+  },
+  {
+    id: 'prompt-engineering',
+    slug: 'prompt-engineering',
+    title: 'Prompt Engineering',
+    shortTitle: 'Prompt Engineering',
+    instructor: 'Roman',
+    color: 'from-amber-500 to-yellow-500',
+    progress: 100,
+  },
+  {
+    id: 'ai-agents',
+    slug: 'ai-agents',
+    title: 'AI Agents (MCP, Tooling)',
+    shortTitle: 'AI Agents',
+    instructor: 'Olivier',
+    color: 'from-sky-500 to-blue-500',
+    progress: 15,
+  },
+  {
+    id: 'vector-db-rag',
+    slug: 'vector-db-rag',
+    title: 'Vector DB/RAG/Database',
+    shortTitle: 'Vector DB/RAG',
+    instructor: 'Olivier',
+    color: 'from-emerald-500 to-teal-500',
+    progress: 55,
+  },
+  {
+    id: 'ai-research',
+    slug: 'ai-research',
+    title: 'AI research',
+    shortTitle: 'AI Research',
+    instructor: 'Roman',
+    color: 'from-pink-500 to-rose-500',
+    progress: 10,
+  },
+];
+
+export class PathwayManager {
+  /**
+   * Get pathway metadata for dashboard display
+   */
+  static getPathwayMeta(): PathwayMeta[] {
+    return PATHWAY_META;
+  }
+
+  /**
+   * Get pathway by slug
+   */
+  static async getPathwayBySlug(slug: string): Promise<PathwayData | null> {
+    try {
+      const moduleLoader = pathwayModules[slug as keyof typeof pathwayModules];
+      if (!moduleLoader) {
+        return null;
+      }
+
+      const module = await moduleLoader();
+      const pathwayData = module.default as PathwayData;
+      
+      // Add current progress from meta
+      const meta = PATHWAY_META.find(p => p.slug === slug);
+      if (meta) {
+        pathwayData.progress = meta.progress;
+      }
+
+      return pathwayData;
+    } catch (error) {
+      console.error(`Failed to load pathway: ${slug}`, error);
+      return null;
+    }
+  }
+
+  /**
+   * Get all available pathway slugs
+   */
+  static getPathwaySlugs(): string[] {
+    return Object.keys(pathwayModules);
+  }
+
+  /**
+   * Check if a pathway slug exists
+   */
+  static pathwayExists(slug: string): boolean {
+    return slug in pathwayModules;
+  }
+
+  /**
+   * Get pathway meta by slug
+   */
+  static getPathwayMetaBySlug(slug: string): PathwayMeta | null {
+    return PATHWAY_META.find(p => p.slug === slug) || null;
+  }
+}

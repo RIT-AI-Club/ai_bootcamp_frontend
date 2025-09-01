@@ -1,0 +1,146 @@
+{
+  "id": "ai-agents",
+  "slug": "ai-agents",
+  "title": "AI Agents (MCP, Tooling)",
+  "shortTitle": "AI Agents",
+  "instructor": "Olivier",
+  "description": "Build intelligent autonomous agents that can interact with tools, APIs, and perform complex multi-step tasks.",
+  "overview": "Learn to create sophisticated AI agents using Model Context Protocol (MCP) and various tooling frameworks. This pathway covers agent architecture, tool integration, reasoning patterns, and deployment strategies.",
+  "duration": "6-8 weeks",
+  "level": "advanced",
+  "prerequisites": [
+    "Python programming experience",
+    "Understanding of APIs and web services",
+    "Basic knowledge of LLMs",
+    "Familiarity with async programming"
+  ],
+  "learningOutcomes": [
+    "Design and implement AI agent architectures",
+    "Master Model Context Protocol (MCP)",
+    "Integrate agents with external tools and APIs",
+    "Build multi-agent systems",
+    "Deploy production-ready agent systems"
+  ],
+  "tools": [
+    "Python",
+    "MCP Framework",
+    "LangChain",
+    "OpenAI API",
+    "FastAPI",
+    "Docker",
+    "PostgreSQL"
+  ],
+  "modules": [
+    {
+      "id": "agent-fundamentals",
+      "title": "AI Agent Fundamentals",
+      "description": "Understanding agent architectures and the foundations of autonomous AI systems.",
+      "duration": "1 week",
+      "difficulty": "intermediate",
+      "topics": [
+        "Agent architecture patterns",
+        "Reasoning and planning",
+        "Memory systems",
+        "Tool calling mechanisms"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "Introduction to AI Agents",
+          "duration": "50 min"
+        },
+        {
+          "type": "exercise",
+          "title": "Simple Agent Implementation"
+        }
+      ],
+      "completed": false
+    },
+    {
+      "id": "mcp-protocol",
+      "title": "Model Context Protocol (MCP)",
+      "description": "Deep dive into MCP for building standardized agent-tool interactions.",
+      "duration": "2 weeks",
+      "difficulty": "advanced",
+      "topics": [
+        "MCP specification and standards",
+        "Tool server implementation",
+        "Context management",
+        "Security considerations"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "MCP Deep Dive",
+          "duration": "75 min"
+        },
+        {
+          "type": "project",
+          "title": "Custom MCP Tool Server"
+        }
+      ],
+      "completed": false
+    },
+    {
+      "id": "tool-integration",
+      "title": "Tool Integration & APIs",
+      "description": "Connect agents with external services, databases, and APIs for expanded capabilities.",
+      "duration": "1.5 weeks",
+      "difficulty": "intermediate",
+      "topics": [
+        "API integration patterns",
+        "Database connectivity",
+        "File system operations",
+        "Web scraping tools"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "Agent Tool Integration",
+          "duration": "60 min"
+        },
+        {
+          "type": "exercise",
+          "title": "Multi-Tool Agent System"
+        }
+      ],
+      "completed": false
+    },
+    {
+      "id": "multi-agent-systems",
+      "title": "Multi-Agent Systems",
+      "description": "Design and coordinate multiple agents working together on complex tasks.",
+      "duration": "2 weeks",
+      "difficulty": "advanced",
+      "topics": [
+        "Agent communication protocols",
+        "Task distribution strategies",
+        "Consensus mechanisms",
+        "Conflict resolution"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "Multi-Agent Architectures",
+          "duration": "80 min"
+        },
+        {
+          "type": "project",
+          "title": "Collaborative Agent Network"
+        }
+      ],
+      "completed": false
+    }
+  ],
+  "color": "from-sky-500 to-blue-500",
+  "tags": [
+    "ai-agents",
+    "mcp",
+    "automation",
+    "multi-agent",
+    "tool-integration"
+  ],
+  "enrolledCount": 892,
+  "rating": 4.7,
+  "lastUpdated": "2025-01-12"
+}

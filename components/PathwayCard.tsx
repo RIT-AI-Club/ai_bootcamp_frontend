@@ -5,11 +5,11 @@ import { motion } from 'framer-motion';
 
 export interface Pathway {
   id: string;
+  slug: string;
   title: string;
   shortTitle: string;
   instructor: string;
   progress: number; // 0-100
-  description?: string;
   color: string;
 }
 
@@ -21,6 +21,41 @@ interface PathwayCardProps {
 
 export default function PathwayCard({ pathway, index, onClick }: PathwayCardProps) {
   const [isHovered, setIsHovered] = useState(false);
+  
+  // Convert Tailwind color classes to actual colors for SVG gradients
+  const getColorValues = (colorString: string) => {
+    const colorMap: { [key: string]: string } = {
+      'from-blue-500': '#3B82F6',
+      'to-cyan-500': '#06B6D4',
+      'from-purple-500': '#A855F7', 
+      'to-pink-500': '#EC4899',
+      'from-green-500': '#10B981',
+      'to-emerald-500': '#10B981',
+      'from-yellow-500': '#EAB308',
+      'to-orange-500': '#F97316',
+      'from-rose-500': '#F43F5E',
+      'to-red-500': '#EF4444',
+      'from-indigo-500': '#6366F1',
+      'from-teal-500': '#14B8A6',
+      'from-slate-500': '#64748B',
+      'to-gray-500': '#6B7280',
+      'from-violet-500': '#8B5CF6',
+      'from-amber-500': '#F59E0B',
+      'from-sky-500': '#0EA5E9',
+      'from-emerald-500': '#10B981',
+      'from-pink-500': '#EC4899',
+      'to-teal-500': '#14B8A6',
+      'to-rose-500': '#F43F5E'
+    };
+    
+    const colors = colorString.split(' ');
+    const fromColor = colorMap[colors[0]] || '#3B82F6';
+    const toColor = colorMap[colors[1]] || '#06B6D4';
+    
+    return { fromColor, toColor };
+  };
+  
+  const { fromColor, toColor } = getColorValues(pathway.color);
 
   return (
     <motion.div
@@ -89,8 +124,8 @@ export default function PathwayCard({ pathway, index, onClick }: PathwayCardProp
                 {/* Gradient Definition */}
                 <defs>
                   <linearGradient id={`gradient-${pathway.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" className={`${pathway.color.split(' ')[0].replace('from-', 'text-')}`} />
-                    <stop offset="100%" className={`${pathway.color.split(' ')[1].replace('to-', 'text-')}`} />
+                    <stop offset="0%" stopColor={fromColor} />
+                    <stop offset="100%" stopColor={toColor} />
                   </linearGradient>
                 </defs>
               </svg>

@@ -1,0 +1,30 @@
+{
+  "id": "vector-db-rag",
+  "slug": "vector-db-rag",
+  "title": "Vector DB/RAG/Database",
+  "shortTitle": "Vector DB/RAG",
+  "instructor": "Olivier",
+  "description": "Build intelligent systems with vector databases and RAG.",
+  "overview": "Comprehensive pathway covering vector db/rag fundamentals and advanced techniques.",
+  "duration": "6-8 weeks",
+  "level": "intermediate",
+  "prerequisites": ["Basic programming knowledge"],
+  "learningOutcomes": ["Master core concepts", "Build practical projects", "Apply to real-world scenarios"],
+  "tools": ["Python", "Various specialized tools"],
+  "modules": [
+    {
+      "id": "vector-db-rag-basics",
+      "title": "Vector DB/RAG Fundamentals",
+      "description": "Introduction to core concepts and principles.",
+      "duration": "2 weeks",
+      "difficulty": "beginner",
+      "topics": ["Fundamentals", "Core concepts", "Basic applications"],
+      "completed": false
+    }
+  ],
+  "color": "from-emerald-500 to-teal-500",
+  "tags": ["vector-db-rag"],
+  "enrolledCount": 500,
+  "rating": 4.5,
+  "lastUpdated": "2025-01-01"
+}

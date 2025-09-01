@@ -1,0 +1,30 @@
+{
+  "id": "image-generation",
+  "slug": "image-generation",
+  "title": "Image Generation / Artistic",
+  "shortTitle": "Image Generation",
+  "instructor": "Roman",
+  "description": "Master AI-powered image generation and artistic creation tools.",
+  "overview": "Comprehensive pathway covering image generation fundamentals and advanced techniques.",
+  "duration": "6-8 weeks",
+  "level": "intermediate",
+  "prerequisites": ["Basic programming knowledge"],
+  "learningOutcomes": ["Master core concepts", "Build practical projects", "Apply to real-world scenarios"],
+  "tools": ["Python", "Various specialized tools"],
+  "modules": [
+    {
+      "id": "image-generation-basics",
+      "title": "Image Generation Fundamentals",
+      "description": "Introduction to core concepts and principles.",
+      "duration": "2 weeks",
+      "difficulty": "beginner",
+      "topics": ["Fundamentals", "Core concepts", "Basic applications"],
+      "completed": false
+    }
+  ],
+  "color": "from-rose-500 to-red-500",
+  "tags": ["image-generation"],
+  "enrolledCount": 500,
+  "rating": 4.5,
+  "lastUpdated": "2025-01-01"
+}

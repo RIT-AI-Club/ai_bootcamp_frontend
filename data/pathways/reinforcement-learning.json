@@ -1,0 +1,48 @@
+{
+  "id": "reinforcement-learning",
+  "slug": "reinforcement-learning", 
+  "title": "Reinforcement Learning",
+  "shortTitle": "RL",
+  "instructor": "Roman",
+  "description": "Master reinforcement learning algorithms and build agents that learn through interaction with environments.",
+  "overview": "This pathway covers RL fundamentals, Q-learning, policy gradients, deep RL, and practical applications in games, robotics, and decision-making systems.",
+  "duration": "10-12 weeks",
+  "level": "advanced",
+  "prerequisites": ["Python programming", "Machine learning basics", "Linear algebra", "Probability theory"],
+  "learningOutcomes": ["Implement core RL algorithms", "Build game-playing agents", "Understand policy optimization", "Apply RL to real-world problems"],
+  "tools": ["Python", "OpenAI Gym", "Stable Baselines3", "PyTorch", "TensorFlow"],
+  "modules": [
+    {
+      "id": "rl-basics",
+      "title": "RL Fundamentals",
+      "description": "Core concepts of reinforcement learning and Markov decision processes.",
+      "duration": "2 weeks",
+      "difficulty": "intermediate",
+      "topics": ["Markov Decision Processes", "Value functions", "Bellman equations", "Dynamic programming"],
+      "completed": true
+    },
+    {
+      "id": "q-learning",
+      "title": "Q-Learning & Temporal Difference",
+      "description": "Model-free RL methods and value-based learning algorithms.",
+      "duration": "2 weeks", 
+      "difficulty": "intermediate",
+      "topics": ["Q-learning algorithm", "SARSA", "Temporal difference learning", "Exploration strategies"],
+      "completed": true
+    },
+    {
+      "id": "policy-methods",
+      "title": "Policy Gradient Methods",
+      "description": "Learn policy-based methods for continuous action spaces.",
+      "duration": "3 weeks",
+      "difficulty": "advanced", 
+      "topics": ["Policy gradients", "Actor-critic methods", "PPO", "TRPO"],
+      "completed": false
+    }
+  ],
+  "color": "from-purple-500 to-pink-500",
+  "tags": ["reinforcement-learning", "q-learning", "policy-gradients", "deep-rl"],
+  "enrolledCount": 756,
+  "rating": 4.6,
+  "lastUpdated": "2025-01-08"
+}
