@@ -1,48 +1,293 @@
 {
   "id": "reinforcement-learning",
   "slug": "reinforcement-learning", 
-  "title": "Reinforcement Learning",
+  "title": "Reinforcement Learning Pathway",
   "shortTitle": "RL",
   "instructor": "Roman",
-  "description": "Master reinforcement learning algorithms and build agents that learn through interaction with environments.",
-  "overview": "This pathway covers RL fundamentals, Q-learning, policy gradients, deep RL, and practical applications in games, robotics, and decision-making systems.",
-  "duration": "10-12 weeks",
-  "level": "advanced",
-  "prerequisites": ["Python programming", "Machine learning basics", "Linear algebra", "Probability theory"],
-  "learningOutcomes": ["Implement core RL algorithms", "Build game-playing agents", "Understand policy optimization", "Apply RL to real-world problems"],
-  "tools": ["Python", "OpenAI Gym", "Stable Baselines3", "PyTorch", "TensorFlow"],
+  "description": "Master reinforcement learning from fundamentals to advanced applications. Build agents that learn through interaction with environments in games, robotics, and multi-agent systems.",
+  "overview": "This pathway introduces members to the fundamentals and applications of Reinforcement Learning (RL). It begins with conceptual foundations and small toy problems, progresses through deep RL and multi-agent environments, and culminates in applied capstone projects. Each module combines video explanations, curated readings, interactive Colab notebooks, quizzes, and project work.",
+  "duration": "6 modules (10-12 weeks)",
+  "level": "intermediate",
+  "prerequisites": [
+    "Python programming basics",
+    "Basic understanding of machine learning concepts",
+    "Google Colab or Kaggle account"
+  ],
+  "learningOutcomes": [
+    "Understand RL basics: agents, environments, rewards, and policies",
+    "Implement Q-Learning and value-based methods",
+    "Train deep RL agents using neural network policies",
+    "Scale RL methods to game environments",
+    "Design multi-agent reinforcement learning systems",
+    "Apply RL to practical robotics and decision-making problems"
+  ],
+  "tools": [
+    "Google Colab / Kaggle Notebooks",
+    "Gymnasium",
+    "Stable Baselines3",
+    "PettingZoo",
+    "PyBullet",
+    "Atari environments"
+  ],
   "modules": [
     {
-      "id": "rl-basics",
-      "title": "RL Fundamentals",
-      "description": "Core concepts of reinforcement learning and Markov decision processes.",
+      "id": "rl-foundations",
+      "title": "Introduction to Reinforcement Learning (Foundations)",
+      "description": "Understand RL basics: agents, environments, rewards, and policies.",
+      "duration": "1 week",
+      "difficulty": "beginner",
+      "topics": [
+        "Agents and environments",
+        "Rewards and policies",
+        "RL terminology and concepts",
+        "Real-world applications of RL"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "Intro to RL Concepts",
+          "duration": "30 min"
+        },
+        {
+          "type": "article",
+          "title": "RL Terminology Cheat Sheet"
+        },
+        {
+          "type": "exercise",
+          "title": "CartPole Agent Demo (Colab)",
+          "duration": "45 min"
+        },
+        {
+          "type": "exercise",
+          "title": "Quiz: 8 MCQ on RL basics"
+        },
+        {
+          "type": "project",
+          "title": "Design a real-world RL system (1-page reflection)"
+        }
+      ],
+      "xp": 150,
+      "completed": true
+    },
+    {
+      "id": "q-learning-value",
+      "title": "Q-Learning and Value Functions (Builder)",
+      "description": "Learn Q-Learning fundamentals and implement tabular RL.",
+      "duration": "1.5 weeks",
+      "difficulty": "intermediate",
+      "topics": [
+        "Q-Learning algorithm",
+        "Value functions and Q-tables",
+        "Bellman equation",
+        "Exploration vs exploitation",
+        "Tabular methods"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "Exploration vs Exploitation",
+          "duration": "35 min"
+        },
+        {
+          "type": "article",
+          "title": "Bellman Equation Explained (PDF)"
+        },
+        {
+          "type": "exercise",
+          "title": "Implement Q-Learning on FrozenLake (Colab)",
+          "duration": "60 min"
+        },
+        {
+          "type": "exercise",
+          "title": "Quiz: 10 questions + code debugging"
+        },
+        {
+          "type": "project",
+          "title": "Modify FrozenLake environment and test adaptation"
+        }
+      ],
+      "xp": 250,
+      "completed": true
+    },
+    {
+      "id": "deep-rl-sb3",
+      "title": "Deep RL with Stable Baselines3 (Builder → Innovator)",
+      "description": "Transition from Q-Tables to neural network policies.",
       "duration": "2 weeks",
       "difficulty": "intermediate",
-      "topics": ["Markov Decision Processes", "Value functions", "Bellman equations", "Dynamic programming"],
-      "completed": true
+      "topics": [
+        "Deep Q-Networks (DQN)",
+        "Proximal Policy Optimization (PPO)",
+        "Actor-Critic methods basics",
+        "Neural network policies",
+        "Function approximation",
+        "Hyperparameter tuning"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "DQN, PPO, Actor-Critic Basics",
+          "duration": "45 min"
+        },
+        {
+          "type": "article",
+          "title": "Stable Baselines3 Quick Guide (PDF)"
+        },
+        {
+          "type": "exercise",
+          "title": "Train PPO and DQN on CartPole (Colab)",
+          "duration": "90 min"
+        },
+        {
+          "type": "exercise",
+          "title": "Quiz: Why function approximation?"
+        },
+        {
+          "type": "project",
+          "title": "Graph performance under different hyperparameters"
+        }
+      ],
+      "xp": 400,
+      "completed": false,
+      "hardwareNote": "GPU recommended (10-15 min training)"
     },
     {
-      "id": "q-learning",
-      "title": "Q-Learning & Temporal Difference",
-      "description": "Model-free RL methods and value-based learning algorithms.",
-      "duration": "2 weeks", 
-      "difficulty": "intermediate",
-      "topics": ["Q-learning algorithm", "SARSA", "Temporal difference learning", "Exploration strategies"],
-      "completed": true
+      "id": "rl-games-atari",
+      "title": "RL for Games (Atari Environments)",
+      "description": "Scale RL methods to higher-dimensional game tasks.",
+      "duration": "1.5 weeks",
+      "difficulty": "advanced",
+      "topics": [
+        "High-dimensional observation spaces",
+        "Atari game environments",
+        "Reward shaping strategies",
+        "Training efficiency considerations",
+        "Visual processing in RL"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "Scaling RL with Games",
+          "duration": "40 min"
+        },
+        {
+          "type": "article",
+          "title": "Reward Shaping Pitfalls in Atari RL (PDF)"
+        },
+        {
+          "type": "exercise",
+          "title": "Train PPO on Atari Pong (Colab)",
+          "duration": "2 hours"
+        },
+        {
+          "type": "exercise",
+          "title": "Quiz: Atari training challenges"
+        },
+        {
+          "type": "project",
+          "title": "Modify reward shaping and compare agent behavior"
+        }
+      ],
+      "xp": 500,
+      "completed": false,
+      "hardwareNote": "GPU required, limit episodes for demo"
     },
     {
-      "id": "policy-methods",
-      "title": "Policy Gradient Methods",
-      "description": "Learn policy-based methods for continuous action spaces.",
-      "duration": "3 weeks",
-      "difficulty": "advanced", 
-      "topics": ["Policy gradients", "Actor-critic methods", "PPO", "TRPO"],
-      "completed": false
+      "id": "multi-agent-rl",
+      "title": "Multi-Agent RL with PettingZoo (Advanced Builder)",
+      "description": "Understand cooperation vs competition in multi-agent systems.",
+      "duration": "2 weeks",
+      "difficulty": "advanced",
+      "topics": [
+        "Multi-agent reinforcement learning (MARL)",
+        "Cooperation vs competition",
+        "Emergent behaviors",
+        "PettingZoo environments",
+        "Reward design in multi-agent settings",
+        "Nash equilibrium concepts"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "When Agents Collide — MARL Basics",
+          "duration": "50 min"
+        },
+        {
+          "type": "article",
+          "title": "Emergent Cooperation in MARL (PDF)"
+        },
+        {
+          "type": "exercise",
+          "title": "Train agents in PettingZoo environment (Colab)",
+          "duration": "90 min"
+        },
+        {
+          "type": "exercise",
+          "title": "Quiz: Multi-agent reward design challenges"
+        },
+        {
+          "type": "project",
+          "title": "Tune rewards for cooperation vs competition"
+        }
+      ],
+      "xp": 600,
+      "completed": false,
+      "hardwareNote": "GPU/CPU both okay for small environments"
+    },
+    {
+      "id": "rl-applications-capstone",
+      "title": "RL Applications & Pathway Capstone",
+      "description": "Apply RL to practical or custom systems.",
+      "duration": "2-3 weeks",
+      "difficulty": "advanced",
+      "topics": [
+        "RL in robotics",
+        "RL in finance and trading",
+        "RL in healthcare and scheduling",
+        "PyBullet robotic simulations",
+        "Custom environment design",
+        "Reward hacking and safety"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "RL in the Real World — Robotics, Finance, Healthcare",
+          "duration": "60 min"
+        },
+        {
+          "type": "article",
+          "title": "Case Studies: AlphaGo, Robotics, RL in Scheduling (PDF)"
+        },
+        {
+          "type": "exercise",
+          "title": "Train robotic arm in PyBullet (Colab)",
+          "duration": "2 hours"
+        },
+        {
+          "type": "exercise",
+          "title": "Quiz: Reflections on reward hacking"
+        },
+        {
+          "type": "project",
+          "title": "Capstone: Choose from trading agent, elevator scheduler, or custom PettingZoo environment"
+        }
+      ],
+      "xp": 800,
+      "completed": false,
+      "hardwareNote": "GPU recommended; extended training optional"
     }
   ],
   "color": "from-purple-500 to-pink-500",
-  "tags": ["reinforcement-learning", "q-learning", "policy-gradients", "deep-rl"],
+  "tags": [
+    "reinforcement-learning",
+    "q-learning",
+    "deep-rl",
+    "multi-agent",
+    "gymnasium",
+    "stable-baselines3",
+    "pettingzoo"
+  ],
   "enrolledCount": 756,
   "rating": 4.6,
-  "lastUpdated": "2025-01-08"
+  "lastUpdated": "2025-01-15"
 }

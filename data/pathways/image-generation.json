@@ -1,166 +1,294 @@
 {
   "id": "image-generation",
   "slug": "image-generation", 
-  "title": "Image Generation / Artistic",
+  "title": "Image Generation Pathway",
   "shortTitle": "Image Generation",
   "instructor": "Roman",
-  "description": "Create stunning AI-generated artwork and master the latest generative models for visual content creation.",
-  "overview": "Dive deep into the creative world of AI-generated imagery. From understanding fundamental generative models to creating professional-quality artwork, this pathway covers Stable Diffusion, DALL-E, Midjourney, and custom model training. Learn to prompt engineer, fine-tune models, and build creative AI applications.",
-  "duration": "7-9 weeks",
+  "description": "Explore the breadth of AI image creation across tools, communities, and deployment pipelines. Build from core prompt design to advanced SaaS-style generation systems.",
+  "overview": "This pathway builds from core prompt design to advanced SaaS-style generation systems. Students will learn accessible, monetizable applications—from ComfyUI workflows to image editing with Gemini. Each module combines hands-on practice with industry-standard tools and real-world project applications.",
+  "duration": "6 modules (8-10 weeks)",
   "level": "intermediate",
   "prerequisites": [
-    "Basic Python programming",
-    "Understanding of neural networks",
-    "Familiarity with image processing concepts",
+    "Basic understanding of AI/ML concepts",
+    "Google Colab or Kaggle account",
     "Creative mindset and artistic interest"
   ],
   "learningOutcomes": [
-    "Master state-of-the-art image generation models",
-    "Develop advanced prompt engineering skills", 
-    "Fine-tune and customize generative models",
-    "Create professional AI art workflows",
-    "Build commercial image generation applications"
+    "Understand types of AI image generation and foundational tools",
+    "Master prompt engineering techniques across different models",
+    "Design visual workflows with ComfyUI and community tools",
+    "Apply LoRA and VAE techniques for model customization",
+    "Build monetizable image generation services",
+    "Deploy production-ready creative AI applications"
   ],
   "tools": [
-    "Python",
-    "Stable Diffusion",
-    "PyTorch",
-    "Hugging Face",
+    "Google Colab / Kaggle",
     "ComfyUI",
-    "AUTOMATIC1111",
-    "Midjourney",
-    "Photoshop/GIMP"
+    "Stable Diffusion",
+    "LoRA/VAE tools",
+    "Hugging Face Playground",
+    "Gemini 2.5 Flash Image (Nano Banana)",
+    "AI Studio",
+    "Flask/Streamlit",
+    "Gradio"
   ],
   "modules": [
     {
-      "id": "generative-foundations",
-      "title": "Generative AI Foundations", 
-      "description": "Understand the core principles behind generative adversarial networks, diffusion models, and transformer architectures.",
-      "duration": "1.5 weeks",
+      "id": "foundations-image-gen",
+      "title": "Foundations of Image Generation",
+      "description": "Understand types of AI image generation and foundational tools.",
+      "duration": "1 week",
       "difficulty": "beginner",
       "topics": [
-        "GANs vs Diffusion Models",
-        "Latent space understanding",
-        "Neural network architectures",
-        "Training process fundamentals"
+        "AI image generation overview",
+        "Model types: Stable Diffusion, Imagen, DALL·E, Gemini",
+        "Use cases and strengths",
+        "Basic prompt generation"
       ],
       "resources": [
         {
           "type": "video",
-          "title": "Generative Models Explained",
+          "title": "What is AI Image Generation + Model Types",
+          "duration": "40 min"
+        },
+        {
+          "type": "article",
+          "title": "Overview of Stable Diffusion, Imagen, DALL·E, Gemini (PDF)"
+        },
+        {
+          "type": "exercise",
+          "title": "Simple Stable Diffusion prompt generation (Colab)",
+          "duration": "45 min"
+        },
+        {
+          "type": "exercise",
+          "title": "Quiz: 8 MCQ on model types and use-cases"
+        },
+        {
+          "type": "project",
+          "title": "Generate 3 mood-board images for fictional product"
+        }
+      ],
+      "xp": 150,
+      "completed": true
+    },
+    {
+      "id": "prompt-gemini-nano",
+      "title": "Prompt Engineering & Gemini Nano Banana (Builder)",
+      "description": "Master prompt techniques and experiment with Google's advanced image editor.",
+      "duration": "1.5 weeks",
+      "difficulty": "intermediate",
+      "topics": [
+        "Advanced prompt crafting techniques",
+        "Gemini 2.5 Flash Image capabilities",
+        "Multi-step editing workflows",
+        "Character consistency",
+        "Image fusion and manipulation"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "Prompt Crafting + Intro to Gemini Nano Banana",
+          "duration": "50 min"
+        },
+        {
+          "type": "article",
+          "title": "Gemini 2.5 Flash Image capabilities guide"
+        },
+        {
+          "type": "exercise",
+          "title": "Use Gemini via AI Studio for image editing",
           "duration": "60 min"
         },
         {
           "type": "exercise",
-          "title": "Explore Latent Spaces"
+          "title": "Quiz: Identify best prompts for Gemini tasks"
+        },
+        {
+          "type": "project",
+          "title": "Design product mockup with Gemini (upload, edit background, alter pose)"
         }
       ],
+      "xp": 250,
       "completed": true
     },
     {
-      "id": "stable-diffusion-mastery",
-      "title": "Stable Diffusion Deep Dive",
-      "description": "Master Stable Diffusion from basics to advanced techniques including ControlNet and custom models.",
-      "duration": "2.5 weeks", 
+      "id": "comfyui-workflows",
+      "title": "Workflow Design with ComfyUI & Web Community Tools (Builder)",
+      "description": "Learn visual workflows for modular image generation.",
+      "duration": "1.5 weeks",
       "difficulty": "intermediate",
       "topics": [
-        "Stable Diffusion architecture",
-        "Advanced prompting techniques",
-        "ControlNet for precise control", 
-        "Inpainting and outpainting"
+        "ComfyUI nodes and pipelines",
+        "Community models integration",
+        "Hugging Face Playground & Model Hubs",
+        "LoRA and VAE use cases",
+        "Reusable workflow creation"
       ],
       "resources": [
         {
           "type": "video",
-          "title": "Stable Diffusion Complete Guide",
-          "duration": "120 min"
+          "title": "ComfyUI walkthrough—nodes, pipelines, community models",
+          "duration": "60 min"
         },
         {
-          "type": "project",
-          "title": "Create a Style-Specific Model"
-        }
-      ],
-      "completed": true
-    },
-    {
-      "id": "prompt-engineering-artistry",
-      "title": "Prompt Engineering & Artistry",
-      "description": "Develop mastery in crafting prompts that produce consistent, high-quality artistic results.",
-      "duration": "1.5 weeks",
-      "difficulty": "intermediate", 
-      "topics": [
-        "Advanced prompt structure",
-        "Style transfer techniques",
-        "Composition and lighting control",
-        "Negative prompting strategies"
-      ],
-      "resources": [
+          "type": "article",
+          "title": "Guide to Hugging Face Playground & Model Hubs (PDF)"
+        },
         {
-          "type": "video", 
-          "title": "Prompt Engineering Masterclass",
+          "type": "exercise",
+          "title": "Build ComfyUI flow with LoRA style and VAE upscaling",
           "duration": "90 min"
         },
         {
           "type": "exercise",
-          "title": "Create 50 Styled Variations"
-        }
-      ],
-      "completed": true
-    },
-    {
-      "id": "model-customization",
-      "title": "Fine-tuning & Custom Models",
-      "description": "Learn to train custom models, fine-tune existing ones, and create personalized art styles.",
-      "duration": "2 weeks",
-      "difficulty": "advanced",
-      "topics": [
-        "LoRA training techniques",
-        "DreamBooth customization", 
-        "Dataset preparation and curation",
-        "Hyperparameter optimization"
-      ],
-      "resources": [
-        {
-          "type": "video",
-          "title": "Custom Model Training Workshop",
-          "duration": "150 min"
-        },
-        {
-          "type": "project", 
-          "title": "Train Your Personal Art Model"
-        }
-      ],
-      "completed": false
-    },
-    {
-      "id": "commercial-applications",
-      "title": "Commercial Art Applications",
-      "description": "Build production workflows and applications for commercial image generation projects.",
-      "duration": "1.5 weeks",
-      "difficulty": "advanced",
-      "topics": [
-        "Batch processing workflows",
-        "API integration and automation",
-        "Quality control and filtering",
-        "Rights and commercial usage"
-      ],
-      "resources": [
-        {
-          "type": "video",
-          "title": "Commercial AI Art Pipeline",
-          "duration": "75 min"
+          "title": "Quiz: Match node functions (CLIP encode, LoRA apply)"
         },
         {
           "type": "project",
-          "title": "Build an Art Generation Service"
+          "title": "Create reusable ComfyUI pipeline and share config"
         }
       ],
+      "xp": 400,
+      "completed": true,
+      "hardwareNote": "GPU recommended for better performance"
+    },
+    {
+      "id": "lora-vae-finetuning",
+      "title": "Fine-Tuning with LoRA/VAE Techniques (Innovator)",
+      "description": "Understand lightweight fine-tuning to specialize image generators.",
+      "duration": "1.5 weeks",
+      "difficulty": "advanced",
+      "topics": [
+        "LoRA and VAE personalization",
+        "Lightweight fine-tuning methods",
+        "Stylized model creation",
+        "Full model vs LoRA fine-tuning",
+        "Ethical considerations"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "How LoRA and VAE enable personalization",
+          "duration": "55 min"
+        },
+        {
+          "type": "article",
+          "title": "Examples of stylized models and ethical considerations (PDF)"
+        },
+        {
+          "type": "exercise",
+          "title": "Apply LoRA to base model for unique art style (Colab)",
+          "duration": "2 hours"
+        },
+        {
+          "type": "exercise",
+          "title": "Quiz: Differences between full model vs LoRA fine-tuning"
+        },
+        {
+          "type": "project",
+          "title": "Train/apply LoRA for specific theme (anime, architecture)"
+        }
+      ],
+      "xp": 500,
+      "completed": false,
+      "hardwareNote": "GPU recommended for LoRA fine-tuning"
+    },
+    {
+      "id": "saas-prototyping",
+      "title": "Monetizable SaaS Prototyping (Advanced Builder)",
+      "description": "Build a simple Stripe-integrated image-gen web app for real-world use.",
+      "duration": "2 weeks",
+      "difficulty": "advanced",
+      "topics": [
+        "Monetizable workflow design",
+        "Flask/Streamlit deployment",
+        "API key security",
+        "Payment integration basics",
+        "UI/UX for image generation services"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "Prototyping monetizable workflows with Flask or Streamlit",
+          "duration": "70 min"
+        },
+        {
+          "type": "article",
+          "title": "Case study—AI-generated ecommerce mockup service (PDF)"
+        },
+        {
+          "type": "exercise",
+          "title": "Deploy image generation via Gradio/Flask (Colab)",
+          "duration": "90 min"
+        },
+        {
+          "type": "exercise",
+          "title": "Quiz: Identify app security requirements"
+        },
+        {
+          "type": "project",
+          "title": "Prototype web interface with prompt upload and image delivery"
+        }
+      ],
+      "xp": 600,
       "completed": false
+    },
+    {
+      "id": "creative-service-capstone",
+      "title": "Pathway Capstone — Creative Image Service",
+      "description": "Build an end-to-end image generation service with UI, prompt controls, and value.",
+      "duration": "2 weeks",
+      "difficulty": "advanced",
+      "topics": [
+        "End-to-end service design",
+        "Deployment strategies",
+        "UX considerations",
+        "Ethical deployment",
+        "Watermarking and content filters",
+        "Avoiding misuse"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "Bringing it all together—design, deployment, UX",
+          "duration": "80 min"
+        },
+        {
+          "type": "article",
+          "title": "Ethical deployment, watermarking, and avoiding misuse (PDF)"
+        },
+        {
+          "type": "exercise",
+          "title": "Deploy via Hugging Face Spaces with Stable Diffusion",
+          "duration": "2 hours"
+        },
+        {
+          "type": "exercise",
+          "title": "Quiz: Ethical scenarios and watermark policies"
+        },
+        {
+          "type": "project",
+          "title": "Capstone: Choose from meme generator, avatar service, or mockup generator"
+        }
+      ],
+      "xp": 800,
+      "completed": false,
+      "hardwareNote": "Free-tier viable if workloads capped"
     }
   ],
   "color": "from-rose-500 to-red-500",
-  "tags": ["image-generation", "ai-art", "stable-diffusion", "creative-ai", "generative-models"],
+  "tags": [
+    "image-generation",
+    "ai-art",
+    "stable-diffusion",
+    "comfyui",
+    "lora",
+    "gemini",
+    "creative-ai",
+    "saas"
+  ],
   "enrolledCount": 2340,
   "rating": 4.8,
-  "lastUpdated": "2025-01-20"
+  "lastUpdated": "2025-01-15"
 }

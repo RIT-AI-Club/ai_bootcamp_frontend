@@ -1,30 +1,214 @@
 {
   "id": "ai-research",
   "slug": "ai-research",
-  "title": "AI research",
+  "title": "AI Research Pathway",
   "shortTitle": "AI Research",
   "instructor": "Roman",
-  "description": "Learn cutting-edge AI research methodologies and techniques.",
-  "overview": "Comprehensive pathway covering ai research fundamentals and advanced techniques.",
-  "duration": "6-8 weeks",
+  "description": "Learn how to engage with AI research: reading papers, reproducing experiments, and exploring research communities with vibecoding tools.",
+  "overview": "This pathway teaches how to engage with AI research: reading and understanding papers, reproducing experiments using AI coding tools, and exploring resources and communities. It finishes with a light introduction to contributing original ideas.",
+  "duration": "4 modules (4-5 weeks)",
   "level": "intermediate",
-  "prerequisites": ["Basic programming knowledge"],
-  "learningOutcomes": ["Master core concepts", "Build practical projects", "Apply to real-world scenarios"],
-  "tools": ["Python", "Various specialized tools"],
+  "prerequisites": [
+    "Basic understanding of AI/ML concepts",
+    "Familiarity with Python",
+    "Access to Colab or Kaggle",
+    "Interest in academic research"
+  ],
+  "learningOutcomes": [
+    "Read AI research papers critically and efficiently",
+    "Navigate academic resources like arXiv and Papers With Code",
+    "Reproduce research results using vibecoding tools",
+    "Explore AI research communities and datasets",
+    "Draft research ideas and mini-proposals",
+    "Understand the research contribution pipeline"
+  ],
+  "tools": [
+    "arXiv",
+    "Papers With Code",
+    "Hugging Face",
+    "Claude Code / Gemini CLI / OpenAI CLI",
+    "Colab/Kaggle",
+    "LaTeX (basic)",
+    "Twitter/X research communities"
+  ],
   "modules": [
     {
-      "id": "ai-research-basics",
-      "title": "AI Research Fundamentals",
-      "description": "Introduction to core concepts and principles.",
-      "duration": "2 weeks",
+      "id": "reading-ai-papers",
+      "title": "Reading AI Research Papers (Foundations)",
+      "description": "Learn how to parse academic AI papers efficiently.",
+      "duration": "1 week",
       "difficulty": "beginner",
-      "topics": ["Fundamentals", "Core concepts", "Basic applications"],
+      "topics": [
+        "Anatomy of an AI research paper",
+        "Abstract vs introduction vs methods vs results",
+        "How to read papers efficiently (20-minute method)",
+        "Identifying key contributions",
+        "Understanding experimental setups",
+        "Critical evaluation techniques"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "How to Read an AI Research Paper in 20 Minutes",
+          "duration": "40 min"
+        },
+        {
+          "type": "article",
+          "title": "Paper Structure Cheat Sheet (Abstract → Methods → Results → Discussion)"
+        },
+        {
+          "type": "exercise",
+          "title": "Skim Vision Transformer paper on arXiv, identify key sections",
+          "duration": "45 min"
+        },
+        {
+          "type": "exercise",
+          "title": "Quiz: Which section contains experiment setup details?"
+        },
+        {
+          "type": "project",
+          "title": "Summarize one paper (abstract + contributions) in 200 words max"
+        }
+      ],
+      "xp": 150,
+      "completed": false
+    },
+    {
+      "id": "paper-to-code",
+      "title": "From Paper to Code (Builder)",
+      "description": "Reproduce research implementations using vibecoding tools.",
+      "duration": "1.5 weeks",
+      "difficulty": "intermediate",
+      "topics": [
+        "Papers With Code navigation",
+        "Hugging Face model hub exploration",
+        "Reproducing experiments with vibecoding",
+        "Understanding implementation details",
+        "Code scaffolding with AI tools",
+        "Validation and testing approaches"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "Reproducing Papers Without Writing All the Code",
+          "duration": "50 min"
+        },
+        {
+          "type": "article",
+          "title": "Guide to Papers With Code + Hugging Face model hub (PDF)"
+        },
+        {
+          "type": "exercise",
+          "title": "Use Claude/Gemini CLI to scaffold Colab notebook for simple model",
+          "duration": "90 min"
+        },
+        {
+          "type": "exercise",
+          "title": "Quiz: What is Papers With Code used for?"
+        },
+        {
+          "type": "project",
+          "title": "Reproduce experiment from simple NLP/CV paper using vibecoding"
+        }
+      ],
+      "xp": 250,
+      "completed": false,
+      "hardwareNote": "Colab Free tier sufficient for toy reproductions"
+    },
+    {
+      "id": "research-resources-communities",
+      "title": "Research Resources & Communities (Innovator)",
+      "description": "Explore resources, datasets, and communities for staying current.",
+      "duration": "1 week",
+      "difficulty": "intermediate",
+      "topics": [
+        "arXiv navigation and sanity tools",
+        "Hugging Face papers and datasets hub",
+        "AI Twitter/X research communities",
+        "Discord and Slack research groups",
+        "Dataset discovery and evaluation",
+        "Model card interpretation"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "Where AI Research Lives: arXiv, Hugging Face, Twitter/X, Discords",
+          "duration": "55 min"
+        },
+        {
+          "type": "article",
+          "title": "Resource List — arXiv sanity tools, HF papers/datasets hub (PDF)"
+        },
+        {
+          "type": "exercise",
+          "title": "Navigate HF model cards, find implementation for trending paper",
+          "duration": "60 min"
+        },
+        {
+          "type": "exercise",
+          "title": "Quiz: Which platform links papers to code implementations?"
+        },
+        {
+          "type": "project",
+          "title": "Curate resource sheet: 3 datasets + 3 models for one subfield (RL/CV/LLMs)"
+        }
+      ],
+      "xp": 400,
+      "completed": false,
+      "hardwareNote": "Hugging Face free account recommended"
+    },
+    {
+      "id": "reader-to-contributor",
+      "title": "From Reader to Contributor (Capstone)",
+      "description": "Learn basic steps to go from consuming research to producing ideas.",
+      "duration": "1 week",
+      "difficulty": "advanced",
+      "topics": [
+        "Elements of AI research contributions",
+        "Brainstorming research ideas",
+        "Problem statement formulation",
+        "Experimental design basics",
+        "Writing research abstracts",
+        "Reproducibility and ethics"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "How to Brainstorm Research Contributions Without Writing a Full Paper",
+          "duration": "60 min"
+        },
+        {
+          "type": "article",
+          "title": "Elements of an AI Paper — intro, contribution, experiments, discussion (PDF)"
+        },
+        {
+          "type": "exercise",
+          "title": "Use AI to draft mock research experiment plan",
+          "duration": "2 hours"
+        },
+        {
+          "type": "exercise",
+          "title": "Quiz: Novel contribution vs reproduction paper differences"
+        },
+        {
+          "type": "project",
+          "title": "Capstone: Choose from mini-proposal, LaTeX abstract, or reproducibility report"
+        }
+      ],
+      "xp": 600,
       "completed": false
     }
   ],
   "color": "from-pink-500 to-rose-500",
-  "tags": ["ai-research"],
+  "tags": [
+    "ai-research",
+    "arxiv",
+    "papers-with-code",
+    "reproducibility",
+    "research-methods",
+    "academic"
+  ],
   "enrolledCount": 500,
   "rating": 4.5,
-  "lastUpdated": "2025-01-01"
+  "lastUpdated": "2025-01-15"
 }

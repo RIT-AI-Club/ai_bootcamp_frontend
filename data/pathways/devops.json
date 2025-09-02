@@ -1,30 +1,218 @@
 {
   "id": "devops",
   "slug": "devops",
-  "title": "DevOps (GitHub / GoogleCloud)",
+  "title": "DevOps Pathway (with Docker)",
   "shortTitle": "DevOps",
   "instructor": "Roman",
-  "description": "Master DevOps practices for AI and ML projects.",
-  "overview": "Comprehensive pathway covering devops fundamentals and advanced techniques.",
-  "duration": "6-8 weeks",
-  "level": "intermediate",
-  "prerequisites": ["Basic programming knowledge"],
-  "learningOutcomes": ["Master core concepts", "Build practical projects", "Apply to real-world scenarios"],
-  "tools": ["Python", "Various specialized tools"],
+  "description": "Master DevOps practices for AI development: version control with GitHub, containerization with Docker, and cloud deployment on Google Cloud Run.",
+  "overview": "This pathway introduces students to core DevOps practices for AI development: version control with GitHub, automation with GitHub Actions, containerization with Docker, and deploying simple AI apps on Google Cloud Run. Designed for beginners with no prior experience in GitHub or cloud platforms.",
+  "duration": "4 modules (5-6 weeks)",
+  "level": "beginner",
+  "prerequisites": [
+    "Basic programming knowledge",
+    "Computer with terminal/command line access",
+    "Gmail account for Google Cloud"
+  ],
+  "learningOutcomes": [
+    "Master Git version control and GitHub collaboration",
+    "Build and run Docker containers",
+    "Deploy containerized AI apps to Google Cloud Run",
+    "Set up CI/CD pipelines with GitHub Actions",
+    "Automate deployment workflows",
+    "Understand cloud deployment basics"
+  ],
+  "tools": [
+    "GitHub",
+    "GitHub Actions",
+    "Docker",
+    "Google Cloud CLI",
+    "Google Cloud Run",
+    "Colab/Streamlit apps",
+    "Google Container Registry"
+  ],
   "modules": [
     {
-      "id": "devops-basics",
-      "title": "DevOps Fundamentals",
-      "description": "Introduction to core concepts and principles.",
-      "duration": "2 weeks",
+      "id": "git-github-foundations",
+      "title": "Git & GitHub Foundations",
+      "description": "Learn version control and collaboration basics.",
+      "duration": "1 week",
       "difficulty": "beginner",
-      "topics": ["Fundamentals", "Core concepts", "Basic applications"],
+      "topics": [
+        "Git fundamentals and terminology",
+        "GitHub account setup and navigation",
+        "Clone, commit, branch, push, pull commands",
+        "Forking and pull requests",
+        "Collaboration workflows",
+        "README and documentation basics"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "Git/GitHub for Beginners",
+          "duration": "45 min"
+        },
+        {
+          "type": "article",
+          "title": "Git Commands Cheat Sheet (clone, commit, branch, push, pull)"
+        },
+        {
+          "type": "exercise",
+          "title": "Create GitHub account, fork AI Club Sandbox Repo, commit and push",
+          "duration": "60 min"
+        },
+        {
+          "type": "exercise",
+          "title": "Quiz: Which command stages changes for a commit?"
+        },
+        {
+          "type": "project",
+          "title": "Make your first pull request to the AI Club Sandbox Repo"
+        }
+      ],
+      "xp": 150,
       "completed": false
+    },
+    {
+      "id": "docker-foundations",
+      "title": "Docker Foundations (Builder)",
+      "description": "Understand containers and package code in Docker.",
+      "duration": "1.5 weeks",
+      "difficulty": "intermediate",
+      "topics": [
+        "What are containers and why use them",
+        "Docker vs virtual machines",
+        "Dockerfile syntax and commands",
+        "Building Docker images",
+        "Running containers",
+        "Container networking basics",
+        "Docker Hub and registries"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "What is Docker & Why It Matters for AI Projects",
+          "duration": "50 min"
+        },
+        {
+          "type": "article",
+          "title": "Dockerfile Explained (PDF)"
+        },
+        {
+          "type": "exercise",
+          "title": "Write Dockerfile for Python 'Hello AI' app, build and run",
+          "duration": "90 min"
+        },
+        {
+          "type": "exercise",
+          "title": "Quiz: Which command builds a Docker image from a Dockerfile?"
+        },
+        {
+          "type": "project",
+          "title": "Containerize a toy Python app that prints 'Hello from AI Club!'"
+        }
+      ],
+      "xp": 250,
+      "completed": false,
+      "hardwareNote": "Docker Desktop optional (Colab/Kaggle can simulate builds)"
+    },
+    {
+      "id": "cloud-run-deployment",
+      "title": "Deploying Dockerized Apps with Google Cloud Run (Builder → Innovator)",
+      "description": "Deploy a containerized AI demo to the cloud.",
+      "duration": "1.5 weeks",
+      "difficulty": "intermediate",
+      "topics": [
+        "Google Cloud Platform basics",
+        "Cloud Run serverless architecture",
+        "Google Container Registry",
+        "gcloud CLI setup and usage",
+        "Environment variables and secrets",
+        "Public URL configuration",
+        "Cost management and free tier"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "Deploying with Cloud Run",
+          "duration": "60 min"
+        },
+        {
+          "type": "article",
+          "title": "Google Cloud Run + Docker Quick Start (PDF)"
+        },
+        {
+          "type": "exercise",
+          "title": "Build image, push to GCR, deploy with gcloud run deploy",
+          "duration": "2 hours"
+        },
+        {
+          "type": "exercise",
+          "title": "Quiz: Which command deploys a container to Cloud Run?"
+        },
+        {
+          "type": "project",
+          "title": "Deploy simple Streamlit/Gradio AI app with public URL"
+        }
+      ],
+      "xp": 400,
+      "completed": false,
+      "hardwareNote": "Google Cloud Free Tier covers Cloud Run deployment"
+    },
+    {
+      "id": "cicd-github-actions",
+      "title": "CI/CD with GitHub Actions (Capstone)",
+      "description": "Automate build and deploy pipeline (GitHub → Docker → Cloud Run).",
+      "duration": "1 week",
+      "difficulty": "advanced",
+      "topics": [
+        "CI/CD concepts and benefits",
+        "GitHub Actions workflow syntax",
+        "Workflow triggers and events",
+        "Secrets management",
+        "Building Docker images in CI",
+        "Automated deployment to Cloud Run",
+        "Monitoring and rollback strategies"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "CI/CD Basics with GitHub Actions",
+          "duration": "55 min"
+        },
+        {
+          "type": "article",
+          "title": "Workflow File Template (PDF)"
+        },
+        {
+          "type": "exercise",
+          "title": "Create deploy.yml workflow for auto-deployment",
+          "duration": "90 min"
+        },
+        {
+          "type": "exercise",
+          "title": "Quiz: What triggers a GitHub Action workflow run?"
+        },
+        {
+          "type": "project",
+          "title": "Set up CI/CD pipeline: commit to main auto-deploys updated container"
+        }
+      ],
+      "xp": 600,
+      "completed": false,
+      "hardwareNote": "GitHub Actions compute is free for student projects (under quota)"
     }
   ],
   "color": "from-slate-500 to-gray-500",
-  "tags": ["devops"],
+  "tags": [
+    "devops",
+    "docker",
+    "github",
+    "ci-cd",
+    "cloud-run",
+    "containerization",
+    "automation"
+  ],
   "enrolledCount": 500,
   "rating": 4.5,
-  "lastUpdated": "2025-01-01"
+  "lastUpdated": "2025-01-15"
 }

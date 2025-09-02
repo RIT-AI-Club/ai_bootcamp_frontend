@@ -1,131 +1,202 @@
 {
   "id": "prompt-engineering",
   "slug": "prompt-engineering",
-  "title": "Prompt Engineering",
+  "title": "Prompt Engineering Pathway",
   "shortTitle": "Prompt Engineering",
   "instructor": "Roman",
-  "description": "Master the art and science of crafting effective prompts for AI language models to get the best possible results.",
-  "overview": "Learn systematic approaches to prompt design, from basic techniques to advanced strategies. This pathway covers prompt optimization, few-shot learning, chain-of-thought reasoning, and working with different AI models effectively.",
-  "duration": "4-5 weeks",
+  "description": "Master the art of crafting effective prompts for large language models and multimodal AI systems, from fundamentals to advanced structured outputs.",
+  "overview": "This pathway teaches how to craft effective prompts for large language models and multimodal AI systems. It moves from fundamentals (clear text prompts) to advanced strategies (structured outputs, tool-calling, multimodal prompts). The focus is on creative control and practical application.",
+  "duration": "4 modules (4-5 weeks)",
   "level": "beginner",
   "prerequisites": [
     "Basic understanding of AI/LLMs",
-    "No programming experience required"
+    "No programming experience required",
+    "Access to AI tools (free accounts work)"
   ],
   "learningOutcomes": [
-    "Design effective prompts for various use cases",
-    "Understand prompt engineering best practices",
-    "Master advanced techniques like chain-of-thought",
-    "Optimize prompts for different AI models",
-    "Build reliable AI-powered workflows"
+    "Write clear and effective prompts for AI models",
+    "Apply structured prompting techniques and patterns",
+    "Create multimodal prompts for text, images, and structured outputs",
+    "Design prompt-based systems for real applications",
+    "Understand prompt optimization and testing strategies",
+    "Build practical projects using advanced prompting"
   ],
   "tools": [
-    "OpenAI ChatGPT",
+    "Gemini",
+    "GPT (ChatGPT/OpenAI)",
     "Claude",
-    "Google Gemini",
-    "Prompt engineering frameworks",
-    "API interfaces"
+    "OpenAI CLI",
+    "Gemini CLI",
+    "Hugging Face Spaces",
+    "Colab for demos",
+    "Stable Diffusion Playground"
   ],
   "modules": [
     {
-      "id": "prompt-basics",
-      "title": "Prompt Engineering Fundamentals",
-      "description": "Learn the core principles of effective prompt design and communication with AI models.",
+      "id": "prompting-foundations",
+      "title": "Prompting Foundations",
+      "description": "Learn the basics of writing clear, effective prompts.",
       "duration": "1 week",
       "difficulty": "beginner",
       "topics": [
-        "Understanding language models",
+        "Why prompts matter for AI communication",
+        "Anatomy of a good prompt",
+        "Clear vs vague instructions",
         "Basic prompt structure",
-        "Clear and specific instructions",
-        "Role-based prompting"
+        "Common prompting mistakes",
+        "Testing and iterating prompts"
       ],
       "resources": [
         {
           "type": "video",
-          "title": "Prompt Engineering Basics",
-          "duration": "30 min"
+          "title": "Why Prompts Matter — Talking to AI",
+          "duration": "35 min"
+        },
+        {
+          "type": "article",
+          "title": "Good vs Bad Prompts Examples (PDF)"
         },
         {
           "type": "exercise",
-          "title": "Your First Effective Prompts"
-        }
-      ],
-      "completed": true
-    },
-    {
-      "id": "advanced-techniques",
-      "title": "Advanced Prompting Techniques",
-      "description": "Explore sophisticated methods for complex reasoning and problem-solving with AI.",
-      "duration": "1.5 weeks",
-      "difficulty": "intermediate",
-      "topics": [
-        "Chain-of-thought reasoning",
-        "Few-shot and zero-shot learning",
-        "Prompt chaining",
-        "Self-consistency methods"
-      ],
-      "resources": [
-        {
-          "type": "video",
-          "title": "Chain-of-Thought Prompting",
+          "title": "Use Gemini Free to compare vague vs detailed prompts",
           "duration": "45 min"
         },
         {
+          "type": "exercise",
+          "title": "Quiz: Identify the better prompt in given pairs"
+        },
+        {
           "type": "project",
-          "title": "Complex Problem Solver"
+          "title": "Write 3 prompts for creative but controlled text (story, poem, explanation)"
         }
       ],
+      "xp": 150,
       "completed": true
     },
     {
-      "id": "model-optimization",
-      "title": "Model-Specific Optimization",
-      "description": "Learn to tailor prompts for different AI models and their unique characteristics.",
+      "id": "techniques-patterns",
+      "title": "Techniques & Patterns (Builder)",
+      "description": "Explore structured prompting techniques.",
       "duration": "1 week",
       "difficulty": "intermediate",
       "topics": [
-        "GPT model variations",
-        "Claude prompt preferences",
-        "Gemini optimization",
-        "API parameter tuning"
+        "Few-shot learning patterns",
+        "Chain-of-thought reasoning",
+        "Role-based prompting",
+        "Prompt templates and variables",
+        "Context management",
+        "Output format control"
       ],
       "resources": [
         {
           "type": "video",
-          "title": "Model Comparison and Optimization",
-          "duration": "40 min"
+          "title": "Prompt Patterns — Few-Shot, Chain-of-Thought, Role Prompts",
+          "duration": "50 min"
+        },
+        {
+          "type": "article",
+          "title": "Prompting Techniques Cheat Sheet (PDF)"
         },
         {
           "type": "exercise",
-          "title": "Cross-Model Testing Lab"
+          "title": "Test prompts to GPT/Claude in Colab, compare outputs",
+          "duration": "90 min"
+        },
+        {
+          "type": "exercise",
+          "title": "Quiz: Match technique to its example"
+        },
+        {
+          "type": "project",
+          "title": "Design prompt template: model acts as teacher explaining math in 3 difficulty levels"
         }
       ],
+      "xp": 250,
       "completed": true
     },
     {
-      "id": "production-prompts",
-      "title": "Production Prompt Systems",
-      "description": "Build reliable, scalable prompt systems for real-world applications.",
+      "id": "multimodal-structured",
+      "title": "Multimodal & Structured Prompts (Innovator)",
+      "description": "Move beyond text into multimodal and structured outputs.",
       "duration": "1.5 weeks",
-      "difficulty": "advanced",
+      "difficulty": "intermediate",
       "topics": [
-        "Prompt templates and variables",
-        "Error handling and fallbacks",
-        "Performance monitoring",
-        "A/B testing prompts"
+        "Multimodal prompting (text + images)",
+        "Structured output formats (JSON, CSV)",
+        "Schema-driven prompts",
+        "Image generation prompting",
+        "Audio and video prompting",
+        "API integration patterns"
       ],
       "resources": [
         {
           "type": "video",
-          "title": "Production Prompt Engineering",
+          "title": "Multimodal Prompting — Images, Audio, JSON Outputs",
           "duration": "60 min"
         },
         {
+          "type": "article",
+          "title": "How to Force JSON or CSV Output with LLMs (PDF)"
+        },
+        {
+          "type": "exercise",
+          "title": "Use Gemini/OpenAI CLI for structured JSON + image prompts",
+          "duration": "2 hours"
+        },
+        {
+          "type": "exercise",
+          "title": "Quiz: Why are schemas useful in prompts?"
+        },
+        {
           "type": "project",
-          "title": "Enterprise Prompt System"
+          "title": "Create prompt: product description → formatted JSON spec + matching image"
         }
       ],
-      "completed": true
+      "xp": 400,
+      "completed": true,
+      "hardwareNote": "CLI tools or Colab with API keys"
+    },
+    {
+      "id": "prompt-engineering-capstone",
+      "title": "Prompt Engineering Capstone (Creative Builder)",
+      "description": "Apply prompt engineering to build a small, practical system.",
+      "duration": "1 week",
+      "difficulty": "advanced",
+      "topics": [
+        "From prompt to product design",
+        "Prompt system architecture",
+        "Error handling in prompts",
+        "Performance optimization",
+        "User experience considerations",
+        "Deployment strategies"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "From Prompt to Product",
+          "duration": "55 min"
+        },
+        {
+          "type": "article",
+          "title": "Case Studies — Prompt Engineering in Startups & Research (PDF)"
+        },
+        {
+          "type": "exercise",
+          "title": "Combine structured prompt + API/CLI tool integration",
+          "duration": "2 hours"
+        },
+        {
+          "type": "exercise",
+          "title": "Quiz: Risks of prompts vs fine-tuning reflection"
+        },
+        {
+          "type": "project",
+          "title": "Capstone: Choose from Q&A bot, image+caption generator, or study flashcard tool"
+        }
+      ],
+      "xp": 600,
+      "completed": true,
+      "hardwareNote": "Optional deployment via Hugging Face Spaces/Gradio"
     }
   ],
   "color": "from-amber-500 to-yellow-500",
@@ -133,10 +204,11 @@
     "prompt-engineering",
     "llm",
     "ai-communication",
-    "chain-of-thought",
-    "optimization"
+    "multimodal",
+    "structured-outputs",
+    "chain-of-thought"
   ],
   "enrolledCount": 2156,
   "rating": 4.9,
-  "lastUpdated": "2025-01-10"
+  "lastUpdated": "2025-01-15"
 }

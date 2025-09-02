@@ -1,30 +1,296 @@
 {
   "id": "llm-creation",
   "slug": "llm-creation",
-  "title": "LLM creation (Google Collab)",
+  "title": "LLM Creation Pathway",
   "shortTitle": "LLM Creation",
   "instructor": "Roman",
-  "description": "Build and fine-tune large language models from scratch.",
-  "overview": "Comprehensive pathway covering llm creation fundamentals and advanced techniques.",
-  "duration": "6-8 weeks",
+  "description": "Build, train, and fine-tune large language models from conceptual foundations to practical deployment.",
+  "overview": "This pathway introduces students to building, training, and fine-tuning large language models (LLMs). It begins with the conceptual building blocks, progresses to training toy models in Colab, explores parameter-efficient fine-tuning (LoRA/QLoRA/PEFT), and concludes with practical deployment strategies.",
+  "duration": "6 modules (8-10 weeks)",
   "level": "intermediate",
-  "prerequisites": ["Basic programming knowledge"],
-  "learningOutcomes": ["Master core concepts", "Build practical projects", "Apply to real-world scenarios"],
-  "tools": ["Python", "Various specialized tools"],
+  "prerequisites": [
+    "Python programming experience",
+    "Basic understanding of neural networks",
+    "Google Colab or Kaggle account",
+    "Familiarity with machine learning concepts"
+  ],
+  "learningOutcomes": [
+    "Understand LLM architecture and transformer mechanics",
+    "Build transformer models from scratch",
+    "Master Hugging Face ecosystem for fine-tuning",
+    "Apply parameter-efficient fine-tuning techniques (LoRA/QLoRA/PEFT)",
+    "Evaluate models for bias, safety, and performance",
+    "Deploy LLMs as functional web applications"
+  ],
+  "tools": [
+    "Google Colab/Kaggle",
+    "Hugging Face Transformers",
+    "PEFT/LoRA",
+    "Hugging Face Hub",
+    "Gradio/Streamlit",
+    "PyTorch",
+    "Hugging Face Spaces"
+  ],
   "modules": [
     {
-      "id": "llm-creation-basics",
-      "title": "LLM Creation Fundamentals",
-      "description": "Introduction to core concepts and principles.",
-      "duration": "2 weeks",
+      "id": "what-is-llm",
+      "title": "What is an LLM? (Foundations)",
+      "description": "Understand what LLMs are, how they work, and why they matter.",
+      "duration": "1 week",
       "difficulty": "beginner",
-      "topics": ["Fundamentals", "Core concepts", "Basic applications"],
+      "topics": [
+        "Transformer architecture basics",
+        "Attention mechanism fundamentals",
+        "Embeddings and tokenization",
+        "Decoder layers and generation",
+        "LLM applications and limitations"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "Intro to Transformers & LLMs (attention mechanism basics)",
+          "duration": "45 min"
+        },
+        {
+          "type": "article",
+          "title": "Anatomy of an LLM — embeddings, attention, decoder layers (PDF)"
+        },
+        {
+          "type": "exercise",
+          "title": "Run pre-trained DistilGPT-2 and generate text (Colab)",
+          "duration": "30 min"
+        },
+        {
+          "type": "exercise",
+          "title": "Quiz: 8 MCQ on LLM concepts"
+        },
+        {
+          "type": "project",
+          "title": "1-page reflection: What real-world problems could a custom LLM solve at RIT?"
+        }
+      ],
+      "xp": 150,
       "completed": false
+    },
+    {
+      "id": "mini-transformer",
+      "title": "Training a Mini Transformer in Colab (Builder)",
+      "description": "Build a simple transformer from scratch to understand mechanics.",
+      "duration": "1.5 weeks",
+      "difficulty": "intermediate",
+      "topics": [
+        "From RNNs to Transformers evolution",
+        "Transformer block architecture",
+        "Multi-head attention implementation",
+        "Position encodings",
+        "Training on small datasets"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "From RNNs to Transformers",
+          "duration": "50 min"
+        },
+        {
+          "type": "article",
+          "title": "Step-by-Step Transformer Block Explanation (PDF)"
+        },
+        {
+          "type": "exercise",
+          "title": "Train toy transformer on Shakespeare text (Colab)",
+          "duration": "90 min"
+        },
+        {
+          "type": "exercise",
+          "title": "Quiz: Effects of increasing sequence length"
+        },
+        {
+          "type": "project",
+          "title": "Modify toy model to write club announcements in RIT style"
+        }
+      ],
+      "xp": 250,
+      "completed": false,
+      "hardwareNote": "CPU okay, GPU speeds training"
+    },
+    {
+      "id": "huggingface-finetuning",
+      "title": "Hugging Face Transformers & Fine-Tuning Basics (Builder → Innovator)",
+      "description": "Learn to use Hugging Face to fine-tune pre-trained models.",
+      "duration": "2 weeks",
+      "difficulty": "intermediate",
+      "topics": [
+        "Hugging Face Transformers API",
+        "Model hub and datasets",
+        "Fine-tuning workflows",
+        "Training arguments and optimization",
+        "Evaluation metrics"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "Hugging Face Transformers API Walkthrough",
+          "duration": "60 min"
+        },
+        {
+          "type": "article",
+          "title": "Hugging Face Quick Start Guide (PDF)"
+        },
+        {
+          "type": "exercise",
+          "title": "Fine-tune DistilBERT on IMDb sentiment dataset (Colab)",
+          "duration": "2 hours"
+        },
+        {
+          "type": "exercise",
+          "title": "Quiz: Why fine-tune instead of training from scratch?"
+        },
+        {
+          "type": "project",
+          "title": "Fine-tune small GPT-2 on AI Club announcements dataset"
+        }
+      ],
+      "xp": 400,
+      "completed": false,
+      "hardwareNote": "GPU strongly recommended (Colab Free GPU or Kaggle T4 sufficient)"
+    },
+    {
+      "id": "parameter-efficient",
+      "title": "Parameter-Efficient Fine-Tuning (LoRA / QLoRA / PEFT) (Innovator)",
+      "description": "Understand and apply efficient fine-tuning methods for LLMs.",
+      "duration": "1.5 weeks",
+      "difficulty": "advanced",
+      "topics": [
+        "LoRA (Low-Rank Adaptation) theory",
+        "QLoRA quantization benefits",
+        "PEFT library usage",
+        "Memory-efficient training",
+        "Adapter modules and bottlenecks"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "How LoRA Works + QLoRA overview",
+          "duration": "55 min"
+        },
+        {
+          "type": "article",
+          "title": "Hugging Face PEFT Guide (PDF)"
+        },
+        {
+          "type": "exercise",
+          "title": "Fine-tune model with LoRA using low VRAM settings (Colab)",
+          "duration": "90 min"
+        },
+        {
+          "type": "exercise",
+          "title": "Quiz: LoRA efficiency vs full model fine-tuning"
+        },
+        {
+          "type": "project",
+          "title": "Create domain-specific assistant (e.g., Discrete Math tutoring bot)"
+        }
+      ],
+      "xp": 500,
+      "completed": false,
+      "hardwareNote": "GPU strongly recommended for efficient training"
+    },
+    {
+      "id": "evaluation-safety",
+      "title": "Evaluation, Safety & Scaling (Advanced Builder)",
+      "description": "Evaluate and stress-test models for bias, safety, and performance.",
+      "duration": "1.5 weeks",
+      "difficulty": "advanced",
+      "topics": [
+        "LLM evaluation benchmarks",
+        "Detecting hallucinations",
+        "Red-teaming techniques",
+        "Bias detection and mitigation",
+        "Responsible AI practices",
+        "Performance metrics"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "Evaluating LLMs (benchmarks, hallucinations, red-teaming)",
+          "duration": "65 min"
+        },
+        {
+          "type": "article",
+          "title": "Case Study — Responsible Fine-Tuning Practices (PDF)"
+        },
+        {
+          "type": "exercise",
+          "title": "Use HF Evaluate library to benchmark fine-tuned model (Colab)",
+          "duration": "75 min"
+        },
+        {
+          "type": "exercise",
+          "title": "Quiz: Classification vs generation evaluation metrics"
+        },
+        {
+          "type": "project",
+          "title": "Evaluate model on bias/safety scenario, write 1-page report"
+        }
+      ],
+      "xp": 600,
+      "completed": false,
+      "hardwareNote": "Evaluation can be CPU-only, GPU faster"
+    },
+    {
+      "id": "deployment-capstone",
+      "title": "Deployment & SaaS-Style Capstone",
+      "description": "Deploy an LLM demo as a usable web service.",
+      "duration": "2 weeks",
+      "difficulty": "advanced",
+      "topics": [
+        "Model deployment strategies",
+        "Gradio interface building",
+        "Streamlit app development",
+        "Hugging Face Spaces deployment",
+        "API vs local vs web app considerations",
+        "Production optimization"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "From Model to Product — LLM Deployment Basics",
+          "duration": "70 min"
+        },
+        {
+          "type": "article",
+          "title": "Gradio & Streamlit Integration Guide (PDF)"
+        },
+        {
+          "type": "exercise",
+          "title": "Deploy fine-tuned model with Gradio on HF Spaces",
+          "duration": "2 hours"
+        },
+        {
+          "type": "exercise",
+          "title": "Quiz: Reflection on deployment choices"
+        },
+        {
+          "type": "project",
+          "title": "Capstone: Choose from Q&A bot, text-to-story app, or lightweight SaaS demo"
+        }
+      ],
+      "xp": 800,
+      "completed": false,
+      "hardwareNote": "Deployment via Hugging Face Spaces (free tier viable)"
     }
   ],
   "color": "from-indigo-500 to-purple-500",
-  "tags": ["llm-creation"],
+  "tags": [
+    "llm-creation",
+    "transformers",
+    "fine-tuning",
+    "lora",
+    "peft",
+    "hugging-face",
+    "deployment"
+  ],
   "enrolledCount": 500,
   "rating": 4.5,
-  "lastUpdated": "2025-01-01"
+  "lastUpdated": "2025-01-15"
 }

@@ -1,30 +1,296 @@
 {
   "id": "vibecoding",
   "slug": "vibecoding",
-  "title": "Vibecoding (Free tools, N8N)",
+  "title": "Vibecoding & AI Automation Pathway",
   "shortTitle": "Vibecoding",
   "instructor": "Roman",
-  "description": "Low-code/no-code AI development with modern tools.",
-  "overview": "Comprehensive pathway covering vibecoding fundamentals and advanced techniques.",
-  "duration": "6-8 weeks",
-  "level": "intermediate",
-  "prerequisites": ["Basic programming knowledge"],
-  "learningOutcomes": ["Master core concepts", "Build practical projects", "Apply to real-world scenarios"],
-  "tools": ["Python", "Various specialized tools"],
+  "description": "Use AI tools to generate, edit, and automate code. Learn vibecoding — framing problems and letting AI generate/execute solutions.",
+  "overview": "This pathway teaches students how to use AI tools to generate, edit, and automate code. Instead of focusing on manual programming, learners explore 'vibecoding' — framing problems and letting AI generate/execute solutions. Includes exposure to Claude Code, Gemini CLI, OpenAI CLI, free tier APIs, and workflow automation with n8n.",
+  "duration": "6 modules (7-8 weeks)",
+  "level": "beginner",
+  "prerequisites": [
+    "Basic computer literacy",
+    "No coding experience required",
+    "Gmail account for free AI tools"
+  ],
+  "learningOutcomes": [
+    "Master the philosophy of vibecoding and AI-first development",
+    "Generate code effectively with AI prompting",
+    "Use Claude Code, Gemini CLI, and OpenAI CLI",
+    "Build automated workflows with n8n",
+    "Integrate AI code generation with automation pipelines",
+    "Prototype systems without manual coding"
+  ],
+  "tools": [
+    "Claude Code",
+    "OpenAI CLI",
+    "Gemini CLI",
+    "Gemini Free (browser + API)",
+    "n8n (self-hosted or free tier)",
+    "GitHub",
+    "Docker (for n8n)"
+  ],
   "modules": [
     {
-      "id": "vibecoding-basics",
-      "title": "Vibecoding Fundamentals",
-      "description": "Introduction to core concepts and principles.",
-      "duration": "2 weeks",
+      "id": "what-is-vibecoding",
+      "title": "What is Vibecoding? (Foundations)",
+      "description": "Understand the philosophy of vibecoding and the shift from coding by hand to orchestrating with AI.",
+      "duration": "1 week",
       "difficulty": "beginner",
-      "topics": ["Fundamentals", "Core concepts", "Basic applications"],
+      "topics": [
+        "Philosophy of vibecoding",
+        "AI-first development mindset",
+        "Overview of AI coding tools",
+        "Free tier options and limits",
+        "When to use AI vs manual coding",
+        "Future of software development"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "The Future of Coding — Why AI Tools Change Everything",
+          "duration": "40 min"
+        },
+        {
+          "type": "article",
+          "title": "Cheatsheet of popular free AI coding tools (PDF)"
+        },
+        {
+          "type": "exercise",
+          "title": "Run 'Hello World' via Claude Code or Gemini Free",
+          "duration": "30 min"
+        },
+        {
+          "type": "exercise",
+          "title": "Quiz: Which AI tools allow direct code execution from CLI?"
+        },
+        {
+          "type": "project",
+          "title": "Use AI to write script that automates a boring task (e.g., renaming files)"
+        }
+      ],
+      "xp": 150,
+      "completed": true
+    },
+    {
+      "id": "prompting-code-generation",
+      "title": "Prompting for Code Generation (Builder)",
+      "description": "Learn effective prompt strategies for AI coding assistants.",
+      "duration": "1 week",
+      "difficulty": "intermediate",
+      "topics": [
+        "Prompt engineering for code",
+        "Describing requirements clearly",
+        "Debugging prompts",
+        "Scaffolding and boilerplate",
+        "Refactoring with AI",
+        "Test case generation"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "Prompt Engineering for Code Generation",
+          "duration": "45 min"
+        },
+        {
+          "type": "article",
+          "title": "Code Prompt Templates (debugging, scaffolding, refactoring)"
+        },
+        {
+          "type": "exercise",
+          "title": "Use Gemini/OpenAI CLI to generate script from user story",
+          "duration": "60 min"
+        },
+        {
+          "type": "exercise",
+          "title": "Quiz: Which prompt best generates test cases?"
+        },
+        {
+          "type": "project",
+          "title": "Create CLI tool (AI-generated) that parses JSON and outputs report"
+        }
+      ],
+      "xp": 250,
+      "completed": true
+    },
+    {
+      "id": "ai-coding-tools-practice",
+      "title": "Using AI Coding Tools in Practice (Builder → Innovator)",
+      "description": "Compare coding assistants, CLIs, and IDE integrations.",
+      "duration": "1.5 weeks",
+      "difficulty": "intermediate",
+      "topics": [
+        "Claude Code deep dive",
+        "Gemini CLI features",
+        "OpenAI CLI capabilities",
+        "Tool comparison and selection",
+        "IDE integrations",
+        "Cost optimization strategies"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "Tooling Walkthrough — Claude Code, Gemini CLI, OpenAI CLI",
+          "duration": "60 min"
+        },
+        {
+          "type": "article",
+          "title": "Tool Comparison Chart (costs, limits, free tiers)"
+        },
+        {
+          "type": "exercise",
+          "title": "Generate same REST API with each tool, compare",
+          "duration": "90 min"
+        },
+        {
+          "type": "exercise",
+          "title": "Quiz: Inline explanations vs raw code blocks"
+        },
+        {
+          "type": "project",
+          "title": "Write AI-generated blog post comparing three tools"
+        }
+      ],
+      "xp": 400,
+      "completed": true,
+      "hardwareNote": "Free tiers sufficient for all demos"
+    },
+    {
+      "id": "workflow-automation-n8n",
+      "title": "Workflow Automation with n8n (Innovator)",
+      "description": "Learn low-code/no-code automation and AI integration with n8n.",
+      "duration": "1.5 weeks",
+      "difficulty": "intermediate",
+      "topics": [
+        "n8n fundamentals",
+        "Triggers and actions",
+        "Webhook integration",
+        "API connections",
+        "Data transformation",
+        "Error handling in workflows"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "Intro to n8n Workflows & Triggers",
+          "duration": "55 min"
+        },
+        {
+          "type": "article",
+          "title": "n8n Quick Start Guide (PDF)"
+        },
+        {
+          "type": "exercise",
+          "title": "Build n8n flow: prompt → AI API → email/Slack",
+          "duration": "90 min"
+        },
+        {
+          "type": "exercise",
+          "title": "Quiz: Trigger node vs action node in n8n"
+        },
+        {
+          "type": "project",
+          "title": "Automate workflow (e.g., summarize emails to Slack)"
+        }
+      ],
+      "xp": 500,
+      "completed": false,
+      "hardwareNote": "n8n runs locally with Docker or cloud free plan"
+    },
+    {
+      "id": "combining-ai-automation",
+      "title": "Combining AI Code Tools + Automation (Advanced Builder)",
+      "description": "Integrate AI code generation with automation pipelines.",
+      "duration": "1.5 weeks",
+      "difficulty": "advanced",
+      "topics": [
+        "AI agents in workflows",
+        "Code generation pipelines",
+        "Automated testing of AI code",
+        "GitHub integration",
+        "Human-in-the-loop patterns",
+        "Safety and validation"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "AI Agents in Workflows",
+          "duration": "65 min"
+        },
+        {
+          "type": "article",
+          "title": "Case study — Automated bugfix pipeline with AI-in-the-loop"
+        },
+        {
+          "type": "exercise",
+          "title": "n8n + Claude Code → auto-generate and commit to GitHub",
+          "duration": "2 hours"
+        },
+        {
+          "type": "exercise",
+          "title": "Quiz: Why human review in AI automation?"
+        },
+        {
+          "type": "project",
+          "title": "Create end-to-end: text → code → execution pipeline"
+        }
+      ],
+      "xp": 600,
+      "completed": false
+    },
+    {
+      "id": "ai-powered-coding-capstone",
+      "title": "Pathway Capstone — AI-Powered Coding System",
+      "description": "Build a fully automated AI coding/automation system.",
+      "duration": "1.5 weeks",
+      "difficulty": "advanced",
+      "topics": [
+        "System design for AI workflows",
+        "Production considerations",
+        "Ethical AI automation",
+        "Security best practices",
+        "Scaling automation",
+        "Monitoring and maintenance"
+      ],
+      "resources": [
+        {
+          "type": "video",
+          "title": "From Tools to Systems — Building the AI-First Dev Workflow",
+          "duration": "70 min"
+        },
+        {
+          "type": "article",
+          "title": "Ethical/Practical Guidelines for Automated Coding (PDF)"
+        },
+        {
+          "type": "exercise",
+          "title": "Demo project using n8n + AI CLI + GitHub",
+          "duration": "2 hours"
+        },
+        {
+          "type": "exercise",
+          "title": "Quiz: Reliability, testing, and security reflection"
+        },
+        {
+          "type": "project",
+          "title": "Capstone: Choose from daily task bot, AI code factory, or SaaS prototype"
+        }
+      ],
+      "xp": 800,
       "completed": false
     }
   ],
   "color": "from-violet-500 to-purple-500",
-  "tags": ["vibecoding"],
+  "tags": [
+    "vibecoding",
+    "ai-automation",
+    "no-code",
+    "n8n",
+    "claude-code",
+    "gemini",
+    "workflow-automation"
+  ],
   "enrolledCount": 500,
   "rating": 4.5,
-  "lastUpdated": "2025-01-01"
+  "lastUpdated": "2025-01-15"
 }

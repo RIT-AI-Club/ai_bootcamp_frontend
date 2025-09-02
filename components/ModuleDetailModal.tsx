@@ -64,21 +64,21 @@ export default function ModuleDetailModal({
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8"
             onClick={onClose}
           >
             <motion.div
-              className="relative w-full max-w-2xl bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-800 rounded-3xl shadow-2xl border border-neutral-700/50 overflow-hidden"
+              className="relative w-full max-w-4xl max-h-[90vh] bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-800 rounded-3xl shadow-2xl border border-neutral-700/50 overflow-hidden flex flex-col"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Header with gradient accent */}
-              <div className={`relative bg-gradient-to-r ${pathwayColor} p-6 pb-20`}>
+              <div className={`relative bg-gradient-to-r ${pathwayColor} p-6 pb-20 flex-shrink-0`}>
                 <div className="absolute inset-0 bg-black/20" />
                 
                 {/* Close button */}
                 <button
                   onClick={onClose}
-                  className="absolute top-4 right-4 text-white/80 hover:text-white transition-colors z-10"
+                  className="absolute top-4 right-4 text-white/80 hover:text-white transition-colors z-10 p-2 hover:bg-white/10 rounded-lg"
                 >
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -108,18 +108,30 @@ export default function ModuleDetailModal({
                       {module.difficulty}
                     </div>
                     <span className="text-sm">⏱️ {module.duration}</span>
+                    {(module as any).xp && (
+                      <span className="text-sm">⭐ {(module as any).xp} XP</span>
+                    )}
                   </div>
                 </div>
               </div>
 
-              {/* Content */}
-              <div className="p-6 -mt-12 relative z-10">
+              {/* Scrollable Content */}
+              <div className="flex-1 overflow-y-auto p-6 -mt-12 relative z-10 custom-scrollbar">
                 {/* Description card */}
                 <div className="bg-neutral-800/60 backdrop-blur-sm rounded-2xl p-6 border border-neutral-700/30 mb-6">
                   <h3 className="text-lg font-semibold text-gray-100/95 mb-3">About This Module</h3>
                   <p className="text-neutral-300 leading-relaxed">
                     {module.description}
                   </p>
+                  
+                  {/* Hardware note if exists */}
+                  {(module as any).hardwareNote && (
+                    <div className="mt-4 p-3 bg-amber-500/10 border border-amber-500/20 rounded-lg">
+                      <p className="text-amber-400 text-sm">
+                        💡 <strong>Hardware Note:</strong> {(module as any).hardwareNote}
+                      </p>
+                    </div>
+                  )}
                 </div>
 
                 {/* Topics */}
@@ -131,8 +143,8 @@ export default function ModuleDetailModal({
                         key={index}
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.1 }}
-                        className="flex items-start space-x-3 bg-neutral-800/40 rounded-xl p-3"
+                        transition={{ delay: index * 0.05 }}
+                        className="flex items-start space-x-3 bg-neutral-800/40 rounded-xl p-3 hover:bg-neutral-800/60 transition-colors"
                       >
                         <span className="text-cyan-400 mt-0.5">•</span>
                         <span className="text-neutral-300 text-sm">{topic}</span>
@@ -151,8 +163,8 @@ export default function ModuleDetailModal({
                           key={index}
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: index * 0.1 }}
-                          className="flex items-center justify-between bg-neutral-800/40 rounded-xl p-4 border border-neutral-700/20"
+                          transition={{ delay: index * 0.05 }}
+                          className="flex items-center justify-between bg-neutral-800/40 rounded-xl p-4 border border-neutral-700/20 hover:bg-neutral-800/60 transition-colors"
                         >
                           <div className="flex items-center space-x-3">
                             <span className="text-2xl">{getResourceIcon(resource.type)}</span>
@@ -186,9 +198,11 @@ export default function ModuleDetailModal({
                     </div>
                   </div>
                 )}
+              </div>
 
-                {/* Action buttons */}
-                <div className="flex items-center justify-between pt-4 border-t border-neutral-700/30">
+              {/* Fixed Action buttons */}
+              <div className="sticky bottom-0 bg-gradient-to-t from-neutral-900 via-neutral-900/95 to-transparent p-6 pt-8 flex-shrink-0">
+                <div className="flex items-center justify-between border-t border-neutral-700/30 pt-4">
                   <button
                     onClick={onClose}
                     className="px-6 py-2 bg-neutral-700/50 text-neutral-300 rounded-lg hover:bg-neutral-700/70 transition-colors"
