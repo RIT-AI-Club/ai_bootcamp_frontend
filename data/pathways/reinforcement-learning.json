@@ -67,7 +67,7 @@
         }
       ],
       "xp": 150,
-      "completed": true
+      "completed": false
     },
     {
       "id": "q-learning-value",
@@ -107,7 +107,7 @@
         }
       ],
       "xp": 250,
-      "completed": true
+      "completed": false
     },
     {
       "id": "deep-rl-sb3",

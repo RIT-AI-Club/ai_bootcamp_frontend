@@ -53,7 +53,7 @@
           "title": "Basic Image Operations Lab"
         }
       ],
-      "completed": true
+      "completed": false
     },
     {
       "id": "feature-detection",
@@ -78,7 +78,7 @@
           "title": "Build a Feature Detector"
         }
       ],
-      "completed": true
+      "completed": false
     },
     {
       "id": "cnn-basics",
@@ -103,7 +103,7 @@
           "title": "Build Your First CNN"
         }
       ],
-      "completed": true
+      "completed": false
     },
     {
       "id": "object-detection",

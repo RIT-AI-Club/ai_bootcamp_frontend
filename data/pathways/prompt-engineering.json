@@ -71,7 +71,7 @@
         }
       ],
       "xp": 150,
-      "completed": true
+      "completed": false
     },
     {
       "id": "techniques-patterns",
@@ -112,7 +112,7 @@
         }
       ],
       "xp": 250,
-      "completed": true
+      "completed": false
     },
     {
       "id": "multimodal-structured",
@@ -153,7 +153,7 @@
         }
       ],
       "xp": 400,
-      "completed": true,
+      "completed": false,
       "hardwareNote": "CLI tools or Colab with API keys"
     },
     {
@@ -195,7 +195,7 @@
         }
       ],
       "xp": 600,
-      "completed": true,
+      "completed": false,
       "hardwareNote": "Optional deployment via Hugging Face Spaces/Gradio"
     }
   ],

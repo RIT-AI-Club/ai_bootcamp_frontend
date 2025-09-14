@@ -19,7 +19,7 @@
       "duration": "2 weeks",
       "difficulty": "intermediate",
       "topics": ["ML lifecycle", "Version control for ML", "Experiment tracking", "Model registry"],
-      "completed": true
+      "completed": false
     }
   ],
   "color": "from-green-500 to-emerald-500",

@@ -70,7 +70,7 @@
         }
       ],
       "xp": 150,
-      "completed": true
+      "completed": false
     },
     {
       "id": "prompt-gemini-nano",
@@ -110,7 +110,7 @@
         }
       ],
       "xp": 250,
-      "completed": true
+      "completed": false
     },
     {
       "id": "comfyui-workflows",
@@ -150,7 +150,7 @@
         }
       ],
       "xp": 400,
-      "completed": true,
+      "completed": false,
       "hardwareNote": "GPU recommended for better performance"
     },
     {

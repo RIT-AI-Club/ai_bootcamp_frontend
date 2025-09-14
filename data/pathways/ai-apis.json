@@ -54,7 +54,7 @@
           "title": "Create a Basic CRUD API"
         }
       ],
-      "completed": true
+      "completed": false
     },
     {
       "id": "fastapi-mastery",
@@ -79,7 +79,7 @@
           "title": "Build an AI Prediction Service"
         }
       ],
-      "completed": true
+      "completed": false
     },
     {
       "id": "ml-integration",

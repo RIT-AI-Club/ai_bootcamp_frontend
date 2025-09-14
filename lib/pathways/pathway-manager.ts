@@ -1,4 +1,5 @@
 import { PathwayData, PathwayMeta } from './types';
+import { ProgressService } from '@/lib/progress/progress-service';
 
 // Import all pathway JSON files
 const pathwayModules = {
@@ -26,7 +27,7 @@ export const PATHWAY_META: PathwayMeta[] = [
     shortTitle: 'Computer Vision',
     instructor: 'Olivier',
     color: 'from-blue-500 to-cyan-500',
-    progress: 75,
+    progress: 0,
   },
   {
     id: 'reinforcement-learning',
@@ -35,7 +36,7 @@ export const PATHWAY_META: PathwayMeta[] = [
     shortTitle: 'RL',
     instructor: 'Roman',
     color: 'from-purple-500 to-pink-500',
-    progress: 45,
+    progress: 0,
   },
   {
     id: 'mlops',
@@ -44,7 +45,7 @@ export const PATHWAY_META: PathwayMeta[] = [
     shortTitle: 'MLops',
     instructor: 'Olivier',
     color: 'from-green-500 to-emerald-500',
-    progress: 100,
+    progress: 0,
   },
   {
     id: 'ai-ethics',
@@ -53,7 +54,7 @@ export const PATHWAY_META: PathwayMeta[] = [
     shortTitle: 'AI Ethics',
     instructor: 'Sage',
     color: 'from-yellow-500 to-orange-500',
-    progress: 30,
+    progress: 0,
   },
   {
     id: 'image-generation',
@@ -62,7 +63,7 @@ export const PATHWAY_META: PathwayMeta[] = [
     shortTitle: 'Image Generation',
     instructor: 'Roman',
     color: 'from-rose-500 to-red-500',
-    progress: 60,
+    progress: 0,
   },
   {
     id: 'llm-creation',
@@ -71,7 +72,7 @@ export const PATHWAY_META: PathwayMeta[] = [
     shortTitle: 'LLM Creation',
     instructor: 'Roman',
     color: 'from-indigo-500 to-purple-500',
-    progress: 20,
+    progress: 0,
   },
   {
     id: 'ai-apis',
@@ -80,7 +81,7 @@ export const PATHWAY_META: PathwayMeta[] = [
     shortTitle: 'AI APIs',
     instructor: 'Olivier',
     color: 'from-teal-500 to-green-500',
-    progress: 85,
+    progress: 0,
   },
   {
     id: 'devops',
@@ -89,7 +90,7 @@ export const PATHWAY_META: PathwayMeta[] = [
     shortTitle: 'DevOps',
     instructor: 'Roman',
     color: 'from-slate-500 to-gray-500',
-    progress: 40,
+    progress: 0,
   },
   {
     id: 'vibecoding',
@@ -98,7 +99,7 @@ export const PATHWAY_META: PathwayMeta[] = [
     shortTitle: 'Vibecoding',
     instructor: 'Roman',
     color: 'from-violet-500 to-purple-500',
-    progress: 90,
+    progress: 0,
   },
   {
     id: 'prompt-engineering',
@@ -107,7 +108,7 @@ export const PATHWAY_META: PathwayMeta[] = [
     shortTitle: 'Prompt Engineering',
     instructor: 'Roman',
     color: 'from-amber-500 to-yellow-500',
-    progress: 100,
+    progress: 0,
   },
   {
     id: 'ai-agents',
@@ -116,7 +117,7 @@ export const PATHWAY_META: PathwayMeta[] = [
     shortTitle: 'AI Agents',
     instructor: 'Olivier',
     color: 'from-sky-500 to-blue-500',
-    progress: 15,
+    progress: 0,
   },
   {
     id: 'vector-db-rag',
@@ -125,7 +126,7 @@ export const PATHWAY_META: PathwayMeta[] = [
     shortTitle: 'Vector DB/RAG',
     instructor: 'Olivier',
     color: 'from-emerald-500 to-teal-500',
-    progress: 55,
+    progress: 0,
   },
   {
     id: 'ai-research',
@@ -134,20 +135,42 @@ export const PATHWAY_META: PathwayMeta[] = [
     shortTitle: 'AI Research',
     instructor: 'Roman',
     color: 'from-pink-500 to-rose-500',
-    progress: 10,
+    progress: 0,
   },
 ];
 
 export class PathwayManager {
   /**
    * Get pathway metadata for dashboard display
+   * TODO: Fetch actual progress from backend API
    */
   static getPathwayMeta(): PathwayMeta[] {
+    // Return base metadata with 0 progress for now
+    // Will be replaced with API call to fetch user progress
     return PATHWAY_META;
   }
 
   /**
-   * Get pathway by slug
+   * Fetch user progress from backend and merge with pathway metadata
+   */
+  static async fetchUserProgress(): Promise<PathwayMeta[]> {
+    try {
+      const userProgress = await ProgressService.fetchUserProgress();
+
+      // Merge user progress with pathway metadata
+      return PATHWAY_META.map(pathway => ({
+        ...pathway,
+        progress: userProgress.pathwayProgress[pathway.id]?.progress || 0
+      }));
+    } catch (error) {
+      console.error('Failed to fetch user progress:', error);
+      // Return base metadata with 0 progress on error
+      return PATHWAY_META;
+    }
+  }
+
+  /**
+   * Get pathway by slug with user progress
    */
   static async getPathwayBySlug(slug: string): Promise<PathwayData | null> {
     try {
@@ -158,12 +181,17 @@ export class PathwayManager {
 
       const module = await moduleLoader();
       const pathwayData = module.default as PathwayData;
-      
-      // Add current progress from meta
-      const meta = PATHWAY_META.find(p => p.slug === slug);
-      if (meta) {
-        pathwayData.progress = meta.progress;
-      }
+
+      // Fetch user's progress for this pathway
+      const pathwayProgress = await ProgressService.fetchPathwayProgress(pathwayData.id);
+
+      // Apply progress data to pathway
+      pathwayData.progress = pathwayProgress.progress;
+
+      // Mark modules as completed based on user progress
+      pathwayData.modules.forEach(module => {
+        module.completed = pathwayProgress.completedModules.includes(module.id);
+      });
 
       return pathwayData;
     } catch (error) {

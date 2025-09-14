@@ -1,8 +1,9 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Achievement } from '@/lib/achievements/types';
-import { ACHIEVEMENTS, getRarityColor, getRarityBorder } from '@/lib/achievements/achievements-data';
+import { Achievement, UserAchievementStats } from '@/lib/achievements/types';
+import { getRarityColor, getRarityBorder } from '@/lib/achievements/achievements-data';
 import { AchievementManager } from '@/lib/achievements/achievement-manager';
 
 interface AchievementsModalProps {
@@ -11,10 +12,52 @@ interface AchievementsModalProps {
 }
 
 export default function AchievementsModal({ isOpen, onClose }: AchievementsModalProps) {
-  // For now using mock data - will be replaced with backend call
-  const achievements = AchievementManager.calculateUserAchievements();
-  const stats = AchievementManager.getUserAchievementStats();
-  const achievementsByCategory = AchievementManager.getAchievementsByCategory();
+  const [achievements, setAchievements] = useState<Achievement[]>([]);
+  const [stats, setStats] = useState<UserAchievementStats>({
+    totalPoints: 0,
+    unlockedCount: 0,
+    totalCount: 0,
+    completionPercentage: 0,
+    recentUnlocks: []
+  });
+  const [achievementsByCategory, setAchievementsByCategory] = useState<{
+    progress: Achievement[];
+    completion: Achievement[];
+    exploration: Achievement[];
+    mastery: Achievement[];
+    streak: Achievement[];
+  }>({
+    progress: [],
+    completion: [],
+    exploration: [],
+    mastery: [],
+    streak: []
+  });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadAchievementData = async () => {
+      if (!isOpen) return;
+
+      try {
+        const [achievementsList, achievementStats, achievementCategories] = await Promise.all([
+          AchievementManager.calculateUserAchievements(),
+          AchievementManager.getUserAchievementStats(),
+          AchievementManager.getAchievementsByCategory()
+        ]);
+
+        setAchievements(achievementsList);
+        setStats(achievementStats);
+        setAchievementsByCategory(achievementCategories);
+      } catch (error) {
+        console.error('Failed to load achievement data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadAchievementData();
+  }, [isOpen]);
 
   const categories = [
     { key: 'progress', label: 'Progress', icon: '📈', color: 'from-blue-500 to-cyan-500' },
@@ -144,19 +187,19 @@ export default function AchievementsModal({ isOpen, onClose }: AchievementsModal
                   {/* Stats */}
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
                     <div className="bg-white/10 rounded-xl p-4 text-center">
-                      <div className="text-2xl font-bold text-white">{stats.unlockedCount}</div>
+                      <div className="text-2xl font-bold text-white">{loading ? '...' : stats.unlockedCount}</div>
                       <div className="text-white/70 text-sm">Unlocked</div>
                     </div>
                     <div className="bg-white/10 rounded-xl p-4 text-center">
-                      <div className="text-2xl font-bold text-white">{stats.totalPoints}</div>
+                      <div className="text-2xl font-bold text-white">{loading ? '...' : stats.totalPoints}</div>
                       <div className="text-white/70 text-sm">Points</div>
                     </div>
                     <div className="bg-white/10 rounded-xl p-4 text-center">
-                      <div className="text-2xl font-bold text-white">{Math.round(stats.completionPercentage)}%</div>
+                      <div className="text-2xl font-bold text-white">{loading ? '...' : Math.round(stats.completionPercentage)}%</div>
                       <div className="text-white/70 text-sm">Complete</div>
                     </div>
                     <div className="bg-white/10 rounded-xl p-4 text-center">
-                      <div className="text-2xl font-bold text-white">{stats.recentUnlocks.length}</div>
+                      <div className="text-2xl font-bold text-white">{loading ? '...' : stats.recentUnlocks.length}</div>
                       <div className="text-white/70 text-sm">Recent</div>
                     </div>
                   </div>
@@ -165,9 +208,16 @@ export default function AchievementsModal({ isOpen, onClose }: AchievementsModal
 
               {/* Content */}
               <div className="p-8 overflow-y-auto max-h-[60vh]">
-                {categories.map((category, categoryIndex) => {
-                  const categoryAchievements = achievementsByCategory[category.key as keyof typeof achievementsByCategory] || [];
-                  if (categoryAchievements.length === 0) return null;
+                {loading ? (
+                  <div className="flex items-center justify-center py-12">
+                    <div className="text-4xl mb-4">⏳</div>
+                    <p className="text-neutral-400">Loading achievements...</p>
+                  </div>
+                ) : (
+                  <>
+                    {categories.map((category, categoryIndex) => {
+                      const categoryAchievements = achievementsByCategory[category.key as keyof typeof achievementsByCategory] || [];
+                      if (categoryAchievements.length === 0) return null;
 
                   return (
                     <motion.div
@@ -207,13 +257,15 @@ export default function AchievementsModal({ isOpen, onClose }: AchievementsModal
                   );
                 })}
 
-                {/* Empty state if no achievements */}
-                {achievements.length === 0 && (
-                  <div className="text-center py-12">
-                    <div className="text-6xl mb-4">🏆</div>
-                    <h3 className="text-xl font-semibold text-gray-100 mb-2">Start Learning to Earn Achievements!</h3>
-                    <p className="text-neutral-400">Complete modules and pathways to unlock your first trophy.</p>
-                  </div>
+                    {/* Empty state if no achievements */}
+                    {achievements.length === 0 && (
+                      <div className="text-center py-12">
+                        <div className="text-6xl mb-4">🏆</div>
+                        <h3 className="text-xl font-semibold text-gray-100 mb-2">Start Learning to Earn Achievements!</h3>
+                        <p className="text-neutral-400">Complete modules and pathways to unlock your first trophy.</p>
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
             </motion.div>

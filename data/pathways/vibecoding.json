@@ -70,7 +70,7 @@
         }
       ],
       "xp": 150,
-      "completed": true
+      "completed": false
     },
     {
       "id": "prompting-code-generation",
@@ -111,7 +111,7 @@
         }
       ],
       "xp": 250,
-      "completed": true
+      "completed": false
     },
     {
       "id": "ai-coding-tools-practice",
@@ -152,7 +152,7 @@
         }
       ],
       "xp": 400,
-      "completed": true,
+      "completed": false,
       "hardwareNote": "Free tiers sufficient for all demos"
     },
     {
