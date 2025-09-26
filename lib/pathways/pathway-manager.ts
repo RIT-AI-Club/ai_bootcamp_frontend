@@ -1,5 +1,5 @@
 import { PathwayData, PathwayMeta } from './types';
-import { ProgressService } from '@/lib/progress/progress-service';
+import { ProgressService, DashboardData } from '@/lib/progress/progress-service';
 
 // Import all pathway JSON files
 const pathwayModules = {
@@ -141,13 +141,27 @@ export const PATHWAY_META: PathwayMeta[] = [
 
 export class PathwayManager {
   /**
-   * Get pathway metadata for dashboard display
-   * TODO: Fetch actual progress from backend API
+   * Get pathway metadata for dashboard display with real progress
    */
-  static getPathwayMeta(): PathwayMeta[] {
-    // Return base metadata with 0 progress for now
-    // Will be replaced with API call to fetch user progress
-    return PATHWAY_META;
+  static async getPathwayMeta(): Promise<PathwayMeta[]> {
+    try {
+      const dashboardData = await ProgressService.fetchDashboardData();
+
+      // Map dashboard data to PathwayMeta format
+      return dashboardData.pathways.map(pathway => ({
+        id: pathway.id,
+        slug: pathway.slug,
+        title: pathway.title,
+        shortTitle: pathway.shortTitle,
+        instructor: pathway.instructor,
+        color: pathway.color,
+        progress: pathway.progress
+      }));
+    } catch (error) {
+      console.error('Failed to fetch pathway data:', error);
+      // Return base metadata with 0 progress on error
+      return PATHWAY_META;
+    }
   }
 
   /**

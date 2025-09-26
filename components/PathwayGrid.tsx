@@ -1,18 +1,55 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import PathwayCard, { Pathway } from './PathwayCard';
 import { PathwayManager } from '@/lib/pathways/pathway-manager';
 
 export default function PathwayGrid() {
   const router = useRouter();
-  const pathways = PathwayManager.getPathwayMeta();
+  const [pathways, setPathways] = useState<Pathway[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadPathways = async () => {
+      try {
+        const pathwayData = await PathwayManager.getPathwayMeta();
+        setPathways(pathwayData);
+      } catch (error) {
+        console.error('Failed to load pathways:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadPathways();
+  }, []);
 
   const handlePathwayClick = (pathway: Pathway) => {
     console.log(`Navigating to pathway: ${pathway.title}`);
     router.push(`/pathway/${pathway.slug}`);
   };
+
+  if (loading) {
+    return (
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-8">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-wider text-gray-100/95 select-none mb-4">
+            AI BOOTCAMP
+          </h1>
+          <p className="text-lg text-neutral-400 font-medium">
+            Loading your pathways...
+          </p>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
+          {Array.from({ length: 8 }).map((_, index) => (
+            <div key={index} className="bg-neutral-800/50 rounded-2xl h-48 animate-pulse" />
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
