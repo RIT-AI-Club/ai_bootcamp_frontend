@@ -1,12 +1,12 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 import { PathwayData, Module } from '@/lib/pathways/types';
 import PathwayMap from '@/components/PathwayMap';
 import ModuleDetailModal from '@/components/ModuleDetailModal';
 import { ProgressService } from '@/lib/progress/progress-service';
 import { useHydration } from '@/lib/hooks/useHydration';
+import MotionDiv from '@/components/MotionDiv';
 
 interface PathwayPageClientProps {
   pathway: PathwayData;
@@ -93,7 +93,7 @@ export default function PathwayPageClient({ pathway: initialPathway }: PathwayPa
         
         <div className="relative z-10 min-h-screen">
           {/* Header */}
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             className="p-6 md:p-8"
@@ -106,10 +106,10 @@ export default function PathwayPageClient({ pathway: initialPathway }: PathwayPa
                 ← BACK TO DASHBOARD
               </a>
             </div>
-          </motion.div>
+          </MotionDiv>
 
           {/* Pathway Info Section - Top 1/2 of screen */}
-          <motion.div 
+          <MotionDiv
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
@@ -170,7 +170,7 @@ export default function PathwayPageClient({ pathway: initialPathway }: PathwayPa
                     <h3 className="text-xl font-semibold text-gray-100/95 mb-4">What You'll Master</h3>
                     <div className="grid md:grid-cols-2 gap-3">
                       {pathway.learningOutcomes.map((outcome, index) => (
-                        <motion.div
+                        <MotionDiv
                           key={index}
                           initial={{ opacity: 0, x: -20 }}
                           animate={{ opacity: 1, x: 0 }}
@@ -179,7 +179,7 @@ export default function PathwayPageClient({ pathway: initialPathway }: PathwayPa
                         >
                           <span className="text-cyan-400 mt-1">✓</span>
                           <span className="text-neutral-300">{outcome}</span>
-                        </motion.div>
+                        </MotionDiv>
                       ))}
                     </div>
                   </div>
@@ -188,7 +188,7 @@ export default function PathwayPageClient({ pathway: initialPathway }: PathwayPa
                 {/* Side Info */}
                 <div className="space-y-6">
                   {/* Prerequisites */}
-                  <motion.div
+                  <MotionDiv
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.4 }}
@@ -203,10 +203,10 @@ export default function PathwayPageClient({ pathway: initialPathway }: PathwayPa
                         </li>
                       ))}
                     </ul>
-                  </motion.div>
+                  </MotionDiv>
 
                   {/* Tools */}
-                  <motion.div
+                  <MotionDiv
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.5 }}
@@ -223,14 +223,14 @@ export default function PathwayPageClient({ pathway: initialPathway }: PathwayPa
                         </span>
                       ))}
                     </div>
-                  </motion.div>
+                  </MotionDiv>
                 </div>
               </div>
             </div>
-          </motion.div>
+          </MotionDiv>
 
           {/* Game Map Section - Bottom 1/2 of screen */}
-          <motion.div 
+          <MotionDiv
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
@@ -244,7 +244,7 @@ export default function PathwayPageClient({ pathway: initialPathway }: PathwayPa
                 onModuleClick={handleModuleClick}
               />
             </div>
-          </motion.div>
+          </MotionDiv>
         </div>
       </div>
 

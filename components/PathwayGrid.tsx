@@ -2,10 +2,10 @@
 
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
 import PathwayCard, { Pathway } from './PathwayCard';
 import { PathwayManager, PATHWAY_META } from '@/lib/pathways/pathway-manager';
 import { useHydration } from '@/lib/hooks/useHydration';
+import MotionDiv from '@/components/MotionDiv';
 
 export default function PathwayGrid() {
   const router = useRouter();
@@ -43,7 +43,7 @@ export default function PathwayGrid() {
   return (
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Header */}
-      <motion.div
+      <MotionDiv
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
@@ -63,10 +63,10 @@ export default function PathwayGrid() {
             </span>
           )}
         </div>
-      </motion.div>
+      </MotionDiv>
 
       {/* Pathway Grid */}
-      <motion.div
+      <MotionDiv
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, delay: 0.2 }}
@@ -80,10 +80,10 @@ export default function PathwayGrid() {
             onClick={() => handlePathwayClick(pathway)}
           />
         ))}
-      </motion.div>
+      </MotionDiv>
 
       {/* Stats Footer */}
-      <motion.div
+      <MotionDiv
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.4 }}
@@ -116,7 +116,7 @@ export default function PathwayGrid() {
           Track your progress across all pathways. Each pathway contains multiple modules 
           with hands-on projects and real-world applications.
         </p>
-      </motion.div>
+      </MotionDiv>
     </div>
   );
 }

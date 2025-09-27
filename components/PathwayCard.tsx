@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import MotionDiv from '@/components/MotionDiv';
 
 export interface Pathway {
   id: string;
@@ -58,7 +58,7 @@ export default function PathwayCard({ pathway, index, onClick }: PathwayCardProp
   const { fromColor, toColor } = getColorValues(pathway.color);
 
   return (
-    <motion.div
+    <MotionDiv
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -175,12 +175,12 @@ export default function PathwayCard({ pathway, index, onClick }: PathwayCardProp
 
       {/* Floating hover effect */}
       {isHovered && (
-        <motion.div
+        <MotionDiv
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           className="absolute -top-2 -left-2 -right-2 -bottom-2 rounded-3xl bg-gradient-to-br from-neutral-600/20 to-neutral-800/20 -z-10 blur-xl"
         />
       )}
-    </motion.div>
+    </MotionDiv>
   );
 }
