@@ -145,10 +145,11 @@ export class PathwayManager {
    */
   static async getPathwayMeta(): Promise<PathwayMeta[]> {
     try {
-      const dashboardData = await ProgressService.fetchDashboardData();
+      // Use optimized single API call instead of multiple calls
+      const completeData = await ProgressService.fetchCompleteData();
 
-      // Map dashboard data to PathwayMeta format
-      return dashboardData.pathways.map(pathway => ({
+      // Map pathways data to PathwayMeta format
+      return completeData.pathways.map(pathway => ({
         id: pathway.id,
         slug: pathway.slug,
         title: pathway.title,

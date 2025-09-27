@@ -73,11 +73,11 @@ export class ProgressService {
   }
 
   /**
-   * Fetch user's dashboard data from backend
+   * Fetch user's dashboard data from backend (OPTIMIZED VERSION)
    */
   static async fetchDashboardData(): Promise<DashboardData> {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/v1/progress/user/dashboard`, {
+      const response = await fetch(`${API_BASE_URL}/api/v1/progress/user/dashboard-optimized`, {
         method: 'GET',
         headers: this.getAuthHeaders(),
       });
@@ -86,7 +86,10 @@ export class ProgressService {
         throw new Error('Failed to fetch dashboard data');
       }
 
-      return await response.json();
+      const data = await response.json();
+
+      // Extract dashboard data from optimized response
+      return data.dashboard;
     } catch (error) {
       console.error('Error fetching dashboard data:', error);
       // Return default data on error
@@ -107,6 +110,89 @@ export class ProgressService {
           last_activity: null
         }
       };
+    }
+  }
+
+  /**
+   * OPTIMIZED: Fetch all dashboard data in single API call
+   * Combines dashboard, pathways, and user summary data
+   */
+  static async fetchCompleteData(): Promise<{
+    dashboard: DashboardData;
+    pathways: Array<{
+      id: string;
+      slug: string;
+      title: string;
+      shortTitle: string;
+      instructor: string;
+      color: string;
+      progress: number;
+    }>;
+    summary: UserProgress;
+    achievements: Array<any>;
+    streak: any;
+  }> {
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/v1/progress/user/dashboard-optimized`, {
+        method: 'GET',
+        headers: this.getAuthHeaders(),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch complete data');
+      }
+
+      const data = await response.json();
+
+      // Transform summary to match UserProgress interface
+      const transformedSummary: UserProgress = {
+        userId: data.summary.user_id,
+        pathwayProgress: {},
+        totalProgress: Math.round(
+          (data.summary.pathways_completed / Math.max(data.summary.total_pathways, 1)) * 100
+        ),
+        modulesCompleted: data.summary.total_modules_completed,
+        pathwaysStarted: data.summary.pathways_started,
+        pathwaysCompleted: data.summary.pathways_completed
+      };
+
+      return {
+        dashboard: data.dashboard,
+        pathways: data.pathways,
+        summary: transformedSummary,
+        achievements: data.achievements,
+        streak: data.streak
+      };
+    } catch (error) {
+      console.error('Error fetching complete data:', error);
+      // Return empty fallback data
+      const emptyData = {
+        dashboard: {
+          pathways: [],
+          summary: {
+            pathways_started: 0,
+            pathways_completed: 0,
+            modules_completed: 0,
+            total_time_spent_minutes: 0,
+            current_streak: 0,
+            longest_streak: 0
+          },
+          recent_achievements: [],
+          streak: { current: 0, longest: 0, last_activity: null }
+        },
+        pathways: [],
+        summary: {
+          userId: '',
+          pathwayProgress: {},
+          totalProgress: 0,
+          modulesCompleted: 0,
+          pathwaysStarted: 0,
+          pathwaysCompleted: 0
+        },
+        achievements: [],
+        streak: { current: 0, longest: 0, last_activity: null }
+      };
+      return emptyData;
     }
   }
 
