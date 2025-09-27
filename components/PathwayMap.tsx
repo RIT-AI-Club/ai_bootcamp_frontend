@@ -4,6 +4,7 @@ import { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Module } from '@/lib/pathways/types';
 import ModuleMapNode from './ModuleMapNode';
+import MotionDiv from './MotionDiv';
 
 interface PathwayMapProps {
   modules: Module[];
@@ -94,7 +95,7 @@ export default function PathwayMap({
         
         {/* Progress bar */}
         <div className="mt-3 w-full bg-neutral-700/30 rounded-full h-2">
-          <motion.div
+          <MotionDiv
             className={`h-full bg-gradient-to-r ${pathwayColor} rounded-full`}
             initial={{ width: '0%' }}
             animate={{ width: `${pathwayProgress}%` }}
@@ -107,25 +108,25 @@ export default function PathwayMap({
       <div className="relative p-6">
         {/* Scroll buttons */}
         {canScrollLeft && (
-          <motion.button
+          <MotionDiv
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             onClick={() => scrollTo('left')}
-            className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-10 h-10 bg-black/60 backdrop-blur-sm rounded-full border border-neutral-600/50 flex items-center justify-center text-neutral-300 hover:text-white transition-colors"
+            className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-10 h-10 bg-black/60 backdrop-blur-sm rounded-full border border-neutral-600/50 flex items-center justify-center text-neutral-300 hover:text-white transition-colors cursor-pointer"
           >
             ←
-          </motion.button>
+          </MotionDiv>
         )}
-        
+
         {canScrollRight && (
-          <motion.button
+          <MotionDiv
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             onClick={() => scrollTo('right')}
-            className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-10 h-10 bg-black/60 backdrop-blur-sm rounded-full border border-neutral-600/50 flex items-center justify-center text-neutral-300 hover:text-white transition-colors"
+            className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-10 h-10 bg-black/60 backdrop-blur-sm rounded-full border border-neutral-600/50 flex items-center justify-center text-neutral-300 hover:text-white transition-colors cursor-pointer"
           >
             →
-          </motion.button>
+          </MotionDiv>
         )}
 
         {/* Scrollable content */}
@@ -152,25 +153,33 @@ export default function PathwayMap({
               </div>
               
               {/* Floating particles */}
-              {Array.from({ length: 8 }).map((_, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute w-1 h-1 bg-neutral-500 rounded-full"
-                  style={{
-                    left: `${Math.random() * 100}%`,
-                    top: `${Math.random() * 100}%`,
-                  }}
-                  animate={{
-                    y: [-10, 10, -10],
-                    opacity: [0.3, 0.7, 0.3],
-                  }}
-                  transition={{
-                    duration: 3 + Math.random() * 2,
-                    repeat: Infinity,
-                    delay: Math.random() * 2,
-                  }}
-                />
-              ))}
+              {Array.from({ length: 8 }).map((_, i) => {
+                // Use deterministic positioning based on index
+                const leftPos = (i * 13.7 + 7.3) % 100; // Pseudo-random but deterministic
+                const topPos = (i * 17.1 + 11.9) % 100;
+                const duration = 3 + (i % 3); // 3, 4, or 5 seconds
+                const delay = (i * 0.3) % 2; // 0 to ~2 seconds
+
+                return (
+                  <MotionDiv
+                    key={i}
+                    className="absolute w-1 h-1 bg-neutral-500 rounded-full"
+                    style={{
+                      left: `${leftPos}%`,
+                      top: `${topPos}%`,
+                    }}
+                    animate={{
+                      y: [-10, 10, -10],
+                      opacity: [0.3, 0.7, 0.3],
+                    }}
+                    transition={{
+                      duration,
+                      repeat: Infinity,
+                      delay,
+                    }}
+                  />
+                );
+              })}
             </div>
 
             {/* Connecting path SVG */}
