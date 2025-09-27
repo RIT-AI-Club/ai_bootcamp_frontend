@@ -184,7 +184,7 @@ export class PathwayManager {
   }
 
   /**
-   * Get pathway by slug with user progress
+   * Get pathway by slug with user progress (client-side) or without progress (server-side)
    */
   static async getPathwayBySlug(slug: string): Promise<PathwayData | null> {
     try {
@@ -196,16 +196,34 @@ export class PathwayManager {
       const module = await moduleLoader();
       const pathwayData = module.default as PathwayData;
 
-      // Fetch user's progress for this pathway
-      const pathwayProgress = await ProgressService.fetchPathwayProgress(pathwayData.id);
+      // Only fetch progress on client-side (browser environment)
+      if (typeof window !== 'undefined') {
+        try {
+          // Fetch user's progress for this pathway
+          const pathwayProgress = await ProgressService.fetchPathwayProgress(pathwayData.id);
 
-      // Apply progress data to pathway
-      pathwayData.progress = pathwayProgress.progress;
+          // Apply progress data to pathway
+          pathwayData.progress = pathwayProgress.progress;
 
-      // Mark modules as completed based on user progress
-      pathwayData.modules.forEach(module => {
-        module.completed = pathwayProgress.completedModules.includes(module.id);
-      });
+          // Mark modules as completed based on user progress
+          pathwayData.modules.forEach(module => {
+            module.completed = pathwayProgress.completedModules.includes(module.id);
+          });
+        } catch (error) {
+          console.error(`Failed to fetch progress for pathway: ${slug}`, error);
+          // Set default progress values on error
+          pathwayData.progress = 0;
+          pathwayData.modules.forEach(module => {
+            module.completed = false;
+          });
+        }
+      } else {
+        // Server-side: set default progress values
+        pathwayData.progress = 0;
+        pathwayData.modules.forEach(module => {
+          module.completed = false;
+        });
+      }
 
       return pathwayData;
     } catch (error) {

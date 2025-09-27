@@ -57,6 +57,11 @@ export interface DashboardData {
 
 export class ProgressService {
   private static getAuthHeaders(): HeadersInit {
+    // Check if we're in the browser environment
+    if (typeof window === 'undefined') {
+      throw new Error('ProgressService methods can only be called from the client side');
+    }
+
     const token = localStorage.getItem('access_token');
     if (!token) {
       throw new Error('No authentication token found');

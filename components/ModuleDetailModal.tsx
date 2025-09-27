@@ -8,13 +8,15 @@ interface ModuleDetailModalProps {
   isOpen: boolean;
   onClose: () => void;
   pathwayColor: string;
+  onModuleComplete?: (moduleId: string) => void;
 }
 
 export default function ModuleDetailModal({
   module,
   isOpen,
   onClose,
-  pathwayColor
+  pathwayColor,
+  onModuleComplete
 }: ModuleDetailModalProps) {
   if (!module) return null;
 
@@ -212,11 +214,19 @@ export default function ModuleDetailModal({
                   
                   <div className="flex items-center space-x-3">
                     {!module.completed && (
-                      <button className={`px-6 py-2 bg-gradient-to-r ${pathwayColor} text-white rounded-lg font-medium hover:scale-105 transition-transform shadow-lg`}>
-                        Start Learning
-                      </button>
+                      <>
+                        <button className={`px-6 py-2 bg-gradient-to-r ${pathwayColor} text-white rounded-lg font-medium hover:scale-105 transition-transform shadow-lg`}>
+                          Start Learning
+                        </button>
+                        <button
+                          onClick={() => onModuleComplete?.(module.id)}
+                          className="px-6 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium hover:scale-105 transition-transform shadow-lg"
+                        >
+                          Mark as Complete
+                        </button>
+                      </>
                     )}
-                    
+
                     {module.completed && (
                       <button className="px-6 py-2 bg-green-600/20 border border-green-500/30 text-green-400 rounded-lg font-medium">
                         ✓ Completed

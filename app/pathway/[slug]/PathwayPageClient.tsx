@@ -1,18 +1,52 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { PathwayData, Module } from '@/lib/pathways/types';
 import PathwayMap from '@/components/PathwayMap';
 import ModuleDetailModal from '@/components/ModuleDetailModal';
+import { ProgressService } from '@/lib/progress/progress-service';
+import { useHydration } from '@/lib/hooks/useHydration';
 
 interface PathwayPageClientProps {
   pathway: PathwayData;
 }
 
-export default function PathwayPageClient({ pathway }: PathwayPageClientProps) {
+export default function PathwayPageClient({ pathway: initialPathway }: PathwayPageClientProps) {
+  const [pathway, setPathway] = useState<PathwayData>(initialPathway);
   const [selectedModule, setSelectedModule] = useState<Module | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoadingProgress, setIsLoadingProgress] = useState(false); // Don't show loading initially
+  const isHydrated = useHydration();
+
+  // Fetch progress data on client-side mount (after hydration)
+  useEffect(() => {
+    if (!isHydrated) return; // Wait for hydration
+
+    const fetchProgress = async () => {
+      setIsLoadingProgress(true);
+      try {
+        const pathwayProgress = await ProgressService.fetchPathwayProgress(pathway.id);
+
+        // Update pathway with progress data
+        setPathway(prevPathway => ({
+          ...prevPathway,
+          progress: pathwayProgress.progress,
+          modules: prevPathway.modules.map(module => ({
+            ...module,
+            completed: pathwayProgress.completedModules.includes(module.id)
+          }))
+        }));
+      } catch (error) {
+        console.error('Failed to fetch progress:', error);
+        // Keep the default progress values from SSR
+      } finally {
+        setIsLoadingProgress(false);
+      }
+    };
+
+    fetchProgress();
+  }, [isHydrated, pathway.id]);
 
   const handleModuleClick = (module: Module) => {
     setSelectedModule(module);
@@ -22,6 +56,32 @@ export default function PathwayPageClient({ pathway }: PathwayPageClientProps) {
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedModule(null);
+  };
+
+  const handleModuleComplete = async (moduleId: string) => {
+    try {
+      // Mark module as complete in backend
+      await ProgressService.markModuleComplete(pathway.id, moduleId);
+
+      // Update local state
+      setPathway(prevPathway => {
+        const updatedModules = prevPathway.modules.map(module =>
+          module.id === moduleId ? { ...module, completed: true } : module
+        );
+
+        // Calculate new progress percentage
+        const completedCount = updatedModules.filter(m => m.completed).length;
+        const newProgress = Math.round((completedCount / updatedModules.length) * 100);
+
+        return {
+          ...prevPathway,
+          modules: updatedModules,
+          progress: newProgress
+        };
+      });
+    } catch (error) {
+      console.error('Failed to mark module complete:', error);
+    }
   };
 
   return (
@@ -79,7 +139,12 @@ export default function PathwayPageClient({ pathway }: PathwayPageClientProps) {
                   </div>
                   <div className="flex items-center space-x-2">
                     <span>📈</span>
-                    <span>{pathway.progress || 0}% Complete</span>
+                    <span>
+                      {pathway.progress || 0}% Complete
+                      {isHydrated && isLoadingProgress && (
+                        <span className="ml-1 text-xs animate-pulse">(updating...)</span>
+                      )}
+                    </span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <span>⭐</span>
@@ -189,6 +254,7 @@ export default function PathwayPageClient({ pathway }: PathwayPageClientProps) {
         isOpen={isModalOpen}
         onClose={closeModal}
         pathwayColor={pathway.color}
+        onModuleComplete={handleModuleComplete}
       />
     </>
   );

@@ -4,52 +4,41 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import PathwayCard, { Pathway } from './PathwayCard';
-import { PathwayManager } from '@/lib/pathways/pathway-manager';
+import { PathwayManager, PATHWAY_META } from '@/lib/pathways/pathway-manager';
+import { useHydration } from '@/lib/hooks/useHydration';
 
 export default function PathwayGrid() {
   const router = useRouter();
-  const [pathways, setPathways] = useState<Pathway[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [pathways, setPathways] = useState<Pathway[]>(PATHWAY_META); // Initialize with static data
+  const [loading, setLoading] = useState(false); // Don't show loading initially
+  const isHydrated = useHydration();
 
   useEffect(() => {
+    if (!isHydrated) return; // Wait for hydration
+
     const loadPathways = async () => {
+      setLoading(true);
       try {
         const pathwayData = await PathwayManager.getPathwayMeta();
         setPathways(pathwayData);
       } catch (error) {
         console.error('Failed to load pathways:', error);
+        // Keep the static data if API fails
       } finally {
         setLoading(false);
       }
     };
 
     loadPathways();
-  }, []);
+  }, [isHydrated]);
 
   const handlePathwayClick = (pathway: Pathway) => {
     console.log(`Navigating to pathway: ${pathway.title}`);
     router.push(`/pathway/${pathway.slug}`);
   };
 
-  if (loading) {
-    return (
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-wider text-gray-100/95 select-none mb-4">
-            AI BOOTCAMP
-          </h1>
-          <p className="text-lg text-neutral-400 font-medium">
-            Loading your pathways...
-          </p>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
-          {Array.from({ length: 8 }).map((_, index) => (
-            <div key={index} className="bg-neutral-800/50 rounded-2xl h-48 animate-pulse" />
-          ))}
-        </div>
-      </div>
-    );
-  }
+  // Show loading overlay only after hydration and during fetch
+  const showLoading = isHydrated && loading;
 
   return (
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -68,6 +57,11 @@ export default function PathwayGrid() {
         </p>
         <div className="mt-4 text-sm text-neutral-500">
           {pathways.length} specialized pathways • Expert instructors • Hands-on projects
+          {showLoading && (
+            <span className="ml-2 inline-block">
+              <span className="animate-pulse">• Loading progress...</span>
+            </span>
+          )}
         </div>
       </motion.div>
 
