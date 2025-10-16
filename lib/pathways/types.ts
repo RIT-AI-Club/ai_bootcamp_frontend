@@ -12,6 +12,7 @@ export interface Module {
     duration?: string;
   }[];
   completed?: boolean;
+  isAvailable?: boolean; // For marking modules as "coming soon"
 }
 
 export interface PathwayData {

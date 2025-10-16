@@ -217,15 +217,17 @@ export default function PathwayMap({
             {/* Module nodes */}
             <div className="relative flex items-start space-x-28 pt-8">
               {modules.map((module, index) => {
-                const isUnlocked = index < unlockedCount;
+                // Check if module is available (defaults to true if not specified)
+                const isModuleAvailable = module.isAvailable !== false;
+                const isUnlocked = isModuleAvailable && index < unlockedCount;
                 const isCurrentModule = index === currentModuleIndex;
                 const yOffset = index % 2 === 0 ? 0 : 40;
-                
+
                 return (
                   <div
                     key={module.id}
                     className="relative flex-shrink-0"
-                    style={{ 
+                    style={{
                       transform: `translateY(${yOffset}px)`,
                       zIndex: isCurrentModule ? 10 : 5
                     }}
@@ -236,8 +238,14 @@ export default function PathwayMap({
                       isUnlocked={isUnlocked}
                       isCurrentModule={isCurrentModule}
                       pathwayColor={pathwayColor}
-                      onClick={() => onModuleClick(module)}
+                      onClick={() => isModuleAvailable ? onModuleClick(module) : null}
                     />
+                    {/* Coming Soon badge for unavailable modules */}
+                    {!isModuleAvailable && (
+                      <div className="absolute -top-2 -right-2 bg-yellow-500/20 border border-yellow-500/40 rounded-full px-2 py-0.5 text-[10px] font-semibold text-yellow-400 whitespace-nowrap z-10">
+                        Coming Soon
+                      </div>
+                    )}
                   </div>
                 );
               })}

@@ -70,7 +70,8 @@
         }
       ],
       "xp": 150,
-      "completed": false
+      "completed": false,
+      "isAvailable": true
     },
     {
       "id": "prompt-gemini-nano",
@@ -110,7 +111,8 @@
         }
       ],
       "xp": 250,
-      "completed": false
+      "completed": false,
+      "isAvailable": true
     },
     {
       "id": "comfyui-workflows",
@@ -151,6 +153,7 @@
       ],
       "xp": 400,
       "completed": false,
+      "isAvailable": false,
       "hardwareNote": "GPU recommended for better performance"
     },
     {
@@ -192,6 +195,7 @@
       ],
       "xp": 500,
       "completed": false,
+      "isAvailable": false,
       "hardwareNote": "GPU recommended for LoRA fine-tuning"
     },
     {
@@ -232,7 +236,8 @@
         }
       ],
       "xp": 600,
-      "completed": false
+      "completed": false,
+      "isAvailable": false
     },
     {
       "id": "creative-service-capstone",
@@ -274,6 +279,7 @@
       ],
       "xp": 800,
       "completed": false,
+      "isAvailable": false,
       "hardwareNote": "Free-tier viable if workloads capped"
     }
   ],
