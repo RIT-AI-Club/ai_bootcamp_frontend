@@ -1,13 +1,10 @@
 'use client';
 
-import { motion, MotionProps } from 'framer-motion';
-import { forwardRef, HTMLAttributes } from 'react';
+import { motion, HTMLMotionProps } from 'framer-motion';
+import { forwardRef } from 'react';
 import { useHydration } from '@/lib/hooks/useHydration';
 
-interface MotionDivProps extends Omit<MotionProps, keyof HTMLAttributes<HTMLDivElement>>, HTMLAttributes<HTMLDivElement> {
-  children: React.ReactNode;
-  className?: string;
-}
+type MotionDivProps = HTMLMotionProps<'div'>;
 
 /**
  * Hydration-safe motion div that only animates after client-side hydration
