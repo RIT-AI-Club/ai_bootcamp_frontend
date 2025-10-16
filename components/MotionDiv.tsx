@@ -1,10 +1,10 @@
 'use client';
 
 import { motion, MotionProps } from 'framer-motion';
-import { forwardRef } from 'react';
+import { forwardRef, HTMLAttributes } from 'react';
 import { useHydration } from '@/lib/hooks/useHydration';
 
-interface MotionDivProps extends MotionProps {
+interface MotionDivProps extends Omit<MotionProps, keyof HTMLAttributes<HTMLDivElement>>, HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   className?: string;
 }
