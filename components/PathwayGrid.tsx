@@ -62,23 +62,27 @@ export default function PathwayGrid() {
         transition={{ duration: 0.6 }}
         className="text-center mb-8"
       >
-        {/* RIT AI Club Logo */}
-        <div className="mb-6 flex justify-center">
-          <div className="relative w-64 md:w-80 lg:w-96">
-            <Image
-              src="/rit_ai_clib_logo_white.png"
-              alt="RIT AI Club"
-              width={1854}
-              height={531}
-              className="w-full h-auto"
-              priority
-            />
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-wider text-gray-100/95 select-none mb-3">
+          AI BOOTCAMP
+        </h1>
+
+        {/* Created by text and RIT AI Club Logo */}
+        <div className="mb-6">
+          <p className="text-sm text-neutral-500 mb-3">Created by The</p>
+          <div className="flex justify-center">
+            <div className="relative w-48 md:w-56 lg:w-64">
+              <Image
+                src="/rit_ai_clib_logo_white.png"
+                alt="RIT AI Club"
+                width={1854}
+                height={531}
+                className="w-full h-auto"
+                priority
+              />
+            </div>
           </div>
         </div>
 
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-wider text-gray-100/95 select-none mb-4">
-          AI BOOTCAMP
-        </h1>
         <p className="text-lg text-neutral-400 font-medium">
           Choose your learning pathway and start your AI journey
         </p>
@@ -114,7 +118,7 @@ export default function PathwayGrid() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.4 }}
-        className="text-center space-y-4"
+        className="text-center space-y-4 pb-24"
       >
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl mx-auto">
           <div className="bg-neutral-800/40 backdrop-blur-sm rounded-xl p-4 border border-neutral-700/30">
