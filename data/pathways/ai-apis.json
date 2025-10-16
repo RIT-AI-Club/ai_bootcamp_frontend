@@ -161,5 +161,6 @@
   "tags": ["ai-apis", "python", "fastapi", "deployment", "production"],
   "enrolledCount": 1350,
   "rating": 4.7,
-  "lastUpdated": "2025-01-15"
+  "lastUpdated": "2025-01-15",
+  "isAvailable": false
 }

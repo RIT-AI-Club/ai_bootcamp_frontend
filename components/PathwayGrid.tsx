@@ -9,7 +9,12 @@ import MotionDiv from '@/components/MotionDiv';
 
 export default function PathwayGrid() {
   const router = useRouter();
-  const [pathways, setPathways] = useState<Pathway[]>(PATHWAY_META); // Initialize with static data
+  // Sort initial static data: available first, then locked
+  const sortedInitialPathways = [...PATHWAY_META].sort((a, b) => {
+    if ((a.isAvailable ?? true) === (b.isAvailable ?? true)) return 0;
+    return (b.isAvailable ?? true) ? 1 : -1;
+  });
+  const [pathways, setPathways] = useState<Pathway[]>(sortedInitialPathways);
   const [loading, setLoading] = useState(false); // Don't show loading initially
   const isHydrated = useHydration();
 
@@ -20,7 +25,14 @@ export default function PathwayGrid() {
       setLoading(true);
       try {
         const pathwayData = await PathwayManager.getPathwayMeta();
-        setPathways(pathwayData);
+        // Sort pathways: available first, then locked
+        const sortedPathways = pathwayData.sort((a, b) => {
+          // If both have same availability, keep original order
+          if ((a.isAvailable ?? true) === (b.isAvailable ?? true)) return 0;
+          // Available pathways come first
+          return (b.isAvailable ?? true) ? 1 : -1;
+        });
+        setPathways(sortedPathways);
       } catch (error) {
         console.error('Failed to load pathways:', error);
         // Keep the static data if API fails

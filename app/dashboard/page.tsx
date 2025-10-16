@@ -6,12 +6,11 @@ import { authService, User } from '@/lib/auth';
 import PathwayGrid from '@/components/PathwayGrid';
 import AchievementIcon from '@/components/AchievementIcon';
 import AchievementsModal from '@/components/AchievementsModal';
+import BetaBadge from '@/components/BetaBadge';
 
 export default function DashboardPage() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const [showPremiumLoading, setShowPremiumLoading] = useState(false);
-  const [premiumMessage, setPremiumMessage] = useState("Getting everything ready...");
   const [showAchievementsModal, setShowAchievementsModal] = useState(false);
   const router = useRouter();
 
@@ -21,21 +20,6 @@ export default function DashboardPage() {
 
   const checkAuth = async () => {
     try {
-      // Check if we should show premium loading
-      const showPremium = localStorage.getItem('show_premium_loading');
-      const isNewUser = localStorage.getItem('is_new_user');
-      
-      if (showPremium === 'true') {
-        setShowPremiumLoading(true);
-        setPremiumMessage(isNewUser === 'true' ? 'Setting up your personalized workspace...' : 'Welcome back! Preparing your dashboard...');
-        localStorage.removeItem('show_premium_loading');
-        localStorage.removeItem('is_new_user');
-        
-        // Start premium loading experience
-        startPremiumLoading();
-        return;
-      }
-
       const currentUser = await authService.getCurrentUser();
       if (!currentUser) {
         router.push('/landing');
@@ -50,53 +34,12 @@ export default function DashboardPage() {
     }
   };
 
-  const startPremiumLoading = async () => {
-    const messages = [
-      'Analyzing your learning preferences...',
-      'Customizing pathway recommendations...',
-      'Loading your progress data...',
-      'Finalizing your dashboard...',
-      'Almost ready!'
-    ];
-
-    // Show different messages during loading
-    for (let i = 0; i < messages.length; i++) {
-      setTimeout(() => {
-        setPremiumMessage(messages[i]);
-      }, i * 800);
-    }
-
-    // Complete the premium loading after 4-5 seconds
-    setTimeout(async () => {
-      try {
-        const currentUser = await authService.getCurrentUser();
-        if (!currentUser) {
-          router.push('/landing');
-          return;
-        }
-        setUser(currentUser);
-        setPremiumMessage('Welcome to AI Bootcamp!');
-        
-        // Small delay to show welcome message
-        setTimeout(() => {
-          setShowPremiumLoading(false);
-          setLoading(false);
-        }, 800);
-      } catch (error) {
-        console.error('Auth check failed:', error);
-        router.push('/landing');
-      }
-    }, 4500); // 4.5 seconds total
-  };
-
   const handleLogout = async () => {
     await authService.logout();
     router.push('/landing');
   };
 
-  if (loading || showPremiumLoading) {
-    // Use the premium message if available, otherwise default loading message
-    const displayMessage = showPremiumLoading ? premiumMessage : "Initializing your learning experience...";
+  if (loading) {
     return (
       <div className="min-h-screen w-full bg-gradient-to-br from-black via-neutral-900 to-neutral-800 flex items-center justify-center overflow-hidden">
         <div className="relative flex flex-col items-center">
@@ -142,7 +85,7 @@ export default function DashboardPage() {
               AI BOOTCAMP
             </div>
             <div className="text-neutral-300 text-sm animate-pulse max-w-xs">
-              {displayMessage}
+              Loading your dashboard...
             </div>
           </div>
         </div>
@@ -182,10 +125,13 @@ export default function DashboardPage() {
       </div>
 
       {/* Achievements Modal */}
-      <AchievementsModal 
-        isOpen={showAchievementsModal} 
-        onClose={() => setShowAchievementsModal(false)} 
+      <AchievementsModal
+        isOpen={showAchievementsModal}
+        onClose={() => setShowAchievementsModal(false)}
       />
+
+      {/* Beta Badge */}
+      <BetaBadge />
     </div>
   );
 }

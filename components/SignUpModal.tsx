@@ -35,11 +35,6 @@ export default function SignUpModal({ isOpen, onClose, onSwitchToSignIn }: SignU
     try {
       await authService.signUp(email, fullName, password);
       await authService.login(email, password);
-      
-      // Set premium loading flags for new user
-      localStorage.setItem('show_premium_loading', 'true');
-      localStorage.setItem('is_new_user', 'true');
-      
       onClose();
       router.push('/dashboard');
     } catch (err: any) {

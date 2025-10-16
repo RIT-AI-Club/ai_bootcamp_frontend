@@ -28,6 +28,7 @@ export const PATHWAY_META: PathwayMeta[] = [
     instructor: 'Olivier',
     color: 'from-blue-500 to-cyan-500',
     progress: 0,
+    isAvailable: false,
   },
   {
     id: 'reinforcement-learning',
@@ -37,6 +38,7 @@ export const PATHWAY_META: PathwayMeta[] = [
     instructor: 'Roman',
     color: 'from-purple-500 to-pink-500',
     progress: 0,
+    isAvailable: false,
   },
   {
     id: 'mlops',
@@ -46,6 +48,7 @@ export const PATHWAY_META: PathwayMeta[] = [
     instructor: 'Olivier',
     color: 'from-green-500 to-emerald-500',
     progress: 0,
+    isAvailable: false,
   },
   {
     id: 'ai-ethics',
@@ -55,6 +58,7 @@ export const PATHWAY_META: PathwayMeta[] = [
     instructor: 'Sage',
     color: 'from-yellow-500 to-orange-500',
     progress: 0,
+    isAvailable: false,
   },
   {
     id: 'image-generation',
@@ -64,6 +68,7 @@ export const PATHWAY_META: PathwayMeta[] = [
     instructor: 'Roman',
     color: 'from-rose-500 to-red-500',
     progress: 0,
+    isAvailable: true,
   },
   {
     id: 'llm-creation',
@@ -73,6 +78,7 @@ export const PATHWAY_META: PathwayMeta[] = [
     instructor: 'Roman',
     color: 'from-indigo-500 to-purple-500',
     progress: 0,
+    isAvailable: false,
   },
   {
     id: 'ai-apis',
@@ -82,6 +88,7 @@ export const PATHWAY_META: PathwayMeta[] = [
     instructor: 'Olivier',
     color: 'from-teal-500 to-green-500',
     progress: 0,
+    isAvailable: false,
   },
   {
     id: 'devops',
@@ -91,6 +98,7 @@ export const PATHWAY_META: PathwayMeta[] = [
     instructor: 'Roman',
     color: 'from-slate-500 to-gray-500',
     progress: 0,
+    isAvailable: false,
   },
   {
     id: 'vibecoding',
@@ -100,6 +108,7 @@ export const PATHWAY_META: PathwayMeta[] = [
     instructor: 'Roman',
     color: 'from-violet-500 to-purple-500',
     progress: 0,
+    isAvailable: false,
   },
   {
     id: 'prompt-engineering',
@@ -109,6 +118,7 @@ export const PATHWAY_META: PathwayMeta[] = [
     instructor: 'Roman',
     color: 'from-amber-500 to-yellow-500',
     progress: 0,
+    isAvailable: true,
   },
   {
     id: 'ai-agents',
@@ -118,6 +128,7 @@ export const PATHWAY_META: PathwayMeta[] = [
     instructor: 'Olivier',
     color: 'from-sky-500 to-blue-500',
     progress: 0,
+    isAvailable: false,
   },
   {
     id: 'vector-db-rag',
@@ -127,6 +138,7 @@ export const PATHWAY_META: PathwayMeta[] = [
     instructor: 'Olivier',
     color: 'from-emerald-500 to-teal-500',
     progress: 0,
+    isAvailable: false,
   },
   {
     id: 'ai-research',
@@ -136,6 +148,7 @@ export const PATHWAY_META: PathwayMeta[] = [
     instructor: 'Roman',
     color: 'from-pink-500 to-rose-500',
     progress: 0,
+    isAvailable: false,
   },
 ];
 
@@ -149,15 +162,20 @@ export class PathwayManager {
       const completeData = await ProgressService.fetchCompleteData();
 
       // Map pathways data to PathwayMeta format
-      return completeData.pathways.map(pathway => ({
-        id: pathway.id,
-        slug: pathway.slug,
-        title: pathway.title,
-        shortTitle: pathway.shortTitle,
-        instructor: pathway.instructor,
-        color: pathway.color,
-        progress: pathway.progress
-      }));
+      return completeData.pathways.map(pathway => {
+        // Find the corresponding pathway in PATHWAY_META to get isAvailable
+        const metaPathway = PATHWAY_META.find(p => p.id === pathway.id);
+        return {
+          id: pathway.id,
+          slug: pathway.slug,
+          title: pathway.title,
+          shortTitle: pathway.shortTitle,
+          instructor: pathway.instructor,
+          color: pathway.color,
+          progress: pathway.progress,
+          isAvailable: metaPathway?.isAvailable ?? true // Default to true if not found
+        };
+      });
     } catch (error) {
       console.error('Failed to fetch pathway data:', error);
       // Return base metadata with 0 progress on error

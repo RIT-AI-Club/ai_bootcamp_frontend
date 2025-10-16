@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { PathwayData, Module } from '@/lib/pathways/types';
 import PathwayMap from '@/components/PathwayMap';
 import ModuleDetailModal from '@/components/ModuleDetailModal';
+import BetaBadge from '@/components/BetaBadge';
 import { ProgressService } from '@/lib/progress/progress-service';
 import { useHydration } from '@/lib/hooks/useHydration';
 import MotionDiv from '@/components/MotionDiv';
@@ -256,6 +257,9 @@ export default function PathwayPageClient({ pathway: initialPathway }: PathwayPa
         pathwayColor={pathway.color}
         onModuleComplete={handleModuleComplete}
       />
+
+      {/* Beta Badge */}
+      <BetaBadge />
     </>
   );
 }

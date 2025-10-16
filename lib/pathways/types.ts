@@ -35,6 +35,7 @@ export interface PathwayData {
   rating?: number;
   lastUpdated: string;
   progress?: number;
+  isAvailable?: boolean;
 }
 
 export interface PathwayMeta {
@@ -45,4 +46,5 @@ export interface PathwayMeta {
   instructor: string;
   color: string;
   progress: number;
+  isAvailable?: boolean;
 }

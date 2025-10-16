@@ -26,11 +26,6 @@ export default function SignInModal({ isOpen, onClose, onSwitchToSignUp }: SignI
 
     try {
       await authService.login(email, password);
-      
-      // Set premium loading flag for returning user
-      localStorage.setItem('show_premium_loading', 'true');
-      localStorage.setItem('is_new_user', 'false');
-      
       onClose();
       router.push('/dashboard');
     } catch (err: any) {

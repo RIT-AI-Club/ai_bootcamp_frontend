@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import SignInModal from '@/components/SignInModal';
 import SignUpModal from '@/components/SignUpModal';
 import WaitlistModal from '@/components/WaitlistModal';
+import BetaBadge from '@/components/BetaBadge';
 import { authService } from '@/lib/auth';
 
 export default function LandingPage() {
@@ -95,6 +96,9 @@ export default function LandingPage() {
         isOpen={showWaitlist}
         onClose={() => setShowWaitlist(false)}
       />
+
+      {/* Beta Badge */}
+      <BetaBadge />
     </>
   );
 }

@@ -166,5 +166,6 @@
   ],
   "enrolledCount": 1247,
   "rating": 4.8,
-  "lastUpdated": "2025-01-15"
+  "lastUpdated": "2025-01-15",
+  "isAvailable": false
 }

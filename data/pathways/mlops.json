@@ -26,5 +26,6 @@
   "tags": ["mlops", "deployment", "monitoring", "automation"],
   "enrolledCount": 1034,
   "rating": 4.8,
-  "lastUpdated": "2025-01-14"
+  "lastUpdated": "2025-01-14",
+  "isAvailable": false
 }

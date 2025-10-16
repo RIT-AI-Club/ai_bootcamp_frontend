@@ -11,6 +11,7 @@ export interface Pathway {
   instructor: string;
   progress: number; // 0-100
   color: string;
+  isAvailable?: boolean;
 }
 
 interface PathwayCardProps {
@@ -21,7 +22,8 @@ interface PathwayCardProps {
 
 export default function PathwayCard({ pathway, index, onClick }: PathwayCardProps) {
   const [isHovered, setIsHovered] = useState(false);
-  
+  const isLocked = pathway.isAvailable === false;
+
   // Convert Tailwind color classes to actual colors for SVG gradients
   const getColorValues = (colorString: string) => {
     const colorMap: { [key: string]: string } = {
@@ -65,10 +67,10 @@ export default function PathwayCard({ pathway, index, onClick }: PathwayCardProp
       className="relative group cursor-pointer"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={onClick}
+      onClick={isLocked ? undefined : onClick}
     >
       {/* Main Card */}
-      <div className="relative bg-gradient-to-br from-neutral-800/80 to-neutral-900/90 backdrop-blur-sm rounded-2xl p-6 h-48 border border-neutral-700/50 hover:border-neutral-600/60 transition-all duration-300 overflow-hidden group-hover:scale-[1.02]">
+      <div className={`relative bg-gradient-to-br from-neutral-800/80 to-neutral-900/90 backdrop-blur-sm rounded-2xl p-6 h-48 border border-neutral-700/50 transition-all duration-300 overflow-hidden ${isLocked ? 'opacity-60 cursor-not-allowed' : 'hover:border-neutral-600/60 group-hover:scale-[1.02]'}`}>
         
         {/* Progress Background */}
         <div className="absolute inset-0 rounded-2xl overflow-hidden">
@@ -164,17 +166,36 @@ export default function PathwayCard({ pathway, index, onClick }: PathwayCardProp
           </div>
         </div>
 
+        {/* Coming Soon Overlay for Locked Pathways */}
+        {isLocked && (
+          <div className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-[2px] rounded-2xl z-20">
+            <div className="relative">
+              {/* Lock Icon */}
+              <div className="flex flex-col items-center space-y-2">
+                <div className="w-12 h-12 rounded-full bg-neutral-800/90 border-2 border-neutral-600/50 flex items-center justify-center">
+                  <svg className="w-6 h-6 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  </svg>
+                </div>
+                <div className="bg-neutral-800/95 backdrop-blur-sm px-4 py-2 rounded-lg border border-neutral-700/50">
+                  <span className="text-sm font-semibold text-neutral-300 tracking-wide">COMING SOON</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Hover Glow Effect */}
-        <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${pathway.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
-        
+        <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${pathway.color} opacity-0 ${!isLocked && 'group-hover:opacity-10'} transition-opacity duration-300`} />
+
         {/* Subtle shine effect on hover */}
         <div className="absolute top-0 left-0 w-full h-full rounded-2xl overflow-hidden">
-          <div className={`absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r ${pathway.color} opacity-0 group-hover:opacity-60 transition-opacity duration-300`} />
+          <div className={`absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r ${pathway.color} opacity-0 ${!isLocked && 'group-hover:opacity-60'} transition-opacity duration-300`} />
         </div>
       </div>
 
       {/* Floating hover effect */}
-      {isHovered && (
+      {isHovered && !isLocked && (
         <MotionDiv
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
