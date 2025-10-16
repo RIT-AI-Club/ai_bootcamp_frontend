@@ -2,12 +2,16 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { Module } from '@/lib/pathways/types';
+import ResourceItem from './ResourceItem';
+import { useState, useEffect } from 'react';
+import { ResourceService, type ResourceCompletion, type ResourceSubmission } from '@/lib/resources/resource-service';
 
 interface ModuleDetailModalProps {
   module: Module | null;
   isOpen: boolean;
   onClose: () => void;
   pathwayColor: string;
+  pathwayId: string;
   onModuleComplete?: (moduleId: string) => void;
 }
 
@@ -16,9 +20,44 @@ export default function ModuleDetailModal({
   isOpen,
   onClose,
   pathwayColor,
+  pathwayId,
   onModuleComplete
 }: ModuleDetailModalProps) {
+  const [resourceCompletedCount, setResourceCompletedCount] = useState(0);
+  const [resourcesProgress, setResourcesProgress] = useState<Map<string, { completion?: ResourceCompletion; submissions: ResourceSubmission[] }>>(new Map());
+  const [isLoadingProgress, setIsLoadingProgress] = useState(false);
+
+  // Fetch all resources progress when module opens - OPTIMIZED with single API call
+  useEffect(() => {
+    if (!module || !isOpen) return;
+
+    const fetchAllProgress = async () => {
+      setIsLoadingProgress(true);
+
+      // SINGLE API call to get all resources with progress
+      const resourcesWithProgress = await ResourceService.getModuleResourcesWithProgress(module.id);
+
+      // Map to resource ID for easy lookup
+      const progressMap = new Map();
+      resourcesWithProgress.forEach((resource) => {
+        progressMap.set(resource.id, {
+          completion: resource.completion || null,
+          submissions: resource.submissions || []
+        });
+      });
+
+      setResourcesProgress(progressMap);
+      setIsLoadingProgress(false);
+    };
+
+    fetchAllProgress();
+  }, [module, isOpen]);
+
   if (!module) return null;
+
+  const handleResourceComplete = () => {
+    setResourceCompletedCount(prev => prev + 1);
+  };
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
@@ -30,21 +69,6 @@ export default function ModuleDetailModal({
         return 'from-red-400 to-pink-500';
       default:
         return 'from-gray-400 to-gray-500';
-    }
-  };
-
-  const getResourceIcon = (type: string) => {
-    switch (type) {
-      case 'video':
-        return '🎥';
-      case 'article':
-        return '📖';
-      case 'exercise':
-        return '💻';
-      case 'project':
-        return '🚀';
-      default:
-        return '📄';
     }
   };
 
@@ -158,44 +182,31 @@ export default function ModuleDetailModal({
                 {module.resources && module.resources.length > 0 && (
                   <div className="mb-6">
                     <h3 className="text-lg font-semibold text-gray-100/95 mb-4">Learning Resources</h3>
+                    {isLoadingProgress && (
+                      <div className="text-sm text-neutral-400 mb-3">Loading progress...</div>
+                    )}
                     <div className="space-y-3">
-                      {module.resources.map((resource, index) => (
-                        <motion.div
-                          key={index}
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: index * 0.05 }}
-                          className="flex items-center justify-between bg-neutral-800/40 rounded-xl p-4 border border-neutral-700/20 hover:bg-neutral-800/60 transition-colors"
-                        >
-                          <div className="flex items-center space-x-3">
-                            <span className="text-2xl">{getResourceIcon(resource.type)}</span>
-                            <div>
-                              <h4 className="text-gray-100/90 font-medium">{resource.title}</h4>
-                              <p className="text-neutral-400 text-sm capitalize">{resource.type}</p>
-                            </div>
-                          </div>
-                          
-                          <div className="flex items-center space-x-3">
-                            {resource.duration && (
-                              <span className="text-neutral-400 text-sm">{resource.duration}</span>
-                            )}
-                            {resource.url ? (
-                              <a
-                                href={resource.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className={`px-4 py-2 bg-gradient-to-r ${pathwayColor} text-white rounded-lg text-sm font-medium hover:scale-105 transition-transform`}
-                              >
-                                Open
-                              </a>
-                            ) : (
-                              <button className="px-4 py-2 bg-neutral-700/50 text-neutral-300 rounded-lg text-sm font-medium cursor-not-allowed">
-                                Coming Soon
-                              </button>
-                            )}
-                          </div>
-                        </motion.div>
-                      ))}
+                      {module.resources.map((resource, index) => {
+                        // Generate resource ID: {module_id}-r{index+1}
+                        const resourceId = `${module.id}-r${index + 1}`;
+                        const progressData = resourcesProgress.get(resourceId);
+
+                        return (
+                          <ResourceItem
+                            key={resourceId}
+                            resource={resource}
+                            resourceId={resourceId}
+                            pathwayId={pathwayId}
+                            moduleId={module.id}
+                            pathwayColor={pathwayColor}
+                            index={index}
+                            initialCompletion={progressData?.completion}
+                            initialSubmissions={progressData?.submissions}
+                            onComplete={handleResourceComplete}
+                            onUploadSuccess={handleResourceComplete}
+                          />
+                        );
+                      })}
                     </div>
                   </div>
                 )}

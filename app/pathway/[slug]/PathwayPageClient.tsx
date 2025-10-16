@@ -235,6 +235,7 @@ export default function PathwayPageClient({ pathway: initialPathway }: PathwayPa
         isOpen={isModalOpen}
         onClose={closeModal}
         pathwayColor={pathway.color}
+        pathwayId={pathway.id}
         onModuleComplete={handleModuleComplete}
       />
 

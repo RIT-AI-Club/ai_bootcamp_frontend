@@ -166,6 +166,30 @@ export class ResourceService {
     }
   }
 
+  /**
+   * Get resources for a module WITH progress and submissions in ONE call (optimized)
+   */
+  static async getModuleResourcesWithProgress(moduleId: string): Promise<ResourceWithProgress[]> {
+    try {
+      const response = await fetch(
+        `${API_BASE_URL}/api/v1/resources/modules/${moduleId}/resources-with-progress`,
+        {
+          method: 'GET',
+          headers: this.getAuthHeaders(),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch module resources with progress');
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching module resources with progress:', error);
+      return [];
+    }
+  }
+
   // ============================================================================
   // Progress Tracking
   // ============================================================================

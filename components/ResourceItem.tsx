@@ -19,6 +19,8 @@ interface ResourceItemProps {
   moduleId: string;
   pathwayColor: string;
   index: number;
+  initialCompletion?: ResourceCompletion | null;
+  initialSubmissions?: ResourceSubmission[];
   onComplete?: () => void;
   onUploadSuccess?: () => void;
 }
@@ -30,31 +32,16 @@ export default function ResourceItem({
   moduleId,
   pathwayColor,
   index,
+  initialCompletion,
+  initialSubmissions = [],
   onComplete,
   onUploadSuccess
 }: ResourceItemProps) {
-  const [completion, setCompletion] = useState<ResourceCompletion | null>(null);
-  const [submissions, setSubmissions] = useState<ResourceSubmission[]>([]);
+  const [completion, setCompletion] = useState<ResourceCompletion | null>(initialCompletion || null);
+  const [submissions, setSubmissions] = useState<ResourceSubmission[]>(initialSubmissions);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [showUpload, setShowUpload] = useState(false);
-
-  // Fetch completion status on mount
-  useState(() => {
-    const fetchProgress = async () => {
-      const progress = await ResourceService.getResourceProgress(resourceId);
-      if (progress) {
-        setCompletion(progress);
-      }
-
-      // If resource requires upload, fetch submissions
-      if (resource.type === 'exercise' || resource.type === 'project') {
-        const subs = await ResourceService.getResourceSubmissions(resourceId);
-        setSubmissions(subs);
-      }
-    };
-    fetchProgress();
-  });
 
   const getResourceIcon = (type: string) => {
     switch (type) {
