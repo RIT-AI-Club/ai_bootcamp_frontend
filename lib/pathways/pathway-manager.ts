@@ -116,7 +116,7 @@ export const PATHWAY_META: PathwayMeta[] = [
     title: 'Prompt Engineering',
     shortTitle: 'Prompt Engineering',
     instructor: 'Roman',
-    color: 'from-amber-500 to-yellow-500',
+    color: 'from-yellow-500 to-orange-600',
     progress: 0,
     isAvailable: true,
   },

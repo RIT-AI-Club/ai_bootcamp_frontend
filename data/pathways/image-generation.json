@@ -6,7 +6,7 @@
   "instructor": "Roman",
   "description": "Explore the breadth of AI image creation across tools, communities, and deployment pipelines. Build from core prompt design to advanced SaaS-style generation systems.",
   "overview": "This pathway builds from core prompt design to advanced SaaS-style generation systems. Students will learn accessible, monetizable applications—from ComfyUI workflows to image editing with Gemini. Each module combines hands-on practice with industry-standard tools and real-world project applications.",
-  "duration": "6 modules (8-10 weeks)",
+  "duration": "6 modules",
   "level": "intermediate",
   "prerequisites": [
     "Basic understanding of AI/ML concepts",

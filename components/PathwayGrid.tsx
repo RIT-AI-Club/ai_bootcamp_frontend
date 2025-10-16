@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import PathwayCard, { Pathway } from './PathwayCard';
 import { PathwayManager, PATHWAY_META } from '@/lib/pathways/pathway-manager';
 import { useHydration } from '@/lib/hooks/useHydration';
@@ -61,6 +62,20 @@ export default function PathwayGrid() {
         transition={{ duration: 0.6 }}
         className="text-center mb-8"
       >
+        {/* RIT AI Club Logo */}
+        <div className="mb-6 flex justify-center">
+          <div className="relative w-64 md:w-80 lg:w-96">
+            <Image
+              src="/rit_ai_clib_logo_white.png"
+              alt="RIT AI Club"
+              width={1854}
+              height={531}
+              className="w-full h-auto"
+              priority
+            />
+          </div>
+        </div>
+
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-wider text-gray-100/95 select-none mb-4">
           AI BOOTCAMP
         </h1>

@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import { PathwayData, Module } from '@/lib/pathways/types';
 import PathwayMap from '@/components/PathwayMap';
 import ModuleDetailModal from '@/components/ModuleDetailModal';
@@ -14,6 +16,7 @@ interface PathwayPageClientProps {
 }
 
 export default function PathwayPageClient({ pathway: initialPathway }: PathwayPageClientProps) {
+  const router = useRouter();
   const [pathway, setPathway] = useState<PathwayData>(initialPathway);
   const [selectedModule, setSelectedModule] = useState<Module | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -100,12 +103,13 @@ export default function PathwayPageClient({ pathway: initialPathway }: PathwayPa
             className="p-6 md:p-8"
           >
             <div className="flex items-center justify-between mb-8">
-              <a 
-                href="/dashboard" 
-                className="text-gray-100/90 hover:text-gray-100/60 transition-colors duration-200 font-semibold tracking-wider"
+              <button
+                onClick={() => router.push('/dashboard')}
+                className="flex items-center gap-2 text-gray-100/90 hover:text-gray-100/60 transition-colors duration-200 font-semibold tracking-wider"
               >
-                ← BACK TO DASHBOARD
-              </a>
+                <ArrowLeftIcon className="w-5 h-5" />
+                BACK TO DASHBOARD
+              </button>
             </div>
           </MotionDiv>
 
@@ -132,30 +136,6 @@ export default function PathwayPageClient({ pathway: initialPathway }: PathwayPa
                 <p className="text-xl text-neutral-400 mb-8 max-w-3xl mx-auto leading-relaxed">
                   {pathway.description}
                 </p>
-                
-                <div className="flex items-center justify-center space-x-8 text-sm text-neutral-500">
-                  <div className="flex items-center space-x-2">
-                    <span>👨‍🏫</span>
-                    <span>{pathway.instructor}</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <span>📈</span>
-                    <span>
-                      {pathway.progress || 0}% Complete
-                      {isHydrated && isLoadingProgress && (
-                        <span className="ml-1 text-xs animate-pulse">(updating...)</span>
-                      )}
-                    </span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <span>⭐</span>
-                    <span>{pathway.rating}/5</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <span>👥</span>
-                    <span>{pathway.enrolledCount?.toLocaleString()} enrolled</span>
-                  </div>
-                </div>
               </div>
 
               {/* Quick Info Grid */}

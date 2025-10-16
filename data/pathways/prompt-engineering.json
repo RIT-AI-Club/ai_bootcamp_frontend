@@ -6,7 +6,7 @@
   "instructor": "Roman",
   "description": "Master the art of crafting effective prompts for large language models and multimodal AI systems, from fundamentals to advanced structured outputs.",
   "overview": "This pathway teaches how to craft effective prompts for large language models and multimodal AI systems. It moves from fundamentals (clear text prompts) to advanced strategies (structured outputs, tool-calling, multimodal prompts). The focus is on creative control and practical application.",
-  "duration": "4 modules (4-5 weeks)",
+  "duration": "4 modules",
   "level": "beginner",
   "prerequisites": [
     "Basic understanding of AI/LLMs",
@@ -199,7 +199,7 @@
       "hardwareNote": "Optional deployment via Hugging Face Spaces/Gradio"
     }
   ],
-  "color": "from-amber-500 to-yellow-500",
+  "color": "from-yellow-500 to-orange-600",
   "tags": [
     "prompt-engineering",
     "llm",

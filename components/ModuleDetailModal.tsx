@@ -73,19 +73,18 @@ export default function ModuleDetailModal({
               className="relative w-full max-w-4xl max-h-[90vh] bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-800 rounded-3xl shadow-2xl border border-neutral-700/50 overflow-hidden flex flex-col"
               onClick={(e) => e.stopPropagation()}
             >
+              {/* Close button - Outside header for better clickability */}
+              <button
+                onClick={onClose}
+                className="absolute top-6 right-6 z-50 w-10 h-10 flex items-center justify-center bg-white/10 hover:bg-white/20 rounded-full transition-all"
+                aria-label="Close modal"
+              >
+                <span className="text-white text-2xl font-light leading-none">×</span>
+              </button>
+
               {/* Header with gradient accent */}
-              <div className={`relative bg-gradient-to-r ${pathwayColor} p-6 pb-20 flex-shrink-0`}>
+              <div className={`relative bg-gradient-to-r ${pathwayColor} p-6 flex-shrink-0`}>
                 <div className="absolute inset-0 bg-black/20" />
-                
-                {/* Close button */}
-                <button
-                  onClick={onClose}
-                  className="absolute top-4 right-4 text-white/80 hover:text-white transition-colors z-10 p-2 hover:bg-white/10 rounded-lg"
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
 
                 {/* Module status badge */}
                 <div className="relative z-10">
@@ -101,10 +100,10 @@ export default function ModuleDetailModal({
                     </div>
                   )}
 
-                  <h2 className="text-3xl font-black text-white mb-2 leading-tight">
+                  <h2 className="text-3xl font-black text-white mb-2 leading-tight pr-12">
                     {module.title}
                   </h2>
-                  
+
                   <div className="flex items-center space-x-4 text-white/80">
                     <div className={`inline-block px-3 py-1 rounded-full bg-gradient-to-r ${getDifficultyColor(module.difficulty)} text-white text-sm font-medium`}>
                       {module.difficulty}
@@ -118,7 +117,7 @@ export default function ModuleDetailModal({
               </div>
 
               {/* Scrollable Content */}
-              <div className="flex-1 overflow-y-auto p-6 -mt-12 relative z-10 custom-scrollbar">
+              <div className="flex-1 overflow-y-auto p-6 custom-scrollbar">
                 {/* Description card */}
                 <div className="bg-neutral-800/60 backdrop-blur-sm rounded-2xl p-6 border border-neutral-700/30 mb-6">
                   <h3 className="text-lg font-semibold text-gray-100/95 mb-3">About This Module</h3>
