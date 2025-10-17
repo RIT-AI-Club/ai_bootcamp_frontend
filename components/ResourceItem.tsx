@@ -92,11 +92,16 @@ export default function ResourceItem({
   };
 
   const handleQuizComplete = async (score: number, passed: boolean) => {
-    // Mark resource as completed
-    const result = await ResourceService.completeResource(resourceId);
-    if (result) {
-      setCompletion(result);
-      onComplete?.();
+    // Only mark as completed if passed (80% or configured passing score)
+    if (passed) {
+      const result = await ResourceService.completeResource(resourceId);
+      if (result) {
+        setCompletion(result);
+        onComplete?.();
+      }
+    } else {
+      // Quiz failed - don't mark as complete, allow retake
+      console.log(`Quiz failed with score ${score}%. Passing score required.`);
     }
   };
 
@@ -285,8 +290,8 @@ export default function ResourceItem({
               </button>
             )}
 
-            {/* Complete Button */}
-            {!isCompleted && (!requiresUpload || isSubmitted) && (
+            {/* Complete Button - Only for non-quiz, non-upload resources */}
+            {!isCompleted && resource.type !== 'quiz' && !requiresUpload && (
               <button
                 onClick={handleComplete}
                 className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm font-medium hover:scale-105 transition-transform"

@@ -114,6 +114,67 @@ export class ResourceService {
     };
   }
 
+  private static async refreshTokenIfNeeded(): Promise<void> {
+    const refreshToken = localStorage.getItem('refresh_token');
+    if (!refreshToken) {
+      throw new Error('No refresh token available');
+    }
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/v1/auth/refresh`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          refresh_token: refreshToken,
+        }),
+      });
+
+      if (!response.ok) {
+        // Clear tokens and redirect to login
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+        window.location.href = '/';
+        throw new Error('Token refresh failed');
+      }
+
+      const tokens = await response.json();
+      localStorage.setItem('access_token', tokens.access_token);
+      localStorage.setItem('refresh_token', tokens.refresh_token);
+    } catch (error) {
+      console.error('Failed to refresh token:', error);
+      throw error;
+    }
+  }
+
+  private static async fetchWithAuth(url: string, options: RequestInit = {}): Promise<Response> {
+    // First attempt
+    let response = await fetch(url, {
+      ...options,
+      headers: {
+        ...options.headers,
+        ...this.getAuthHeaders(),
+      },
+    });
+
+    // If 401, try refreshing token and retry once
+    if (response.status === 401) {
+      await this.refreshTokenIfNeeded();
+
+      // Retry with new token
+      response = await fetch(url, {
+        ...options,
+        headers: {
+          ...options.headers,
+          ...this.getAuthHeaders(),
+        },
+      });
+    }
+
+    return response;
+  }
+
   // ============================================================================
   // Resource Queries
   // ============================================================================

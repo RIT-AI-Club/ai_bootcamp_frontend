@@ -43,7 +43,7 @@ export default function Quiz({ quizData, onComplete, accentColor = 'from-blue-50
   const currentQuestion = quizData.questions[currentQuestionIndex];
   const totalQuestions = quizData.questions.length;
   const progress = ((currentQuestionIndex + 1) / totalQuestions) * 100;
-  const passingScore = quizData.passingScore || 70;
+  const passingScore = quizData.passingScore || 80; // Default 80% passing score
 
   const handleOptionSelect = (optionId: string) => {
     if (showFeedback) return; // Prevent changing answer after submission

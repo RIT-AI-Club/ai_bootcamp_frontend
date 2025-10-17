@@ -113,6 +113,12 @@ export default function DashboardPage() {
           
           <div className="flex gap-4 items-center">
             <button
+              onClick={() => router.push('/about')}
+              className="text-gray-100/90 hover:text-gray-100/60 transition-colors duration-200 font-semibold tracking-wider"
+            >
+              ABOUT
+            </button>
+            <button
               onClick={() => router.push('/help')}
               className="text-gray-100/90 hover:text-gray-100/60 transition-colors duration-200 font-semibold tracking-wider"
             >

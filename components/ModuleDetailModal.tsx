@@ -59,7 +59,6 @@ export default function ModuleDetailModal({
     if (isLoadingProgress) return false;
 
     const totalResources = module.resources.length;
-    let completedCount = 0;
 
     for (let i = 0; i < totalResources; i++) {
       const resourceId = `${module.id}-r${i + 1}`;
@@ -67,24 +66,27 @@ export default function ModuleDetailModal({
       const resource = module.resources[i];
 
       // Check if resource is completed
-      if (progressData?.completion &&
-          ['completed', 'submitted', 'reviewed'].includes(progressData.completion.status)) {
-        completedCount++;
-      } else {
-        // If resource is not complete, validation fails
+      if (!progressData?.completion ||
+          !['completed', 'submitted', 'reviewed'].includes(progressData.completion.status)) {
+        // Resource is not complete
         return false;
       }
 
-      // Check if upload is required and submitted
+      // For quiz resources - completion status already means they passed (80%+)
+      // Quizzes only mark as complete if user passes, so no additional check needed
+
+      // Check if upload is required and submitted with at least one upload
       if ((resource.type === 'exercise' || resource.type === 'project')) {
         if (!progressData?.submissions || progressData.submissions.length === 0) {
           // Missing required upload
           return false;
         }
+        // Note: We check for uploads but don't require approval here
+        // Approval is checked at module completion by backend
       }
     }
 
-    return completedCount === totalResources;
+    return true;
   }, [module, resourcesProgress, isLoadingProgress]);
 
   if (!module) return null;
@@ -274,33 +276,21 @@ export default function ModuleDetailModal({
 
               {/* Fixed Action buttons */}
               <div className="sticky bottom-0 bg-gradient-to-t from-neutral-900 via-neutral-900/95 to-transparent p-6 pt-8 flex-shrink-0">
-                <div className="flex items-center justify-between border-t border-neutral-700/30 pt-4">
-                  <button
-                    onClick={onClose}
-                    className="px-6 py-2 bg-neutral-700/50 text-neutral-300 rounded-lg hover:bg-neutral-700/70 transition-colors"
-                  >
-                    Close
-                  </button>
-
+                <div className="flex items-center justify-end border-t border-neutral-700/30 pt-4">
                   <div className="flex items-center space-x-3">
                     {!module.completed && (
-                      <>
-                        <button className={`px-6 py-2 bg-gradient-to-r ${pathwayColor} text-white rounded-lg font-medium hover:scale-105 transition-transform shadow-lg`}>
-                          Start Learning
-                        </button>
-                        <button
-                          onClick={() => allResourcesComplete && onModuleComplete?.(module.id)}
-                          disabled={!allResourcesComplete}
-                          className={`px-6 py-2 rounded-lg font-medium transition-transform shadow-lg ${
-                            allResourcesComplete
-                              ? 'bg-green-600 hover:bg-green-700 text-white hover:scale-105 cursor-pointer'
-                              : 'bg-gray-600 text-gray-400 cursor-not-allowed opacity-60'
-                          }`}
-                          title={!allResourcesComplete ? 'Complete all resources first' : 'Submit for instructor review'}
-                        >
-                          {allResourcesComplete ? 'Submit for Review' : 'Complete All Resources First'}
-                        </button>
-                      </>
+                      <button
+                        onClick={() => allResourcesComplete && onModuleComplete?.(module.id)}
+                        disabled={!allResourcesComplete}
+                        className={`px-6 py-2 rounded-lg font-medium transition-transform shadow-lg ${
+                          allResourcesComplete
+                            ? 'bg-green-600 hover:bg-green-700 text-white hover:scale-105 cursor-pointer'
+                            : 'bg-gray-600 text-gray-400 cursor-not-allowed opacity-60'
+                        }`}
+                        title={!allResourcesComplete ? 'Complete all resources first' : 'Submit for instructor review'}
+                      >
+                        {allResourcesComplete ? 'Submit for Review' : 'Complete All Resources First'}
+                      </button>
                     )}
 
                     {module.completed && module.approval_status === 'approved' && (

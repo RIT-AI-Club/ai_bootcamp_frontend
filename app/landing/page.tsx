@@ -61,7 +61,7 @@ export default function LandingPage() {
           >
             AI BOOTCAMP
           </h1>
-          <button 
+          <button
             onClick={() => setShowSignIn(true)}
             onMouseEnter={() => setIsHoveringBegin(true)}
             onMouseLeave={() => setIsHoveringBegin(false)}
@@ -69,7 +69,13 @@ export default function LandingPage() {
           >
             BEGIN
           </button>
-          <button 
+          <button
+            onClick={() => router.push('/about')}
+            className="mt-4 md:mt-6 text-gray-100/90 hover:text-gray-100/60 transition-colors duration-200 cursor-pointer text-sm md:text-base font-semibold tracking-widest"
+          >
+            ABOUT
+          </button>
+          <button
             onClick={() => setShowWaitlist(true)}
             onMouseEnter={() => setIsHoveringWaitlist(true)}
             onMouseLeave={() => setIsHoveringWaitlist(false)}

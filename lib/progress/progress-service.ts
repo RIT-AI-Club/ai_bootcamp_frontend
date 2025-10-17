@@ -72,14 +72,74 @@ export class ProgressService {
     };
   }
 
+  private static async refreshTokenIfNeeded(): Promise<void> {
+    const refreshToken = localStorage.getItem('refresh_token');
+    if (!refreshToken) {
+      throw new Error('No refresh token available');
+    }
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/v1/auth/refresh`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          refresh_token: refreshToken,
+        }),
+      });
+
+      if (!response.ok) {
+        // Clear tokens and redirect to login
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+        window.location.href = '/';
+        throw new Error('Token refresh failed');
+      }
+
+      const tokens = await response.json();
+      localStorage.setItem('access_token', tokens.access_token);
+      localStorage.setItem('refresh_token', tokens.refresh_token);
+    } catch (error) {
+      console.error('Failed to refresh token:', error);
+      throw error;
+    }
+  }
+
+  private static async fetchWithAuth(url: string, options: RequestInit = {}): Promise<Response> {
+    // First attempt
+    let response = await fetch(url, {
+      ...options,
+      headers: {
+        ...options.headers,
+        ...this.getAuthHeaders(),
+      },
+    });
+
+    // If 401, try refreshing token and retry once
+    if (response.status === 401) {
+      await this.refreshTokenIfNeeded();
+
+      // Retry with new token
+      response = await fetch(url, {
+        ...options,
+        headers: {
+          ...options.headers,
+          ...this.getAuthHeaders(),
+        },
+      });
+    }
+
+    return response;
+  }
+
   /**
    * Fetch user's dashboard data from backend (OPTIMIZED VERSION)
    */
   static async fetchDashboardData(): Promise<DashboardData> {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/v1/progress/user/dashboard-optimized`, {
+      const response = await this.fetchWithAuth(`${API_BASE_URL}/api/v1/progress/user/dashboard-optimized`, {
         method: 'GET',
-        headers: this.getAuthHeaders(),
       });
 
       if (!response.ok) {
@@ -133,9 +193,8 @@ export class ProgressService {
     streak: any;
   }> {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/v1/progress/user/dashboard-optimized`, {
+      const response = await this.fetchWithAuth(`${API_BASE_URL}/api/v1/progress/user/dashboard-optimized`, {
         method: 'GET',
-        headers: this.getAuthHeaders(),
       });
 
       if (!response.ok) {
@@ -201,9 +260,8 @@ export class ProgressService {
    */
   static async fetchUserProgress(): Promise<UserProgress> {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/v1/progress/user/summary`, {
+      const response = await this.fetchWithAuth(`${API_BASE_URL}/api/v1/progress/user/summary`, {
         method: 'GET',
-        headers: this.getAuthHeaders(),
       });
 
       if (!response.ok) {
@@ -255,9 +313,8 @@ export class ProgressService {
     currentModule?: string;
   }> {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/v1/progress/pathways/${pathwayId}`, {
+      const response = await this.fetchWithAuth(`${API_BASE_URL}/api/v1/progress/pathways/${pathwayId}`, {
         method: 'GET',
-        headers: this.getAuthHeaders(),
       });
 
       if (!response.ok) {
@@ -290,9 +347,8 @@ export class ProgressService {
    */
   static async startPathway(pathwayId: string): Promise<boolean> {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/v1/progress/user/start-pathway`, {
+      const response = await this.fetchWithAuth(`${API_BASE_URL}/api/v1/progress/user/start-pathway`, {
         method: 'POST',
-        headers: this.getAuthHeaders(),
         body: JSON.stringify({ pathway_id: pathwayId })
       });
 
@@ -308,9 +364,8 @@ export class ProgressService {
    */
   static async markModuleComplete(pathwayId: string, moduleId: string, timeSpentMinutes: number = 0): Promise<boolean> {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/v1/progress/modules/complete`, {
+      const response = await this.fetchWithAuth(`${API_BASE_URL}/api/v1/progress/modules/complete`, {
         method: 'POST',
-        headers: this.getAuthHeaders(),
         body: JSON.stringify({
           module_id: moduleId,
           pathway_id: pathwayId,
@@ -330,9 +385,8 @@ export class ProgressService {
    */
   static async updatePathwayProgress(pathwayId: string, progress: number): Promise<boolean> {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/v1/progress/user/pathway/${pathwayId}`, {
+      const response = await this.fetchWithAuth(`${API_BASE_URL}/api/v1/progress/user/pathway/${pathwayId}`, {
         method: 'PUT',
-        headers: this.getAuthHeaders(),
         body: JSON.stringify({
           progress_percentage: progress
         })
@@ -350,9 +404,8 @@ export class ProgressService {
    */
   static async fetchUserAchievements(): Promise<any[]> {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/v1/progress/achievements/user`, {
+      const response = await this.fetchWithAuth(`${API_BASE_URL}/api/v1/progress/achievements/user`, {
         method: 'GET',
-        headers: this.getAuthHeaders(),
       });
 
       if (!response.ok) {
@@ -371,9 +424,8 @@ export class ProgressService {
    */
   static async fetchAllAchievements(): Promise<any[]> {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/v1/progress/achievements`, {
+      const response = await this.fetchWithAuth(`${API_BASE_URL}/api/v1/progress/achievements`, {
         method: 'GET',
-        headers: this.getAuthHeaders(),
       });
 
       if (!response.ok) {

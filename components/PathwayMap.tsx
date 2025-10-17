@@ -23,14 +23,31 @@ export default function PathwayMap({
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
-  // Calculate how many modules should be unlocked based on progress
-  const completedModules = modules.filter(m => m.completed).length;
-  const totalModules = modules.length;
-  const progressRatio = pathwayProgress / 100;
-  const unlockedCount = Math.min(Math.max(completedModules + 1, Math.ceil(progressRatio * totalModules)), totalModules);
+  // Calculate how many modules should be unlocked based on APPROVED completions
+  // Module is only considered "truly complete" if approved or if no approval system is used
+  const isModuleApproved = (module: Module) => {
+    if (!module.completed) return false;
+    // If module has approval_status, it must be 'approved'
+    // If no approval_status exists (old data), treat as approved
+    return !module.approval_status || module.approval_status === 'approved';
+  };
 
-  // Find current module (first incomplete unlocked module)
-  const currentModuleIndex = modules.findIndex(m => !m.completed && modules.indexOf(m) < unlockedCount);
+  const approvedModules = modules.filter(isModuleApproved).length;
+  const totalModules = modules.length;
+
+  // Unlock logic: First module always unlocked, then unlock next after previous is approved
+  // Also unlock rejected modules so user can fix and resubmit
+  const unlockedCount = Math.min(approvedModules + 1, totalModules);
+
+  // Find current module (first incomplete or first pending/rejected module)
+  const currentModuleIndex = modules.findIndex((m, idx) => {
+    const isApproved = isModuleApproved(m);
+    const isUnlocked = idx < unlockedCount;
+    return !isApproved && isUnlocked;
+  });
+
+  // For display purposes
+  const completedModules = modules.filter(m => m.completed).length;
 
   const checkScrollButtons = () => {
     if (scrollContainerRef.current) {
