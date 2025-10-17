@@ -134,7 +134,7 @@ export default function AboutPage() {
               <div className="flex items-start justify-between mb-4">
                 <h2 className="text-2xl font-bold text-gray-100">Technology Stack</h2>
                 <a
-                  href="https://github.com/RomanSlack/ai_bootcamp_backend"
+                  href="https://github.com/RIT-AI-Club/ai_bootcamp_backend"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-sm text-cyan-400 hover:text-cyan-300 transition-colors duration-200 font-medium"
