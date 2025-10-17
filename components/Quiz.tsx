@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/solid';
+import { CheckCircleIcon, XCircleIcon, ArrowPathIcon } from '@heroicons/react/24/solid';
+import { useQuizProgress } from '@/lib/hooks/useQuizProgress';
 
 export type QuestionType = 'multiple-choice' | 'true-false';
 
@@ -29,21 +30,60 @@ export interface QuizData {
 
 interface QuizProps {
   quizData: QuizData;
+  quizId: string; // Unique identifier for localStorage
   onComplete?: (score: number, passed: boolean) => void;
   accentColor?: string; // Tailwind gradient classes like "from-blue-500 to-cyan-500"
 }
 
-export default function Quiz({ quizData, onComplete, accentColor = 'from-blue-500 to-cyan-500' }: QuizProps) {
+export default function Quiz({ quizData, quizId, onComplete, accentColor = 'from-blue-500 to-cyan-500' }: QuizProps) {
+  const { savedProgress, saveProgress, clearProgress, hasProgress } = useQuizProgress(quizId);
+
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState<Record<string, string>>({});
   const [showFeedback, setShowFeedback] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [score, setScore] = useState(0);
+  const [showResumePrompt, setShowResumePrompt] = useState(false);
 
   const currentQuestion = quizData.questions[currentQuestionIndex];
   const totalQuestions = quizData.questions.length;
   const progress = ((currentQuestionIndex + 1) / totalQuestions) * 100;
   const passingScore = quizData.passingScore || 80; // Default 80% passing score
+
+  // Check for saved progress on mount
+  useEffect(() => {
+    if (hasProgress && savedProgress && Object.keys(selectedAnswers).length === 0) {
+      setShowResumePrompt(true);
+    }
+  }, [hasProgress, savedProgress, selectedAnswers]);
+
+  // Auto-save progress whenever state changes
+  useEffect(() => {
+    if (!quizCompleted && Object.keys(selectedAnswers).length > 0) {
+      saveProgress({
+        currentQuestionIndex,
+        selectedAnswers,
+        quizTitle: quizData.title,
+      });
+    }
+    // saveProgress is now memoized with useCallback, safe to include
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentQuestionIndex, selectedAnswers, quizCompleted]);
+
+  const handleResumeQuiz = () => {
+    if (savedProgress) {
+      setCurrentQuestionIndex(savedProgress.currentQuestionIndex);
+      setSelectedAnswers(savedProgress.selectedAnswers);
+      setShowResumePrompt(false);
+    }
+  };
+
+  const handleStartFresh = () => {
+    clearProgress();
+    setCurrentQuestionIndex(0);
+    setSelectedAnswers({});
+    setShowResumePrompt(false);
+  };
 
   const handleOptionSelect = (optionId: string) => {
     if (showFeedback) return; // Prevent changing answer after submission
@@ -78,11 +118,13 @@ export default function Quiz({ quizData, onComplete, accentColor = 'from-blue-50
 
       setScore(finalScore);
       setQuizCompleted(true);
+      clearProgress(); // Clear saved progress on completion
       onComplete?.(finalScore, passed);
     }
   };
 
   const handleRetakeQuiz = () => {
+    clearProgress(); // Clear saved progress
     setCurrentQuestionIndex(0);
     setSelectedAnswers({});
     setShowFeedback(false);
@@ -100,6 +142,65 @@ export default function Quiz({ quizData, onComplete, accentColor = 'from-blue-50
   const getCorrectAnswer = () => {
     return currentQuestion.options.find(opt => opt.isCorrect);
   };
+
+  // Resume prompt modal
+  if (showResumePrompt && savedProgress) {
+    const answeredQuestions = Object.keys(savedProgress.selectedAnswers).length;
+    const progressPercentage = Math.round((answeredQuestions / totalQuestions) * 100);
+
+    return (
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="w-full max-w-3xl mx-auto"
+      >
+        <div className="bg-neutral-900/50 backdrop-blur-sm border border-neutral-700/50 rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10">
+          <div className="text-center">
+            <ArrowPathIcon className="w-12 h-12 sm:w-16 sm:h-16 text-cyan-400 mx-auto mb-4" />
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-100 mb-3">
+              Resume Quiz?
+            </h2>
+            <p className="text-neutral-300 text-sm sm:text-base mb-6">
+              You have an in-progress quiz saved. Would you like to continue where you left off?
+            </p>
+
+            {/* Progress Info */}
+            <div className="bg-neutral-800/60 rounded-xl p-4 mb-6 max-w-sm mx-auto">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-neutral-400 text-sm">Progress</span>
+                <span className="text-cyan-400 font-semibold text-sm">{progressPercentage}%</span>
+              </div>
+              <div className="w-full h-2 bg-neutral-700 rounded-full overflow-hidden">
+                <div
+                  className={`h-full bg-gradient-to-r ${accentColor} transition-all`}
+                  style={{ width: `${progressPercentage}%` }}
+                />
+              </div>
+              <p className="text-neutral-400 text-xs mt-2">
+                {answeredQuestions} of {totalQuestions} questions answered
+              </p>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <button
+                onClick={handleResumeQuiz}
+                className={`px-6 sm:px-8 py-3 bg-gradient-to-r ${accentColor} text-white rounded-xl font-semibold hover:scale-105 transition-transform shadow-lg text-sm sm:text-base`}
+              >
+                Resume Quiz
+              </button>
+              <button
+                onClick={handleStartFresh}
+                className="px-6 sm:px-8 py-3 bg-neutral-700/50 text-neutral-300 rounded-xl font-semibold hover:bg-neutral-700/70 transition-colors text-sm sm:text-base"
+              >
+                Start Fresh
+              </button>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    );
+  }
 
   if (quizCompleted) {
     const passed = score >= passingScore;

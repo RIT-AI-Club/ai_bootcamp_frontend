@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ToastProvider } from "@/lib/contexts/ToastContext";
+import CookieBanner from "@/components/CookieBanner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,6 +32,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ToastProvider>
           {children}
+          <CookieBanner />
         </ToastProvider>
       </body>
     </html>

@@ -361,28 +361,25 @@ export default function ResourceItem({
       <AnimatePresence>
         {showQuiz && quizData && (
           <>
-            {/* Backdrop */}
+            {/* Backdrop - no onClick to prevent closing */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md"
-              onClick={() => setShowQuiz(false)}
             />
 
-            {/* Modal */}
+            {/* Modal - no onClick to prevent closing */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
-              className="fixed inset-0 z-50 flex items-start sm:items-center justify-center p-2 sm:p-4 md:p-6 lg:p-8 overflow-y-auto"
-              onClick={() => setShowQuiz(false)}
+              className="fixed inset-0 z-50 flex items-start sm:items-center justify-center p-2 sm:p-4 md:p-6 lg:p-8 overflow-y-auto pointer-events-none"
             >
               <motion.div
-                className="relative w-full max-w-4xl max-h-[95vh] sm:max-h-[90vh] bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-800 rounded-2xl sm:rounded-3xl shadow-2xl border border-neutral-700/50 overflow-y-auto my-auto p-4 sm:p-6 md:p-8"
-                onClick={(e) => e.stopPropagation()}
+                className="relative w-full max-w-4xl max-h-[95vh] sm:max-h-[90vh] bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-800 rounded-2xl sm:rounded-3xl shadow-2xl border border-neutral-700/50 overflow-y-auto my-auto p-4 sm:p-6 md:p-8 pointer-events-auto"
               >
-                {/* Close button */}
+                {/* Close button - only visible on completion screen */}
                 <button
                   onClick={() => setShowQuiz(false)}
                   className="sticky top-2 sm:absolute sm:top-4 sm:right-4 md:top-6 md:right-6 z-10 ml-auto flex w-8 h-8 sm:w-10 sm:h-10 items-center justify-center bg-white/10 hover:bg-white/20 rounded-full transition-all mb-2 sm:mb-0"
@@ -394,6 +391,7 @@ export default function ResourceItem({
                 {/* Quiz Component */}
                 <Quiz
                   quizData={quizData}
+                  quizId={resourceId}
                   onComplete={handleQuizComplete}
                   accentColor={pathwayColor}
                 />
