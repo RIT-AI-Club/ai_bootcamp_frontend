@@ -110,16 +110,16 @@ export default function Quiz({ quizData, onComplete, accentColor = 'from-blue-50
         animate={{ opacity: 1, scale: 1 }}
         className="w-full max-w-3xl mx-auto"
       >
-        <div className="bg-neutral-900/50 backdrop-blur-sm border border-neutral-700/50 rounded-3xl p-8 md:p-12">
+        <div className="bg-neutral-900/50 backdrop-blur-sm border border-neutral-700/50 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 lg:p-12">
           <div className="text-center">
             {/* Score circle */}
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ type: 'spring', duration: 0.6 }}
-              className="relative w-48 h-48 mx-auto mb-8"
+              className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 mx-auto mb-6 sm:mb-8"
             >
-              <svg className="w-full h-full transform -rotate-90">
+              <svg className="w-full h-full transform -rotate-90" viewBox="0 0 192 192">
                 <circle
                   cx="96"
                   cy="96"
@@ -145,10 +145,10 @@ export default function Quiz({ quizData, onComplete, accentColor = 'from-blue-50
                 />
               </svg>
               <div className="absolute inset-0 flex items-center justify-center flex-col">
-                <div className={`text-5xl font-black ${passed ? 'text-green-400' : 'text-red-400'}`}>
+                <div className={`text-3xl sm:text-4xl md:text-5xl font-black ${passed ? 'text-green-400' : 'text-red-400'}`}>
                   {score}%
                 </div>
-                <div className="text-neutral-400 text-sm mt-1">Score</div>
+                <div className="text-neutral-400 text-xs sm:text-sm mt-1">Score</div>
               </div>
             </motion.div>
 
@@ -158,47 +158,47 @@ export default function Quiz({ quizData, onComplete, accentColor = 'from-blue-50
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8 }}
             >
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-100 mb-4">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-100 mb-3 sm:mb-4 px-2">
                 {passed ? '🎉 Congratulations!' : '📚 Keep Practicing!'}
               </h2>
-              <p className="text-neutral-300 text-lg mb-8">
+              <p className="text-neutral-300 text-base sm:text-lg mb-6 sm:mb-8 px-2">
                 {passed
                   ? `You passed the quiz with ${score}%! Great job!`
                   : `You scored ${score}%. You need ${passingScore}% to pass. Try again!`}
               </p>
 
               {/* Stats */}
-              <div className="grid grid-cols-3 gap-4 max-w-md mx-auto mb-8">
-                <div className="bg-neutral-800/60 rounded-xl p-4">
-                  <div className="text-2xl font-bold text-gray-100">
+              <div className="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4 max-w-md mx-auto mb-6 sm:mb-8">
+                <div className="bg-neutral-800/60 rounded-lg sm:rounded-xl p-2 sm:p-3 md:p-4">
+                  <div className="text-lg sm:text-xl md:text-2xl font-bold text-gray-100">
                     {Object.keys(selectedAnswers).length}
                   </div>
-                  <div className="text-xs text-neutral-400">Answered</div>
+                  <div className="text-[10px] sm:text-xs text-neutral-400">Answered</div>
                 </div>
-                <div className="bg-neutral-800/60 rounded-xl p-4">
-                  <div className="text-2xl font-bold text-green-400">
+                <div className="bg-neutral-800/60 rounded-lg sm:rounded-xl p-2 sm:p-3 md:p-4">
+                  <div className="text-lg sm:text-xl md:text-2xl font-bold text-green-400">
                     {quizData.questions.filter(q => {
                       const opt = q.options.find(o => o.id === selectedAnswers[q.id]);
                       return opt?.isCorrect;
                     }).length}
                   </div>
-                  <div className="text-xs text-neutral-400">Correct</div>
+                  <div className="text-[10px] sm:text-xs text-neutral-400">Correct</div>
                 </div>
-                <div className="bg-neutral-800/60 rounded-xl p-4">
-                  <div className="text-2xl font-bold text-red-400">
+                <div className="bg-neutral-800/60 rounded-lg sm:rounded-xl p-2 sm:p-3 md:p-4">
+                  <div className="text-lg sm:text-xl md:text-2xl font-bold text-red-400">
                     {quizData.questions.filter(q => {
                       const opt = q.options.find(o => o.id === selectedAnswers[q.id]);
                       return opt && !opt.isCorrect;
                     }).length}
                   </div>
-                  <div className="text-xs text-neutral-400">Wrong</div>
+                  <div className="text-[10px] sm:text-xs text-neutral-400">Wrong</div>
                 </div>
               </div>
 
               {/* Actions */}
               <button
                 onClick={handleRetakeQuiz}
-                className={`px-8 py-3 bg-gradient-to-r ${accentColor} text-white rounded-xl font-semibold hover:scale-105 transition-transform shadow-lg`}
+                className={`px-6 sm:px-8 py-2.5 sm:py-3 bg-gradient-to-r ${accentColor} text-white rounded-xl font-semibold hover:scale-105 transition-transform shadow-lg text-sm sm:text-base`}
               >
                 Retake Quiz
               </button>
@@ -215,21 +215,21 @@ export default function Quiz({ quizData, onComplete, accentColor = 'from-blue-50
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-6"
+        className="mb-4 sm:mb-6"
       >
-        <h2 className="text-2xl md:text-3xl font-bold text-gray-100 mb-2">{quizData.title}</h2>
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-100 mb-2">{quizData.title}</h2>
         {quizData.description && (
-          <p className="text-neutral-400">{quizData.description}</p>
+          <p className="text-sm sm:text-base text-neutral-400">{quizData.description}</p>
         )}
       </motion.div>
 
       {/* Progress bar */}
-      <div className="mb-8">
+      <div className="mb-6 sm:mb-8">
         <div className="flex justify-between items-center mb-2">
-          <span className="text-sm text-neutral-400">
+          <span className="text-xs sm:text-sm text-neutral-400">
             Question {currentQuestionIndex + 1} of {totalQuestions}
           </span>
-          <span className="text-sm text-neutral-400">{Math.round(progress)}% Complete</span>
+          <span className="text-xs sm:text-sm text-neutral-400">{Math.round(progress)}% Complete</span>
         </div>
         <div className="w-full h-2 bg-neutral-800 rounded-full overflow-hidden">
           <motion.div
@@ -249,15 +249,15 @@ export default function Quiz({ quizData, onComplete, accentColor = 'from-blue-50
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -50 }}
           transition={{ duration: 0.3 }}
-          className="bg-neutral-900/50 backdrop-blur-sm border border-neutral-700/50 rounded-3xl p-6 md:p-8 mb-6"
+          className="bg-neutral-900/50 backdrop-blur-sm border border-neutral-700/50 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 mb-4 sm:mb-6"
         >
           {/* Question */}
-          <h3 className="text-xl md:text-2xl font-semibold text-gray-100 mb-6">
+          <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-100 mb-4 sm:mb-6">
             {currentQuestion.question}
           </h3>
 
           {/* Options */}
-          <div className="space-y-3">
+          <div className="space-y-2 sm:space-y-3">
             {currentQuestion.options.map((option, index) => {
               const isSelected = selectedAnswers[currentQuestion.id] === option.id;
               const isCorrectOption = option.isCorrect;
@@ -273,7 +273,7 @@ export default function Quiz({ quizData, onComplete, accentColor = 'from-blue-50
                   onClick={() => handleOptionSelect(option.id)}
                   disabled={showFeedback}
                   className={`
-                    w-full text-left p-4 rounded-xl border-2 transition-all
+                    w-full text-left p-3 sm:p-4 rounded-lg sm:rounded-xl border-2 transition-all
                     ${
                       showCorrect
                         ? 'bg-green-500/20 border-green-500/50'
@@ -286,10 +286,10 @@ export default function Quiz({ quizData, onComplete, accentColor = 'from-blue-50
                     ${showFeedback ? 'cursor-not-allowed' : 'cursor-pointer'}
                   `}
                 >
-                  <div className="flex items-center justify-between">
-                    <span className="text-neutral-200 font-medium">{option.text}</span>
-                    {showCorrect && <CheckCircleIcon className="w-6 h-6 text-green-400" />}
-                    {showWrong && <XCircleIcon className="w-6 h-6 text-red-400" />}
+                  <div className="flex items-center justify-between gap-3">
+                    <span className="text-neutral-200 font-medium text-sm sm:text-base">{option.text}</span>
+                    {showCorrect && <CheckCircleIcon className="w-5 h-5 sm:w-6 sm:h-6 text-green-400 flex-shrink-0" />}
+                    {showWrong && <XCircleIcon className="w-5 h-5 sm:w-6 sm:h-6 text-red-400 flex-shrink-0" />}
                   </div>
                 </motion.button>
               );
@@ -303,34 +303,34 @@ export default function Quiz({ quizData, onComplete, accentColor = 'from-blue-50
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
-                className="mt-6"
+                className="mt-4 sm:mt-6"
               >
                 <div
-                  className={`p-4 rounded-xl ${
+                  className={`p-3 sm:p-4 rounded-lg sm:rounded-xl ${
                     isAnswerCorrect()
                       ? 'bg-green-500/10 border border-green-500/30'
                       : 'bg-red-500/10 border border-red-500/30'
                   }`}
                 >
-                  <div className="flex items-start space-x-3">
+                  <div className="flex items-start space-x-2 sm:space-x-3">
                     {isAnswerCorrect() ? (
-                      <CheckCircleIcon className="w-6 h-6 text-green-400 flex-shrink-0 mt-0.5" />
+                      <CheckCircleIcon className="w-5 h-5 sm:w-6 sm:h-6 text-green-400 flex-shrink-0 mt-0.5" />
                     ) : (
-                      <XCircleIcon className="w-6 h-6 text-red-400 flex-shrink-0 mt-0.5" />
+                      <XCircleIcon className="w-5 h-5 sm:w-6 sm:h-6 text-red-400 flex-shrink-0 mt-0.5" />
                     )}
-                    <div>
+                    <div className="flex-1 min-w-0">
                       <p
-                        className={`font-semibold mb-1 ${
+                        className={`font-semibold mb-1 text-sm sm:text-base ${
                           isAnswerCorrect() ? 'text-green-400' : 'text-red-400'
                         }`}
                       >
                         {isAnswerCorrect() ? 'Correct!' : 'Incorrect'}
                       </p>
                       {currentQuestion.explanation && (
-                        <p className="text-neutral-300 text-sm">{currentQuestion.explanation}</p>
+                        <p className="text-neutral-300 text-xs sm:text-sm break-words">{currentQuestion.explanation}</p>
                       )}
                       {!isAnswerCorrect() && (
-                        <p className="text-neutral-400 text-sm mt-2">
+                        <p className="text-neutral-400 text-xs sm:text-sm mt-2 break-words">
                           Correct answer: {getCorrectAnswer()?.text}
                         </p>
                       )}
@@ -344,7 +344,7 @@ export default function Quiz({ quizData, onComplete, accentColor = 'from-blue-50
       </AnimatePresence>
 
       {/* Action buttons */}
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center gap-2 sm:gap-4">
         <button
           onClick={() => {
             if (currentQuestionIndex > 0) {
@@ -353,7 +353,7 @@ export default function Quiz({ quizData, onComplete, accentColor = 'from-blue-50
             }
           }}
           disabled={currentQuestionIndex === 0}
-          className="px-6 py-2 bg-neutral-700/50 text-neutral-300 rounded-lg hover:bg-neutral-700/70 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="px-4 sm:px-6 py-2 bg-neutral-700/50 text-neutral-300 rounded-lg hover:bg-neutral-700/70 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
         >
           Previous
         </button>
@@ -362,14 +362,14 @@ export default function Quiz({ quizData, onComplete, accentColor = 'from-blue-50
           <button
             onClick={handleSubmitAnswer}
             disabled={!selectedAnswers[currentQuestion.id]}
-            className={`px-8 py-3 bg-gradient-to-r ${accentColor} text-white rounded-xl font-semibold hover:scale-105 transition-transform shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100`}
+            className={`px-6 sm:px-8 py-2.5 sm:py-3 bg-gradient-to-r ${accentColor} text-white rounded-xl font-semibold hover:scale-105 transition-transform shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 text-sm sm:text-base`}
           >
             Submit Answer
           </button>
         ) : (
           <button
             onClick={handleNextQuestion}
-            className={`px-8 py-3 bg-gradient-to-r ${accentColor} text-white rounded-xl font-semibold hover:scale-105 transition-transform shadow-lg`}
+            className={`px-6 sm:px-8 py-2.5 sm:py-3 bg-gradient-to-r ${accentColor} text-white rounded-xl font-semibold hover:scale-105 transition-transform shadow-lg text-sm sm:text-base`}
           >
             {currentQuestionIndex < totalQuestions - 1 ? 'Next Question' : 'Finish Quiz'}
           </button>
