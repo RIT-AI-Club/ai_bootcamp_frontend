@@ -1,9 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircleIcon, CloudArrowUpIcon, PlayCircleIcon } from '@heroicons/react/24/outline';
 import { ResourceService, type ResourceCompletion, type ResourceSubmission } from '@/lib/resources/resource-service';
+import Quiz, { type QuizData } from './Quiz';
 
 interface Resource {
   type: 'video' | 'article' | 'exercise' | 'project' | 'quiz';
@@ -42,6 +43,9 @@ export default function ResourceItem({
   const [isUploading, setIsUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [showUpload, setShowUpload] = useState(false);
+  const [showQuiz, setShowQuiz] = useState(false);
+  const [quizData, setQuizData] = useState<QuizData | null>(null);
+  const [loadingQuiz, setLoadingQuiz] = useState(false);
 
   const getResourceIcon = (type: string) => {
     switch (type) {
@@ -64,6 +68,35 @@ export default function ResourceItem({
     const result = await ResourceService.startResource(resourceId);
     if (result) {
       setCompletion(result);
+    }
+  };
+
+  const handleOpenQuiz = async () => {
+    if (!resource.url) return;
+
+    setLoadingQuiz(true);
+    try {
+      const response = await fetch(resource.url);
+      const data = await response.json();
+      setQuizData(data);
+      setShowQuiz(true);
+
+      // Mark as started
+      await handleStart();
+    } catch (error) {
+      console.error('Failed to load quiz:', error);
+      setUploadError('Failed to load quiz data');
+    } finally {
+      setLoadingQuiz(false);
+    }
+  };
+
+  const handleQuizComplete = async (score: number, passed: boolean) => {
+    // Mark resource as completed
+    const result = await ResourceService.completeResource(resourceId);
+    if (result) {
+      setCompletion(result);
+      onComplete?.();
     }
   };
 
@@ -133,7 +166,11 @@ export default function ResourceItem({
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.05 }}
-      className="bg-neutral-800/40 rounded-xl p-4 border border-neutral-700/20 hover:bg-neutral-800/60 transition-colors"
+      className={`rounded-xl p-4 border transition-colors ${
+        isCompleted
+          ? 'bg-green-500/10 border-green-500/30 hover:bg-green-500/15'
+          : 'bg-neutral-800/40 border-neutral-700/20 hover:bg-neutral-800/60'
+      }`}
     >
       <div className="flex items-start justify-between gap-4">
         {/* Left: Icon and Info */}
@@ -196,8 +233,24 @@ export default function ResourceItem({
 
           {/* Action Buttons */}
           <div className="flex items-center gap-2">
-            {/* Resource URL Button */}
-            {resource.url ? (
+            {/* Quiz Button */}
+            {resource.type === 'quiz' && resource.url ? (
+              <button
+                onClick={handleOpenQuiz}
+                disabled={loadingQuiz || isCompleted}
+                className={`px-4 py-2 bg-gradient-to-r ${pathwayColor} text-white rounded-lg text-sm font-medium hover:scale-105 transition-transform flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed`}
+              >
+                <PlayCircleIcon className="w-4 h-4" />
+                {loadingQuiz ? 'Loading...' : isCompleted ? 'Completed' : 'Start Quiz'}
+              </button>
+            ) : resource.type === 'quiz' && !resource.url ? (
+              <button
+                className="px-4 py-2 bg-neutral-700/50 text-neutral-300 rounded-lg text-sm font-medium cursor-not-allowed"
+                disabled
+              >
+                Coming Soon
+              </button>
+            ) : resource.url ? (
               <a
                 href={resource.url}
                 target="_blank"
@@ -217,14 +270,18 @@ export default function ResourceItem({
               </button>
             )}
 
-            {/* Upload Button (for exercises/projects) */}
-            {requiresUpload && !isCompleted && (
+            {/* Upload/Resubmit Button (for exercises/projects) */}
+            {requiresUpload && (
               <button
                 onClick={() => setShowUpload(!showUpload)}
-                className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg text-sm font-medium hover:scale-105 transition-transform flex items-center gap-2"
+                className={`px-4 py-2 text-white rounded-lg text-sm font-medium hover:scale-105 transition-transform flex items-center gap-2 ${
+                  submissions.length > 0
+                    ? 'bg-blue-600 hover:bg-blue-700'
+                    : 'bg-amber-600 hover:bg-amber-700'
+                }`}
               >
                 <CloudArrowUpIcon className="w-4 h-4" />
-                Upload
+                {submissions.length > 0 ? 'Resubmit' : 'Upload'}
               </button>
             )}
 
@@ -294,6 +351,52 @@ export default function ResourceItem({
           )}
         </div>
       )}
+
+      {/* Quiz Modal */}
+      <AnimatePresence>
+        {showQuiz && quizData && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md"
+              onClick={() => setShowQuiz(false)}
+            />
+
+            {/* Modal */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              className="fixed inset-0 z-50 flex items-center justify-center p-4"
+              onClick={() => setShowQuiz(false)}
+            >
+              <motion.div
+                className="relative w-full max-w-4xl max-h-[90vh] bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-800 rounded-3xl shadow-2xl border border-neutral-700/50 overflow-y-auto p-8"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Close button */}
+                <button
+                  onClick={() => setShowQuiz(false)}
+                  className="absolute top-6 right-6 z-10 w-10 h-10 flex items-center justify-center bg-white/10 hover:bg-white/20 rounded-full transition-all"
+                  aria-label="Close quiz"
+                >
+                  <span className="text-white text-2xl font-light leading-none">×</span>
+                </button>
+
+                {/* Quiz Component */}
+                <Quiz
+                  quizData={quizData}
+                  onComplete={handleQuizComplete}
+                  accentColor={pathwayColor}
+                />
+              </motion.div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }

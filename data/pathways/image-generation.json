@@ -49,7 +49,8 @@
         {
           "type": "video",
           "title": "What is AI Image Generation + Model Types",
-          "duration": "40 min"
+          "duration": "6 min",
+          "url": "https://www.youtube.com/watch?v=9YrYDqhJdPw"
         },
         {
           "type": "article",
@@ -61,8 +62,9 @@
           "duration": "45 min"
         },
         {
-          "type": "exercise",
-          "title": "Quiz: 8 MCQ on model types and use-cases"
+          "type": "quiz",
+          "title": "Quiz: 8 MCQ on model types and use-cases",
+          "url": "/data/quizzes/foundations-image-gen-quiz.json"
         },
         {
           "type": "project",

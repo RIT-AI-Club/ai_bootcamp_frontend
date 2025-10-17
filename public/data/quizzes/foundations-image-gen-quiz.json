@@ -1,0 +1,98 @@
+{
+  "id": "foundations-image-gen-r4",
+  "title": "Image Generation Model Types Quiz",
+  "description": "Test your knowledge of AI image generation models and their use cases.",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "type": "multiple-choice",
+      "question": "Which AI image model is known for being open-source and highly customizable?",
+      "options": [
+        {"id": "a", "text": "DALL-E", "isCorrect": false},
+        {"id": "b", "text": "Stable Diffusion", "isCorrect": true},
+        {"id": "c", "text": "Midjourney", "isCorrect": false},
+        {"id": "d", "text": "Imagen", "isCorrect": false}
+      ],
+      "explanation": "Stable Diffusion is open-source and allows for extensive customization through LoRAs, VAEs, and community models."
+    },
+    {
+      "id": "q2",
+      "type": "true-false",
+      "question": "Gemini 2.5 Flash can edit existing images, not just generate new ones.",
+      "options": [
+        {"id": "true", "text": "True", "isCorrect": true},
+        {"id": "false", "text": "False", "isCorrect": false}
+      ],
+      "explanation": "Gemini 2.5 Flash Image (Nano Banana) supports advanced image editing capabilities including background removal, pose alteration, and image fusion."
+    },
+    {
+      "id": "q3",
+      "type": "multiple-choice",
+      "question": "What is the primary advantage of DALL-E 3 over earlier models?",
+      "options": [
+        {"id": "a", "text": "It's completely free to use", "isCorrect": false},
+        {"id": "b", "text": "Better understanding of complex prompts and natural language", "isCorrect": true},
+        {"id": "c", "text": "Fastest generation speed", "isCorrect": false},
+        {"id": "d", "text": "Highest resolution images", "isCorrect": false}
+      ],
+      "explanation": "DALL-E 3 excels at understanding nuanced prompts and following detailed instructions better than previous versions."
+    },
+    {
+      "id": "q4",
+      "type": "multiple-choice",
+      "question": "Which model would be best for creating consistent character designs across multiple images?",
+      "options": [
+        {"id": "a", "text": "Basic Stable Diffusion without modifications", "isCorrect": false},
+        {"id": "b", "text": "Stable Diffusion with custom LoRAs", "isCorrect": true},
+        {"id": "c", "text": "Random online generators", "isCorrect": false},
+        {"id": "d", "text": "Text-only AI models", "isCorrect": false}
+      ],
+      "explanation": "LoRAs (Low-Rank Adaptations) allow you to train Stable Diffusion on specific characters or styles for consistency."
+    },
+    {
+      "id": "q5",
+      "type": "true-false",
+      "question": "Midjourney can be run locally on your own computer.",
+      "options": [
+        {"id": "true", "text": "True", "isCorrect": false},
+        {"id": "false", "text": "False", "isCorrect": true}
+      ],
+      "explanation": "Midjourney is a cloud-based service accessed through Discord or their web interface. It cannot be run locally."
+    },
+    {
+      "id": "q6",
+      "type": "multiple-choice",
+      "question": "What does 'diffusion' refer to in Stable Diffusion?",
+      "options": [
+        {"id": "a", "text": "The speed at which images are generated", "isCorrect": false},
+        {"id": "b", "text": "The process of adding noise to images during training and removing it during generation", "isCorrect": true},
+        {"id": "c", "text": "How the model shares data across servers", "isCorrect": false},
+        {"id": "d", "text": "The distribution method for the software", "isCorrect": false}
+      ],
+      "explanation": "Diffusion models work by learning to reverse a noise-adding process, gradually 'denoising' random pixels into coherent images."
+    },
+    {
+      "id": "q7",
+      "type": "multiple-choice",
+      "question": "Which use case is BEST suited for AI image generation?",
+      "options": [
+        {"id": "a", "text": "Creating identical copies of existing photos", "isCorrect": false},
+        {"id": "b", "text": "Concept art and mood boards for creative projects", "isCorrect": true},
+        {"id": "c", "text": "Medical diagnosis from X-rays", "isCorrect": false},
+        {"id": "d", "text": "Legal document verification", "isCorrect": false}
+      ],
+      "explanation": "AI image generation excels at creative exploration, concept visualization, and rapid prototyping of visual ideas."
+    },
+    {
+      "id": "q8",
+      "type": "true-false",
+      "question": "Google's Imagen is available as an open-source model for anyone to download and use locally.",
+      "options": [
+        {"id": "true", "text": "True", "isCorrect": false},
+        {"id": "false", "text": "False", "isCorrect": true}
+      ],
+      "explanation": "Imagen is a proprietary Google model. While it's accessible through Google Cloud APIs, it's not open-source like Stable Diffusion."
+    }
+  ]
+}
