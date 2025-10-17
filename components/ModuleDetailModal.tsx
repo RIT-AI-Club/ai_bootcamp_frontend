@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Module } from '@/lib/pathways/types';
 import ResourceItem from './ResourceItem';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { ResourceService, type ResourceCompletion, type ResourceSubmission } from '@/lib/resources/resource-service';
 
 interface ModuleDetailModalProps {
@@ -52,6 +52,40 @@ export default function ModuleDetailModal({
 
     fetchAllProgress();
   }, [module, isOpen]);
+
+  // Calculate if all resources are completed
+  const allResourcesComplete = useMemo(() => {
+    if (!module || !module.resources || module.resources.length === 0) return true;
+    if (isLoadingProgress) return false;
+
+    const totalResources = module.resources.length;
+    let completedCount = 0;
+
+    for (let i = 0; i < totalResources; i++) {
+      const resourceId = `${module.id}-r${i + 1}`;
+      const progressData = resourcesProgress.get(resourceId);
+      const resource = module.resources[i];
+
+      // Check if resource is completed
+      if (progressData?.completion &&
+          ['completed', 'submitted', 'reviewed'].includes(progressData.completion.status)) {
+        completedCount++;
+      } else {
+        // If resource is not complete, validation fails
+        return false;
+      }
+
+      // Check if upload is required and submitted
+      if ((resource.type === 'exercise' || resource.type === 'project')) {
+        if (!progressData?.submissions || progressData.submissions.length === 0) {
+          // Missing required upload
+          return false;
+        }
+      }
+    }
+
+    return completedCount === totalResources;
+  }, [module, resourcesProgress, isLoadingProgress]);
 
   if (!module) return null;
 
@@ -112,12 +146,25 @@ export default function ModuleDetailModal({
 
                 {/* Module status badge */}
                 <div className="relative z-10">
-                  {module.completed ? (
+                  {module.completed && module.approval_status === 'approved' && (
                     <div className="inline-flex items-center space-x-2 bg-green-500/20 border border-green-400/30 rounded-full px-4 py-2 mb-4">
                       <span className="text-green-400 text-sm">✓</span>
-                      <span className="text-green-100 text-sm font-medium">Completed</span>
+                      <span className="text-green-100 text-sm font-medium">Approved</span>
                     </div>
-                  ) : (
+                  )}
+                  {module.completed && module.approval_status === 'pending' && (
+                    <div className="inline-flex items-center space-x-2 bg-yellow-500/20 border border-yellow-400/30 rounded-full px-4 py-2 mb-4">
+                      <span className="text-yellow-400 text-sm">⏳</span>
+                      <span className="text-yellow-100 text-sm font-medium">Pending Review</span>
+                    </div>
+                  )}
+                  {module.completed && module.approval_status === 'rejected' && (
+                    <div className="inline-flex items-center space-x-2 bg-red-500/20 border border-red-400/30 rounded-full px-4 py-2 mb-4">
+                      <span className="text-red-400 text-sm">✗</span>
+                      <span className="text-red-100 text-sm font-medium">Needs Revision</span>
+                    </div>
+                  )}
+                  {!module.completed && (
                     <div className="inline-flex items-center space-x-2 bg-white/10 border border-white/20 rounded-full px-4 py-2 mb-4">
                       <span className="text-white/80 text-sm">⏳</span>
                       <span className="text-white/90 text-sm font-medium">In Progress</span>
@@ -142,6 +189,19 @@ export default function ModuleDetailModal({
 
               {/* Scrollable Content */}
               <div className="flex-1 overflow-y-auto p-6 custom-scrollbar">
+                {/* Review Comments - Show if rejected */}
+                {module.approval_status === 'rejected' && module.review_comments && (
+                  <div className="bg-red-500/10 backdrop-blur-sm rounded-2xl p-6 border border-red-500/30 mb-6">
+                    <h3 className="text-lg font-semibold text-red-400 mb-3 flex items-center gap-2">
+                      <span>✗</span>
+                      <span>Instructor Feedback</span>
+                    </h3>
+                    <p className="text-red-200 leading-relaxed">
+                      {module.review_comments}
+                    </p>
+                  </div>
+                )}
+
                 {/* Description card */}
                 <div className="bg-neutral-800/60 backdrop-blur-sm rounded-2xl p-6 border border-neutral-700/30 mb-6">
                   <h3 className="text-lg font-semibold text-gray-100/95 mb-3">About This Module</h3>
@@ -221,7 +281,7 @@ export default function ModuleDetailModal({
                   >
                     Close
                   </button>
-                  
+
                   <div className="flex items-center space-x-3">
                     {!module.completed && (
                       <>
@@ -229,17 +289,38 @@ export default function ModuleDetailModal({
                           Start Learning
                         </button>
                         <button
-                          onClick={() => onModuleComplete?.(module.id)}
-                          className="px-6 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium hover:scale-105 transition-transform shadow-lg"
+                          onClick={() => allResourcesComplete && onModuleComplete?.(module.id)}
+                          disabled={!allResourcesComplete}
+                          className={`px-6 py-2 rounded-lg font-medium transition-transform shadow-lg ${
+                            allResourcesComplete
+                              ? 'bg-green-600 hover:bg-green-700 text-white hover:scale-105 cursor-pointer'
+                              : 'bg-gray-600 text-gray-400 cursor-not-allowed opacity-60'
+                          }`}
+                          title={!allResourcesComplete ? 'Complete all resources first' : 'Submit for instructor review'}
                         >
-                          Mark as Complete
+                          {allResourcesComplete ? 'Submit for Review' : 'Complete All Resources First'}
                         </button>
                       </>
                     )}
 
-                    {module.completed && (
+                    {module.completed && module.approval_status === 'approved' && (
                       <button className="px-6 py-2 bg-green-600/20 border border-green-500/30 text-green-400 rounded-lg font-medium">
-                        ✓ Completed
+                        ✓ Approved
+                      </button>
+                    )}
+
+                    {module.completed && module.approval_status === 'pending' && (
+                      <button className="px-6 py-2 bg-yellow-600/20 border border-yellow-500/30 text-yellow-400 rounded-lg font-medium">
+                        ⏳ Awaiting Review
+                      </button>
+                    )}
+
+                    {module.completed && module.approval_status === 'rejected' && (
+                      <button
+                        onClick={() => onModuleComplete?.(module.id)}
+                        className="px-6 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-lg font-medium hover:scale-105 transition-transform shadow-lg"
+                      >
+                        Resubmit for Review
                       </button>
                     )}
                   </div>

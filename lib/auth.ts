@@ -40,45 +40,34 @@ class AuthService {
     localStorage.removeItem('refresh_token');
   }
 
-  async signUp(email: string, fullName: string, password: string): Promise<User> {
-    const response = await fetch(`${API_URL}/api/v1/auth/signup`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email,
-        full_name: fullName,
-        password,
-      }),
-    });
-
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.detail || 'Signup failed');
-    }
-
-    return response.json();
+  /**
+   * Initiate Google OAuth login flow
+   * Redirects user to backend which then redirects to Google
+   */
+  loginWithGoogle(): void {
+    window.location.href = `${API_URL}/api/v1/auth/google/login`;
   }
 
-  async login(email: string, password: string): Promise<AuthTokens> {
-    const formData = new FormData();
-    formData.append('username', email);
-    formData.append('password', password);
+  /**
+   * Handle OAuth callback tokens from URL
+   * Call this in your callback page after redirect from OAuth
+   */
+  handleOAuthCallback(urlParams: URLSearchParams): AuthTokens | null {
+    const accessToken = urlParams.get('access_token');
+    const refreshToken = urlParams.get('refresh_token');
+    const tokenType = urlParams.get('token_type');
 
-    const response = await fetch(`${API_URL}/api/v1/auth/login`, {
-      method: 'POST',
-      body: formData,
-    });
-
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.detail || 'Login failed');
+    if (accessToken && refreshToken) {
+      const tokens: AuthTokens = {
+        access_token: accessToken,
+        refresh_token: refreshToken,
+        token_type: tokenType || 'bearer',
+      };
+      this.saveTokens(tokens);
+      return tokens;
     }
 
-    const tokens = await response.json();
-    this.saveTokens(tokens);
-    return tokens;
+    return null;
   }
 
   async refreshAccessToken(): Promise<AuthTokens> {

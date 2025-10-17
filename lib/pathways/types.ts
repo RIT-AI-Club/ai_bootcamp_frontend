@@ -12,6 +12,9 @@ export interface Module {
     duration?: string;
   }[];
   completed?: boolean;
+  completed_at?: string;
+  approval_status?: 'pending' | 'approved' | 'rejected';
+  review_comments?: string;
   isAvailable?: boolean; // For marking modules as "coming soon"
 }
 

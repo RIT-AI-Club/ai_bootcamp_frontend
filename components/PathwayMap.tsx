@@ -255,10 +255,18 @@ export default function PathwayMap({
 
         {/* Legend */}
         <div className="mt-6 pt-4 border-t border-neutral-700/30">
-          <div className="flex items-center justify-center space-x-6 text-xs text-neutral-400">
+          <div className="flex items-center justify-center flex-wrap gap-4 text-xs text-neutral-400">
             <div className="flex items-center space-x-2">
               <div className="w-3 h-3 rounded-full bg-gradient-to-br from-green-400 to-green-500"></div>
-              <span>Completed</span>
+              <span>Approved</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-3 h-3 rounded-full bg-gradient-to-br from-yellow-400 to-amber-500"></div>
+              <span>Pending Review</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-3 h-3 rounded-full bg-gradient-to-br from-red-400 to-rose-500"></div>
+              <span>Needs Revision</span>
             </div>
             <div className="flex items-center space-x-2">
               <div className={`w-3 h-3 rounded-full bg-gradient-to-br ${pathwayColor}`}></div>

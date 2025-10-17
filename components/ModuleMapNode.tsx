@@ -107,9 +107,15 @@ export default function ModuleMapNode({
             )}
           </div>
 
-          {/* Completion overlay */}
-          {module.completed && (
+          {/* Completion overlay with approval status */}
+          {module.completed && module.approval_status === 'approved' && (
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-green-400/20 to-emerald-500/20" />
+          )}
+          {module.completed && module.approval_status === 'pending' && (
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-yellow-400/20 to-amber-500/20" />
+          )}
+          {module.completed && module.approval_status === 'rejected' && (
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-red-400/20 to-rose-500/20" />
           )}
 
           {/* Lock overlay for locked modules */}
@@ -125,8 +131,20 @@ export default function ModuleMapNode({
           )}
         </div>
 
-        {/* Floating particles for completed modules */}
-        {module.completed && isUnlocked && (
+        {/* Approval status badge */}
+        {module.completed && module.approval_status === 'pending' && (
+          <div className="absolute -top-1 -right-1 w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center border-2 border-neutral-900 shadow-lg z-10">
+            <span className="text-white text-xs">⏳</span>
+          </div>
+        )}
+        {module.completed && module.approval_status === 'rejected' && (
+          <div className="absolute -top-1 -right-1 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center border-2 border-neutral-900 shadow-lg z-10">
+            <span className="text-white text-xs">✗</span>
+          </div>
+        )}
+
+        {/* Floating particles for approved modules */}
+        {module.completed && module.approval_status === 'approved' && isUnlocked && (
           <>
             <motion.div
               animate={{

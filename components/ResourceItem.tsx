@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircleIcon, CloudArrowUpIcon, PlayCircleIcon } from '@heroicons/react/24/outline';
 import { ResourceService, type ResourceCompletion, type ResourceSubmission } from '@/lib/resources/resource-service';
@@ -70,6 +70,7 @@ export default function ResourceItem({
   const handleComplete = async () => {
     const result = await ResourceService.completeResource(resourceId);
     if (result) {
+      // Update local state with the completion result
       setCompletion(result);
       onComplete?.();
     }
@@ -111,6 +112,16 @@ export default function ResourceItem({
       setIsUploading(false);
     }
   };
+
+  // Sync with initialCompletion when it changes (on modal reopen)
+  useEffect(() => {
+    if (initialCompletion) {
+      setCompletion(initialCompletion);
+    }
+    if (initialSubmissions) {
+      setSubmissions(initialSubmissions);
+    }
+  }, [initialCompletion, initialSubmissions]);
 
   const isCompleted = completion?.status === 'completed' || completion?.status === 'reviewed';
   const isSubmitted = completion?.status === 'submitted';
