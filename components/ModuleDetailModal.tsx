@@ -272,6 +272,7 @@ export default function ModuleDetailModal({
                             initialSubmissions={progressData?.submissions}
                             onComplete={handleResourceComplete}
                             onUploadSuccess={handleResourceComplete}
+                            moduleApprovalStatus={module.approval_status || null}
                           />
                         );
                       })}

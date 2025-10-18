@@ -339,6 +339,31 @@ export class ResourceService {
   }
 
   /**
+   * Unmark resource as completed (for videos and articles only)
+   */
+  static async uncompleteResource(resourceId: string): Promise<ResourceCompletion | null> {
+    try {
+      const response = await fetch(
+        `${API_BASE_URL}/api/v1/resources/users/me/resources/${resourceId}/complete`,
+        {
+          method: 'DELETE',
+          headers: this.getAuthHeaders(),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || 'Failed to unmark resource');
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('Error unmarking resource:', error);
+      throw error; // Re-throw so caller can handle the error
+    }
+  }
+
+  /**
    * Get user's progress on a specific resource
    */
   static async getResourceProgress(resourceId: string): Promise<ResourceCompletion | null> {

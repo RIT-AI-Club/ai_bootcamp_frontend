@@ -29,6 +29,7 @@ interface ResourceItemProps {
   initialSubmissions?: ResourceSubmission[];
   onComplete?: () => void;
   onUploadSuccess?: () => void;
+  moduleApprovalStatus?: 'pending' | 'approved' | 'rejected' | null;
 }
 
 export default function ResourceItem({
@@ -41,7 +42,8 @@ export default function ResourceItem({
   initialCompletion,
   initialSubmissions = [],
   onComplete,
-  onUploadSuccess
+  onUploadSuccess,
+  moduleApprovalStatus
 }: ResourceItemProps) {
   const [completion, setCompletion] = useState<ResourceCompletion | null>(initialCompletion || null);
   const [submissions, setSubmissions] = useState<ResourceSubmission[]>(initialSubmissions);
@@ -133,6 +135,21 @@ export default function ResourceItem({
     }
   };
 
+  const handleUncomplete = async () => {
+    try {
+      const result = await ResourceService.uncompleteResource(resourceId);
+      if (result) {
+        // Update local state with the unmarked result
+        setCompletion(result);
+        onComplete?.(); // Trigger parent refresh to update module progress
+      }
+    } catch (error: any) {
+      setUploadError(error.message || 'Failed to unmark resource');
+      // Clear error after 3 seconds
+      setTimeout(() => setUploadError(null), 3000);
+    }
+  };
+
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -191,6 +208,12 @@ export default function ResourceItem({
     : (completion?.status === 'completed' || completion?.status === 'reviewed');
 
   const isSubmitted = completion?.status === 'submitted' && (!requiresUpload || latestSubmission?.submission_status === 'uploaded');
+
+  // Determine if resource can be unmarked
+  // Only videos and articles can be unmarked, and only if module is not submitted/approved/rejected
+  const canUnmark = isCompleted &&
+    (resource.type === 'video' || resource.type === 'article') &&
+    !moduleApprovalStatus; // null means module not yet submitted
 
   return (
     <motion.div
@@ -408,6 +431,17 @@ export default function ResourceItem({
                 className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm font-medium hover:scale-105 transition-transform"
               >
                 Complete
+              </button>
+            )}
+
+            {/* Unmark Button - Only for completed videos/articles, when module not submitted */}
+            {canUnmark && (
+              <button
+                onClick={handleUncomplete}
+                className="px-4 py-2 bg-neutral-700 hover:bg-neutral-600 text-neutral-300 hover:text-white border border-neutral-600 hover:border-neutral-500 rounded-lg text-sm font-medium hover:scale-105 transition-all"
+                title="Unmark as completed"
+              >
+                Unmark
               </button>
             )}
           </div>
