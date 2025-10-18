@@ -64,8 +64,8 @@
         },
         {
           "type": "quiz",
-          "title": "Quiz: 8 MCQ on model types and use-cases",
-          "url": "/data/quizzes/foundations-image-gen-quiz.json"
+          "title": "Test Quiz: True/False Question",
+          "url": "/data/quizzes/test-quiz.json"
         },
         {
           "type": "project",

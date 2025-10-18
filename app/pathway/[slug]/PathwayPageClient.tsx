@@ -30,17 +30,36 @@ export default function PathwayPageClient({ pathway: initialPathway }: PathwayPa
     const fetchProgress = async () => {
       setIsLoadingProgress(true);
       try {
-        const pathwayProgress = await ProgressService.fetchPathwayProgress(pathway.id);
+        // Fetch FULL pathway data including approval_status for each module
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/v1/progress/pathways/${pathway.id}`, {
+          headers: {
+            'Authorization': `Bearer ${typeof window !== 'undefined' ? localStorage.getItem('access_token') : ''}`,
+            'Content-Type': 'application/json',
+          },
+        });
 
-        // Update pathway with progress data
-        setPathway(prevPathway => ({
-          ...prevPathway,
-          progress: pathwayProgress.progress,
-          modules: prevPathway.modules.map(module => ({
-            ...module,
-            completed: pathwayProgress.completedModules.includes(module.id)
-          }))
-        }));
+        if (response.ok) {
+          const data = await response.json();
+
+          // Update pathway with FULL module data including approval_status
+          setPathway(prevPathway => ({
+            ...prevPathway,
+            progress: data.progress?.progress_percentage || prevPathway.progress,
+            modules: prevPathway.modules.map(localModule => {
+              const backendModule = data.modules.find((m: any) => m.id === localModule.id);
+              if (backendModule) {
+                return {
+                  ...localModule,
+                  completed: backendModule.completed,
+                  approval_status: backendModule.approval_status,
+                  review_comments: backendModule.review_comments,
+                  completed_at: backendModule.completed_at
+                };
+              }
+              return localModule;
+            })
+          }));
+        }
       } catch (error) {
         console.error('Failed to fetch progress:', error);
         // Keep the default progress values from SSR
