@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
-import { PathwayData, Module } from '@/lib/pathways/types';
+import { PathwayData, Module, ToolItem } from '@/lib/pathways/types';
 import PathwayMap from '@/components/PathwayMap';
 import ModuleDetailModal from '@/components/ModuleDetailModal';
 import BetaBadge from '@/components/BetaBadge';
@@ -24,6 +24,14 @@ export default function PathwayPageClient({ pathway: initialPathway }: PathwayPa
   const [isLoadingProgress, setIsLoadingProgress] = useState(false); // Don't show loading initially
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const isHydrated = useHydration();
+
+  // Helper function to normalize tools to ToolItem format
+  const normalizeTool = (tool: string | ToolItem): ToolItem => {
+    if (typeof tool === 'string') {
+      return { name: tool };
+    }
+    return tool;
+  };
 
   // Auth check - redirect to landing if not authenticated
   useEffect(() => {
@@ -314,14 +322,34 @@ export default function PathwayPageClient({ pathway: initialPathway }: PathwayPa
                   >
                     <h3 className="text-lg font-semibold text-gray-100/95 mb-4">Tech Stack</h3>
                     <div className="flex flex-wrap gap-2">
-                      {pathway.tools.map((tool, index) => (
-                        <span 
-                          key={index}
-                          className={`px-3 py-2 bg-gradient-to-r ${pathway.color} bg-opacity-20 border border-neutral-600/30 rounded-full text-xs text-neutral-300 font-medium`}
-                        >
-                          {tool}
-                        </span>
-                      ))}
+                      {pathway.tools.map((tool, index) => {
+                        const normalizedTool = normalizeTool(tool);
+
+                        // If tool has a URL, render as clickable link
+                        if (normalizedTool.url) {
+                          return (
+                            <a
+                              key={index}
+                              href={normalizedTool.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className={`px-3 py-2 bg-gradient-to-r ${pathway.color} bg-opacity-20 border border-neutral-600/30 rounded-full text-xs text-neutral-300 font-medium hover:scale-105 hover:bg-opacity-30 hover:border-neutral-500/50 hover:text-neutral-100 transition-all duration-200 cursor-pointer`}
+                            >
+                              {normalizedTool.name}
+                            </a>
+                          );
+                        }
+
+                        // Otherwise render as non-clickable badge
+                        return (
+                          <span
+                            key={index}
+                            className={`px-3 py-2 bg-gradient-to-r ${pathway.color} bg-opacity-20 border border-neutral-600/30 rounded-full text-xs text-neutral-300 font-medium`}
+                          >
+                            {normalizedTool.name}
+                          </span>
+                        );
+                      })}
                     </div>
                   </MotionDiv>
                 </div>

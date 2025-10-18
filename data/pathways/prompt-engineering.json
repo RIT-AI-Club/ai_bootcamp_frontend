@@ -50,24 +50,32 @@
         {
           "type": "video",
           "title": "Why Prompts Matter — Talking to AI",
-          "duration": "35 min"
+          "duration": "35 min",
+          "url": "https://www.youtube.com/watch?v=uDIW34h8cmM"
         },
         {
           "type": "article",
-          "title": "Good vs Bad Prompts Examples (PDF)"
+          "title": "Good vs Bad Prompts Examples (PDF)",
+          "url": [
+           { "label": "CARE: Structure for Crafting AI Prompts", "url": "https://www.nngroup.com/articles/careful-prompts" },
+           {  "label": "MIT Prompting Guide", "url": "https://mitsloanedtech.mit.edu/ai/basics/effective-prompts" }
+            ]
         },
         {
           "type": "exercise",
           "title": "Use Gemini Free to compare vague vs detailed prompts",
-          "duration": "45 min"
+          "duration": "45 min",
+          "url": "https://docs.google.com/document/d/1CFGWAsAiLXlOdE6fMLDYbF4ppYntnqyS4wYqV651rLQ/edit?usp=sharing"
         },
         {
-          "type": "exercise",
-          "title": "Quiz: Identify the better prompt in given pairs"
+          "type": "quiz",
+          "title": "Quiz: Identify the better prompt in given pairs",
+          "url": "/data/quizzes/prompt_engineering/module1.json"
         },
         {
           "type": "project",
-          "title": "Write 3 prompts for creative but controlled text (story, poem, explanation)"
+          "title": "Write 3 prompts for creative but controlled text (story, poem, explanation)",
+          "url": "https://docs.google.com/document/d/1Td6M9pDGpC81r2QQXwbpuM9OTIAZesghWLJqrk6t5R4/edit?usp=sharing"
         }
       ],
       "xp": 150,
@@ -92,24 +100,33 @@
         {
           "type": "video",
           "title": "Prompt Patterns — Few-Shot, Chain-of-Thought, Role Prompts",
-          "duration": "50 min"
+          "duration": "10 min",
+          "url": "https://www.youtube.com/watch?v=sZIV7em3JA8"
         },
         {
           "type": "article",
-          "title": "Prompting Techniques Cheat Sheet (PDF)"
+          "title": "Prompting Techniques Cheat Sheet (PDF)",
+          "url": [
+           { "label": "Prompt Engineering Cheatsheet", "url": "https://blog.radixia.ai/content/files/2025/04/Prompt-Engineering-Cheatsheet-1.pdf" },
+           {  "label": "Prompt engineering techniques: Top 5 for 2025", "url": "https://www.k2view.com/blog/prompt-engineering-techniques" }
+            ]
+
         },
         {
           "type": "exercise",
-          "title": "Test prompts to GPT/Claude in Colab, compare outputs",
-          "duration": "90 min"
+          "title": "Test prompts across models",
+          "duration": "60 min",
+          "url": "https://docs.google.com/document/d/1tOF3qghK7ZFZY2XGyM_qQKZqwLikoj9Jm65P8mHxF-g/edit?usp=sharing"
         },
         {
-          "type": "exercise",
-          "title": "Quiz: Match technique to its example"
+          "type": "quiz",
+          "title": "Quiz: Match technique to its example",
+          "url": "/data/quizzes/prompt_engineering/module2.json"
         },
         {
           "type": "project",
-          "title": "Design prompt template: model acts as teacher explaining math in 3 difficulty levels"
+          "title": "Design prompt template: model acts as teacher explaining math in 3 difficulty levels",
+          "url": "https://docs.google.com/document/d/1wj5lMPbGrf_NV4HAzjavydjs5QWdUl4SYL_8nzhDP9w/edit?usp=sharing"
         }
       ],
       "xp": 250,

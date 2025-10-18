@@ -3,6 +3,11 @@ export interface ResourceUrl {
   url: string;
 }
 
+export interface ToolItem {
+  name: string;
+  url?: string;
+}
+
 export interface Module {
   id: string;
   title: string;
@@ -35,7 +40,7 @@ export interface PathwayData {
   level: 'beginner' | 'intermediate' | 'advanced' | 'all levels';
   prerequisites: string[];
   learningOutcomes: string[];
-  tools: string[];
+  tools: (string | ToolItem)[];
   modules: Module[];
   color: string;
   icon?: string;

@@ -22,15 +22,17 @@
     "Deploy production-ready creative AI applications"
   ],
   "tools": [
-    "Google Colab / Kaggle",
-    "ComfyUI",
-    "Stable Diffusion",
+    { "name": "Google Colab", "url": "https://colab.research.google.com/" },
+    { "name": "Kaggle", "url": "https://www.kaggle.com/" },
+    { "name": "ComfyUI", "url": "https://github.com/comfyanonymous/ComfyUI" },
+    { "name": "Stable Diffusion", "url": "https://stability.ai/stable-diffusion" },
     "LoRA/VAE tools",
-    "Hugging Face Playground",
+    { "name": "Hugging Face Playground", "url": "https://huggingface.co/spaces" },
     "Gemini 2.5 Flash Image (Nano Banana)",
-    "AI Studio",
-    "Flask/Streamlit",
-    "Gradio"
+    { "name": "AI Studio", "url": "https://aistudio.google.com/" },
+    "Flask",
+    "Streamlit",
+    { "name": "Gradio", "url": "https://www.gradio.app/" }
   ],
   "modules": [
     {
@@ -66,7 +68,7 @@
         {
           "type": "quiz",
           "title": "Test Quiz: True/False Question",
-          "url": "/data/quizzes/foundations-image-gen-quiz.json"
+          "url": "/data/quizzes/image_generation/module1.json"
         },
         {
           "type": "project",
@@ -116,7 +118,7 @@
         {
           "type": "quiz",
           "title": "Quiz: Identify best prompts for Gemini tasks",
-          "url": "/data/quizzes/prompt_engineering_gemini_nano_banana.json"
+          "url": "/data/quizzes/image_generation/module2.json"
         },
         {
           "type": "project",

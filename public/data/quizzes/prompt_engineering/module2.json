@@ -1,0 +1,67 @@
+{
+  "id": "prompt-eng-patterns-v1",
+  "title": "Prompt Engineering Techniques & Patterns — Module 2 Quiz",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "type": "multiple-choice",
+      "question": "Which prompt technique is illustrated by providing input-output examples before the actual ask?",
+      "options": [
+        {"id":"a","text":"Zero-Shot Prompting","isCorrect":false},
+        {"id":"b","text":"Few-Shot Prompting","isCorrect":true},
+        {"id":"c","text":"Role Prompting","isCorrect":false},
+        {"id":"d","text":"Chain-of-Thought Prompting","isCorrect":false}
+      ],
+      "explanation":"Few-shot includes demonstrations in the prompt to guide the model. :contentReference[oaicite:9]{index=9}"
+    },
+    {
+      "id":"q2",
+      "type":"multiple-choice",
+      "question":"The phrase “Let’s think step by step” is most likely used in which technique?",
+      "options":[
+        {"id":"a","text":"Role Prompting","isCorrect":false},
+        {"id":"b","text":"Few-Shot Prompting","isCorrect":false},
+        {"id":"c","text":"Chain-of-Thought Prompting","isCorrect":true},
+        {"id":"d","text":"Template Prompting","isCorrect":false}
+      ],
+      "explanation":"That phrase triggers the model to articulate reasoning steps (CoT). :contentReference[oaicite:10]{index=10}"
+    },
+    {
+      "id":"q3",
+      "type":"multiple-choice",
+      "question":"Which prompt starts by assigning a persona to the model?",
+      "options":[
+        {"id":"a","text":"Explain Earth’s rotation in simple terms.","isCorrect":false},
+        {"id":"b","text":"You are a senior data scientist. Summarize neural networks.","isCorrect":true},
+        {"id":"c","text":"Summarize neural networks in ten bullet points.","isCorrect":false},
+        {"id":"d","text":"Provide two examples of neural-network types.","isCorrect":false}
+      ],
+      "explanation":"This is role prompting — assigning a persona. :contentReference[oaicite:11]{index=11}"
+    },
+    {
+      "id":"q4",
+      "type":"multiple-choice",
+      "question":"Which prompt technique is best when you want the model to reason through steps on a complex problem?",
+      "options":[
+        {"id":"a","text":"Zero-Shot Prompting","isCorrect":false},
+        {"id":"b","text":"Few-Shot Prompting","isCorrect":false},
+        {"id":"c","text":"Chain-of-Thought Prompting","isCorrect":true},
+        {"id":"d","text":"Role Prompting","isCorrect":false}
+      ],
+      "explanation":"CoT is intended for multi-step reasoning. :contentReference[oaicite:12]{index=12}"
+    },
+    {
+      "id":"q5",
+      "type":"multiple-choice",
+      "question":"In which prompt would a ‘template’ placeholder most likely appear?",
+      "options":[
+        {"id":"a","text":"Explain climate change.","isCorrect":false},
+        {"id":"b","text":"You are an expert historian. Describe {event} in {number} bullets.","isCorrect":true},
+        {"id":"c","text":"List three causes of climate change.","isCorrect":false},
+        {"id":"d","text":"From now on act as a lawyer.","isCorrect":false}
+      ],
+      "explanation":"The placeholder {event} and {number} denote a prompt template format."
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "id": "prompt-eng-foundations-v1",
+  "title": "Prompt Engineering Foundations — Module 1 Quiz",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "type": "multiple-choice",
+      "question": "Which prompt is more likely to yield a specific, useful answer?",
+      "options": [
+        {"id": "a", "text": "Tell me about climate change.", "isCorrect": false},
+        {"id": "b", "text": "Explain how climate change affects coastal cities in 3 concise bullet points.", "isCorrect": true},
+        {"id": "c", "text": "Climate change facts please.", "isCorrect": false},
+        {"id": "d", "text": "Give random info about weather.", "isCorrect": false}
+      ],
+      "explanation": "Prompt (b) includes context, structure, and constraints."
+    },
+    {
+      "id": "q2",
+      "type": "true-false",
+      "question": "Adding context about audience (e.g., 'explain for a child') improves output relevance.",
+      "options": [
+        {"id": "true", "text": "True", "isCorrect": true},
+        {"id": "false", "text": "False", "isCorrect": false}
+      ],
+      "explanation": "Audience context shapes tone and complexity."
+    },
+    {
+      "id": "q3",
+      "type": "multiple-choice",
+      "question": "According to the CARE framework, what does the 'C' stand for?",
+      "options": [
+        {"id": "a", "text": "Constraints", "isCorrect": false},
+        {"id": "b", "text": "Context", "isCorrect": true},
+        {"id": "c", "text": "Creativity", "isCorrect": false},
+        {"id": "d", "text": "Conciseness", "isCorrect": false}
+      ],
+      "explanation": "C = Context: give background or intent before making the request."
+    },
+    {
+      "id": "q4",
+      "type": "multiple-choice",
+      "question": "Which is an example of a poorly structured prompt?",
+      "options": [
+        {"id": "a", "text": "Write a 5-sentence summary of 'To Kill a Mockingbird' focusing on its moral lessons.", "isCorrect": false},
+        {"id": "b", "text": "Tell me something.", "isCorrect": true},
+        {"id": "c", "text": "List 3 ethical dilemmas in 'To Kill a Mockingbird'.", "isCorrect": false},
+        {"id": "d", "text": "Explain the symbolism of the mockingbird in one paragraph.", "isCorrect": false}
+      ],
+      "explanation": "Prompt (b) lacks any context or direction."
+    },
+    {
+      "id": "q5",
+      "type": "true-false",
+      "question": "Good prompts usually specify both the task and the desired format of the answer.",
+      "options": [
+        {"id": "true", "text": "True", "isCorrect": true},
+        {"id": "false", "text": "False", "isCorrect": false}
+      ],
+      "explanation": "Clear structure reduces ambiguity and guides the model's formatting."
+    }
+  ]
+}
