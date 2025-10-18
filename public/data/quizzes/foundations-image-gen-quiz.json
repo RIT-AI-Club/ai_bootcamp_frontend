@@ -1,98 +1,97 @@
 {
   "id": "foundations-image-gen-r4",
-  "title": "Image Generation Model Types Quiz",
-  "description": "Test your knowledge of AI image generation models and their use cases.",
+  "title": "Foundations of Image Generation — Module 1 Quiz",
   "passingScore": 70,
   "questions": [
     {
       "id": "q1",
       "type": "multiple-choice",
-      "question": "Which AI image model is known for being open-source and highly customizable?",
+      "question": "In diffusion models like Stable Diffusion, what is the model trained to do?",
       "options": [
-        {"id": "a", "text": "DALL-E", "isCorrect": false},
-        {"id": "b", "text": "Stable Diffusion", "isCorrect": true},
-        {"id": "c", "text": "Midjourney", "isCorrect": false},
-        {"id": "d", "text": "Imagen", "isCorrect": false}
+        {"id": "a", "text": "Add random noise to an image until it disappears", "isCorrect": false},
+        {"id": "b", "text": "Learn how to remove noise to reconstruct the original image", "isCorrect": true},
+        {"id": "c", "text": "Predict the next word in a sentence", "isCorrect": false},
+        {"id": "d", "text": "Translate images into other languages", "isCorrect": false}
       ],
-      "explanation": "Stable Diffusion is open-source and allows for extensive customization through LoRAs, VAEs, and community models."
+      "explanation": "The model learns to reverse a noise process — denoising images step-by-step until a coherent image forms."
     },
     {
       "id": "q2",
       "type": "true-false",
-      "question": "Gemini 2.5 Flash can edit existing images, not just generate new ones.",
+      "question": "Diffusion models can generate new images starting entirely from random noise.",
       "options": [
         {"id": "true", "text": "True", "isCorrect": true},
         {"id": "false", "text": "False", "isCorrect": false}
       ],
-      "explanation": "Gemini 2.5 Flash Image (Nano Banana) supports advanced image editing capabilities including background removal, pose alteration, and image fusion."
+      "explanation": "After training, diffusion models can start from noise and denoise into entirely new, unseen images."
     },
     {
       "id": "q3",
       "type": "multiple-choice",
-      "question": "What is the primary advantage of DALL-E 3 over earlier models?",
+      "question": "What role does the text encoder play in text-to-image models?",
       "options": [
-        {"id": "a", "text": "It's completely free to use", "isCorrect": false},
-        {"id": "b", "text": "Better understanding of complex prompts and natural language", "isCorrect": true},
-        {"id": "c", "text": "Fastest generation speed", "isCorrect": false},
-        {"id": "d", "text": "Highest resolution images", "isCorrect": false}
+        {"id": "a", "text": "It removes background noise from the generated image", "isCorrect": false},
+        {"id": "b", "text": "It converts text prompts into numerical representations the model can understand", "isCorrect": true},
+        {"id": "c", "text": "It resizes the image to higher resolution", "isCorrect": false},
+        {"id": "d", "text": "It decides the file format for image output", "isCorrect": false}
       ],
-      "explanation": "DALL-E 3 excels at understanding nuanced prompts and following detailed instructions better than previous versions."
+      "explanation": "Text encoders map natural language into embeddings that condition the denoising process."
     },
     {
       "id": "q4",
       "type": "multiple-choice",
-      "question": "Which model would be best for creating consistent character designs across multiple images?",
+      "question": "Which statement best describes the autoregressive approach used by Google’s Parti model?",
       "options": [
-        {"id": "a", "text": "Basic Stable Diffusion without modifications", "isCorrect": false},
-        {"id": "b", "text": "Stable Diffusion with custom LoRAs", "isCorrect": true},
-        {"id": "c", "text": "Random online generators", "isCorrect": false},
-        {"id": "d", "text": "Text-only AI models", "isCorrect": false}
+        {"id": "a", "text": "It denoises an image over many steps using Gaussian noise", "isCorrect": false},
+        {"id": "b", "text": "It predicts sequences of image tokens based on sequences of text tokens", "isCorrect": true},
+        {"id": "c", "text": "It adds noise to images to simulate diffusion", "isCorrect": false},
+        {"id": "d", "text": "It is identical to diffusion but runs faster", "isCorrect": false}
       ],
-      "explanation": "LoRAs (Low-Rank Adaptations) allow you to train Stable Diffusion on specific characters or styles for consistency."
+      "explanation": "Parti uses a sequence-to-sequence architecture — predicting visual tokens from text tokens, like a translator for images."
     },
     {
       "id": "q5",
-      "type": "true-false",
-      "question": "Midjourney can be run locally on your own computer.",
+      "type": "multiple-choice",
+      "question": "What is one main reason larger diffusion models tend to produce higher-quality images?",
       "options": [
-        {"id": "true", "text": "True", "isCorrect": false},
-        {"id": "false", "text": "False", "isCorrect": true}
+        {"id": "a", "text": "They use more detailed fonts", "isCorrect": false},
+        {"id": "b", "text": "They have more parameters to capture fine-grained patterns in data", "isCorrect": true},
+        {"id": "c", "text": "They process fewer denoising steps", "isCorrect": false},
+        {"id": "d", "text": "They are trained on less data for efficiency", "isCorrect": false}
       ],
-      "explanation": "Midjourney is a cloud-based service accessed through Discord or their web interface. It cannot be run locally."
+      "explanation": "Larger models with more parameters capture subtle correlations between text and image features."
     },
     {
       "id": "q6",
-      "type": "multiple-choice",
-      "question": "What does 'diffusion' refer to in Stable Diffusion?",
+      "type": "true-false",
+      "question": "The AI Test Kitchen allows public testing of new experimental models from Google Research.",
       "options": [
-        {"id": "a", "text": "The speed at which images are generated", "isCorrect": false},
-        {"id": "b", "text": "The process of adding noise to images during training and removing it during generation", "isCorrect": true},
-        {"id": "c", "text": "How the model shares data across servers", "isCorrect": false},
-        {"id": "d", "text": "The distribution method for the software", "isCorrect": false}
+        {"id": "true", "text": "True", "isCorrect": true},
+        {"id": "false", "text": "False", "isCorrect": false}
       ],
-      "explanation": "Diffusion models work by learning to reverse a noise-adding process, gradually 'denoising' random pixels into coherent images."
+      "explanation": "Google’s AI Test Kitchen lets users try and provide feedback on emerging AI systems like Imagen and Parti."
     },
     {
       "id": "q7",
       "type": "multiple-choice",
-      "question": "Which use case is BEST suited for AI image generation?",
+      "question": "Which of the following best describes the 'denoising' process in diffusion models?",
       "options": [
-        {"id": "a", "text": "Creating identical copies of existing photos", "isCorrect": false},
-        {"id": "b", "text": "Concept art and mood boards for creative projects", "isCorrect": true},
-        {"id": "c", "text": "Medical diagnosis from X-rays", "isCorrect": false},
-        {"id": "d", "text": "Legal document verification", "isCorrect": false}
+        {"id": "a", "text": "Iteratively removing noise guided by text embeddings to form an image", "isCorrect": true},
+        {"id": "b", "text": "Compressing an image to a smaller size", "isCorrect": false},
+        {"id": "c", "text": "Applying filters to sharpen real photos", "isCorrect": false},
+        {"id": "d", "text": "Replacing image tokens with random pixels", "isCorrect": false}
       ],
-      "explanation": "AI image generation excels at creative exploration, concept visualization, and rapid prototyping of visual ideas."
+      "explanation": "Denoising is the iterative process that constructs a final image guided by a text-conditioned latent representation."
     },
     {
       "id": "q8",
       "type": "true-false",
-      "question": "Google's Imagen is available as an open-source model for anyone to download and use locally.",
+      "question": "Stable Diffusion and Imagen use the same underlying architecture.",
       "options": [
         {"id": "true", "text": "True", "isCorrect": false},
         {"id": "false", "text": "False", "isCorrect": true}
       ],
-      "explanation": "Imagen is a proprietary Google model. While it's accessible through Google Cloud APIs, it's not open-source like Stable Diffusion."
+      "explanation": "Stable Diffusion uses a diffusion-based latent model; Imagen uses a text-conditioned diffusion trained at higher fidelity with proprietary data."
     }
   ]
 }

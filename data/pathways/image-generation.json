@@ -60,17 +60,20 @@
         {
           "type": "exercise",
           "title": "Simple Stable Diffusion prompt generation (Colab)",
-          "duration": "45 min"
+          "duration": "45 min",
+          "url": "https://docs.google.com/document/d/1KYD-wUpOWXoXgmY4o_8z71_bGNKOFW4y51D7taEh4DI/edit?usp=sharing"
         },
         {
           "type": "quiz",
           "title": "Test Quiz: True/False Question",
-          "url": "/data/quizzes/test-quiz.json"
+          "url": "/data/quizzes/foundations-image-gen-quiz.json"
         },
         {
           "type": "project",
-          "title": "Generate 3 mood-board images for fictional product"
+          "title": "Generate 3 mood-board images for fictional product",
+          "url": "https://docs.google.com/document/d/1Rl2NUTuZ7MeuJciRq5vUW_Qyr7kGzDvA6jDdDqVwRNU/edit?usp=sharing"
         }
+
       ],
       "xp": 150,
       "completed": false,
@@ -93,24 +96,32 @@
         {
           "type": "video",
           "title": "Prompt Crafting + Intro to Gemini Nano Banana",
-          "duration": "50 min"
+          "duration": "15 min",
+          "url": [
+           { "label": "Gemini 2.5 Flash Image", "url": "https://www.youtube.com/watch?v=8_GgeASwHwQ" },
+           {  "label": "Prompt Engeineering", "url": "https://www.youtube.com/watch?v=rlE63P1Qgf8" }
+            ]
         },
         {
           "type": "article",
-          "title": "Gemini 2.5 Flash Image capabilities guide"
+          "title": "Gemini 2.5 Flash Image capabilities guide",
+          "url": "https://developers.googleblog.com/en/introducing-gemini-2-5-flash-image"
         },
         {
           "type": "exercise",
           "title": "Use Gemini via AI Studio for image editing",
-          "duration": "60 min"
+          "duration": "60 min",
+           "url": "https://docs.google.com/document/d/1rZvU6GXOsVOgT9uhlveNRtUqc_6UufUJrCjOxvl779M/edit?usp=sharing"
         },
         {
-          "type": "exercise",
-          "title": "Quiz: Identify best prompts for Gemini tasks"
+          "type": "quiz",
+          "title": "Quiz: Identify best prompts for Gemini tasks",
+          "url": "/data/quizzes/prompt_engineering_gemini_nano_banana.json"
         },
         {
           "type": "project",
-          "title": "Design product mockup with Gemini (upload, edit background, alter pose)"
+          "title": "Design product mockup with Gemini (upload, edit background, alter pose)",
+          "url": "https://docs.google.com/document/d/141tb3enXFzU-2hgrTM1wmtekjKc-S-ZWl8YIzv0O3Vk/edit?usp=sharing"
         }
       ],
       "xp": 250,

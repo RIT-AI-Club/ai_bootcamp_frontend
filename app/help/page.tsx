@@ -42,21 +42,14 @@ export default function HelpPage() {
 
             {/* Two Column Layout */}
             <div className="grid md:grid-cols-2 gap-6">
-              {/* Left Column - Contact */}
+              {/* Left Column - Direct Contact */}
               <div className="bg-neutral-900/50 backdrop-blur-sm border border-neutral-700/50 rounded-2xl p-6 md:p-8 shadow-2xl">
-                <h2 className="text-2xl font-bold text-gray-100 mb-4">Contact</h2>
+                <h2 className="text-2xl font-bold text-gray-100 mb-4">Direct Questions for Roman</h2>
                 <p className="text-neutral-400 mb-6">
-                  Having issues? Need support? Reach out through any of these channels:
+                  Have specific questions? Reach out directly:
                 </p>
 
                 <div className="space-y-4">
-                  <div className="bg-neutral-800/50 rounded-lg p-4">
-                    <p className="text-sm text-neutral-400 mb-2">Discord</p>
-                    <p className="text-gray-100 font-medium">
-                      DM <span className="text-cyan-400">@romanslack</span> on the AI Club Discord
-                    </p>
-                  </div>
-
                   <div className="bg-neutral-800/50 rounded-lg p-4">
                     <p className="text-sm text-neutral-400 mb-2">Email</p>
                     <a
@@ -66,18 +59,25 @@ export default function HelpPage() {
                       romanslack1@gmail.com
                     </a>
                   </div>
+
+                  <div className="bg-neutral-800/50 rounded-lg p-4">
+                    <p className="text-sm text-neutral-400 mb-2">Discord</p>
+                    <p className="text-gray-100 font-medium">
+                      DM <span className="text-cyan-400">@romanslack</span> on the AI Club Discord
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              {/* Right Column - Feedback & Bug Reports */}
+              {/* Right Column - Help, Bugs, Feedback */}
               <div className="bg-neutral-900/50 backdrop-blur-sm border border-neutral-700/50 rounded-2xl p-6 md:p-8 shadow-2xl">
-                <h2 className="text-2xl font-bold text-gray-100 mb-4">Feedback & Bug Reports</h2>
+                <h2 className="text-2xl font-bold text-gray-100 mb-4">Need Help, Bug Reports, or Feedback?</h2>
                 <p className="text-neutral-400 mb-6">
-                  Help us improve! Report bugs or share feedback to make the platform better for everyone.
+                  All support requests, bug reports, and feedback should go to the Discord channel.
                 </p>
 
                 <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-4 mb-4">
-                  <h3 className="text-lg font-semibold text-blue-400 mb-3">How to Report</h3>
+                  <h3 className="text-lg font-semibold text-blue-400 mb-3">Where to Post</h3>
 
                   <ol className="space-y-3 text-neutral-300">
                     <li className="flex items-start">
@@ -96,7 +96,7 @@ export default function HelpPage() {
                       <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold mr-3 flex-shrink-0 mt-0.5">
                         3
                       </span>
-                      <span>Post your feedback or bug report with details</span>
+                      <span>Post your issue, feedback, or mention <span className="text-cyan-400 font-medium">@romanslack</span> if you need help</span>
                     </li>
                   </ol>
                 </div>

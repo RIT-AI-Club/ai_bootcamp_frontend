@@ -1,3 +1,8 @@
+export interface ResourceUrl {
+  label?: string;
+  url: string;
+}
+
 export interface Module {
   id: string;
   title: string;
@@ -6,9 +11,9 @@ export interface Module {
   difficulty: 'beginner' | 'intermediate' | 'advanced';
   topics: string[];
   resources?: {
-    type: 'video' | 'article' | 'exercise' | 'project';
+    type: 'video' | 'article' | 'exercise' | 'project' | 'quiz';
     title: string;
-    url?: string;
+    url?: string | ResourceUrl[];
     duration?: string;
   }[];
   completed?: boolean;

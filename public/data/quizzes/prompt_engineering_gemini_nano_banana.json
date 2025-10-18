@@ -1,0 +1,75 @@
+{
+  "id": "image-gen-builder-v1",
+  "title": "Prompt Engineering & Gemini Nano Banana — Module 2 Quiz",
+  "passingScore": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "type": "multiple-choice",
+      "question": "In prompt engineering for image generation, which part of a prompt usually comes first?",
+      "options": [
+        {"id":"a","text":"Lighting & camera settings","isCorrect":false},
+        {"id":"b","text":"Subject description (what)","isCorrect":true},
+        {"id":"c","text":"Brand logo placement","isCorrect":false},
+        {"id":"d","text":"File format specification","isCorrect":false}
+      ],
+      "explanation":"The subject is generally described first, followed by style, lighting, camera details."
+    },
+    {
+      "id":"q2",
+      "type":"true-false",
+      "question":"The model -- :contentReference[oaicite:7]{index=7} (Nano Banana) is especially strong at maintaining object or person consistency across edits.",
+      "options":[
+        {"id":"true","text":"True","isCorrect":true},
+        {"id":"false","text":"False","isCorrect":false}
+      ],
+      "explanation":"Google notes that Gemini 2.5 Flash Image enables character consistency across multiple edits. :contentReference[oaicite:8]{index=8}"
+    },
+    {
+      "id":"q3",
+      "type":"multiple-choice",
+      "question":"Which prompt is most likely to produce a professional product hero shot?",
+      "options":[
+        {"id":"a","text":"a red widget","isCorrect":false},
+        {"id":"b","text":"a red widget, studio lighting, shallow depth of field, white gradient background, 50 mm lens","isCorrect":true},
+        {"id":"c","text":"widget red","isCorrect":false},
+        {"id":"d","text":"red widget background blue","isCorrect":false}
+      ],
+      "explanation":"Detailed prompts with lighting, lens/focus, background improve quality and control."
+    },
+    {
+      "id":"q4",
+      "type":"multiple-choice",
+      "question":"When editing an uploaded image with Nano Banana, what is a good strategy?",
+      "options":[
+        {"id":"a","text":"Upload image → generate from scratch ignoring original","isCorrect":false},
+        {"id":"b","text":"Upload image → use prompt to change only desired part while referencing subject description","isCorrect":true},
+        {"id":"c","text":"Upload image → always use negative prompts to remove unwanted features","isCorrect":false},
+        {"id":"d","text":"Upload image → avoid specifying lighting","isCorrect":false}
+      ],
+      "explanation":"Edit prompts should refer to the subject and specify only the change desired, to maintain consistency. :contentReference[oaicite:9]{index=9}"
+    },
+    {
+      "id":"q5",
+      "type":"multiple-choice",
+      "question":"What does “multi-image fusion” mean in the context of Nano Banana (Gemini 2.5 Flash Image)?",
+      "options":[
+        {"id":"a","text":"Generating multiple images and picking one","isCorrect":false},
+        {"id":"b","text":"Merging several input images into a single coherent output using a prompt","isCorrect":true},
+        {"id":"c","text":"Using multiple models at once","isCorrect":false},
+        {"id":"d","text":"Fusing images by overlaying logos","isCorrect":false}
+      ],
+      "explanation":"Gemini 2.5 supports merging multiple images into one context via prompts. :contentReference[oaicite:10]{index=10}"
+    },
+    {
+      "id":"q6",
+      "type":"true-false",
+      "question":"In prompt design, adding camera or lens details (e.g., “50 mm lens”, “ultra wide”, “cinematic”) helps give the model stronger style cues.",
+      "options":[
+        {"id":"true","text":"True","isCorrect":true},
+        {"id":"false","text":"False","isCorrect":false}
+      ],
+      "explanation":"Camera/lens terms give style and framing cues which help guide the model’s visualization."
+    }
+  ]
+}

@@ -6,10 +6,15 @@ import { CheckCircleIcon, CloudArrowUpIcon, PlayCircleIcon } from '@heroicons/re
 import { ResourceService, type ResourceCompletion, type ResourceSubmission } from '@/lib/resources/resource-service';
 import Quiz, { type QuizData } from './Quiz';
 
+interface ResourceUrl {
+  label?: string;
+  url: string;
+}
+
 interface Resource {
   type: 'video' | 'article' | 'exercise' | 'project' | 'quiz';
   title: string;
-  url?: string;
+  url?: string | ResourceUrl[];
   duration?: string;
 }
 
@@ -46,6 +51,20 @@ export default function ResourceItem({
   const [showQuiz, setShowQuiz] = useState(false);
   const [quizData, setQuizData] = useState<QuizData | null>(null);
   const [loadingQuiz, setLoadingQuiz] = useState(false);
+  const [selectedUrlIndex, setSelectedUrlIndex] = useState(0);
+  const [showUrlDropdown, setShowUrlDropdown] = useState(false);
+
+  // Helper function to normalize URL to array of ResourceUrl objects
+  const normalizeUrls = (url?: string | ResourceUrl[]): ResourceUrl[] => {
+    if (!url) return [];
+    if (typeof url === 'string') return [{ url }];
+    return url;
+  };
+
+  // Get normalized URLs
+  const resourceUrls = normalizeUrls(resource.url);
+  const hasMultipleUrls = resourceUrls.length > 1;
+  const currentUrl = resourceUrls[selectedUrlIndex]?.url;
 
   const getResourceIcon = (type: string) => {
     switch (type) {
@@ -72,11 +91,11 @@ export default function ResourceItem({
   };
 
   const handleOpenQuiz = async () => {
-    if (!resource.url) return;
+    if (!currentUrl) return;
 
     setLoadingQuiz(true);
     try {
-      const response = await fetch(resource.url);
+      const response = await fetch(currentUrl);
       const data = await response.json();
       setQuizData(data);
       setShowQuiz(true);
@@ -245,8 +264,55 @@ export default function ResourceItem({
 
           {/* Action Buttons */}
           <div className="flex items-center gap-2">
+            {/* URL Selector Dropdown - Show if multiple URLs */}
+            {hasMultipleUrls && currentUrl && (
+              <div className="relative">
+                <button
+                  onClick={() => setShowUrlDropdown(!showUrlDropdown)}
+                  className="px-3 py-2 bg-neutral-700 hover:bg-neutral-600 text-white rounded-lg text-sm font-medium transition-colors flex items-center gap-2"
+                  title="Select resource"
+                >
+                  <span className="hidden sm:inline">
+                    {resourceUrls[selectedUrlIndex]?.label || `Option ${selectedUrlIndex + 1}`}
+                  </span>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+
+                {showUrlDropdown && (
+                  <>
+                    {/* Backdrop to close dropdown */}
+                    <div
+                      className="fixed inset-0 z-40"
+                      onClick={() => setShowUrlDropdown(false)}
+                    />
+                    {/* Dropdown menu */}
+                    <div className="absolute right-0 mt-2 w-56 bg-neutral-800 border border-neutral-700/50 rounded-lg shadow-xl z-50 py-1">
+                      {resourceUrls.map((urlObj, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => {
+                            setSelectedUrlIndex(idx);
+                            setShowUrlDropdown(false);
+                          }}
+                          className={`w-full text-left px-4 py-2 text-sm transition-colors ${
+                            idx === selectedUrlIndex
+                              ? 'bg-neutral-700 text-cyan-400 font-medium'
+                              : 'text-neutral-300 hover:bg-neutral-700/50'
+                          }`}
+                        >
+                          {urlObj.label || `Option ${idx + 1}`}
+                        </button>
+                      ))}
+                    </div>
+                  </>
+                )}
+              </div>
+            )}
+
             {/* Quiz Button */}
-            {resource.type === 'quiz' && resource.url ? (
+            {resource.type === 'quiz' && currentUrl ? (
               <button
                 onClick={handleOpenQuiz}
                 disabled={loadingQuiz || isCompleted}
@@ -255,16 +321,16 @@ export default function ResourceItem({
                 <PlayCircleIcon className="w-4 h-4" />
                 {loadingQuiz ? 'Loading...' : isCompleted ? 'Completed' : 'Start Quiz'}
               </button>
-            ) : resource.type === 'quiz' && !resource.url ? (
+            ) : resource.type === 'quiz' && !currentUrl ? (
               <button
                 className="px-4 py-2 bg-neutral-700/50 text-neutral-300 rounded-lg text-sm font-medium cursor-not-allowed"
                 disabled
               >
                 Coming Soon
               </button>
-            ) : resource.url ? (
+            ) : currentUrl ? (
               <a
-                href={resource.url}
+                href={currentUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={handleStart}
