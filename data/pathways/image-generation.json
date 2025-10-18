@@ -26,12 +26,12 @@
     { "name": "Kaggle", "url": "https://www.kaggle.com/" },
     { "name": "ComfyUI", "url": "https://github.com/comfyanonymous/ComfyUI" },
     { "name": "Stable Diffusion", "url": "https://stability.ai/stable-diffusion" },
-    "LoRA/VAE tools",
+    { "name": "LoRA/VAE tools", "url": "https://www.nextdiffusion.ai/tutorials/how-to-install-and-use-lora-models-for-stunning-images-in-stable-diffusion" },
     { "name": "Hugging Face Playground", "url": "https://huggingface.co/spaces" },
-    "Gemini 2.5 Flash Image (Nano Banana)",
+    { "name": "Gemini 2.5 Flash Image (Nano Banana)", "url": "https://aistudio.google.com/prompts/new_chat?model=models%2Fgemini-2.5-flash-image&prompt=Generate%20an%20image%20of%20a%20banana%20wearing%20a%20costume." },
     { "name": "AI Studio", "url": "https://aistudio.google.com/" },
-    "Flask",
-    "Streamlit",
+    { "name": "Flask", "url": "https://flask.palletsprojects.com/" },
+    { "name": "Streamlit", "url": "https://streamlit.io/generative-ai" },
     { "name": "Gradio", "url": "https://www.gradio.app/" }
   ],
   "modules": [
