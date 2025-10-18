@@ -32,10 +32,11 @@ interface QuizProps {
   quizData: QuizData;
   quizId: string; // Unique identifier for localStorage
   onComplete?: (score: number, passed: boolean) => void;
+  onFinish?: () => void; // Called when user clicks "Finish" after passing
   accentColor?: string; // Tailwind gradient classes like "from-blue-500 to-cyan-500"
 }
 
-export default function Quiz({ quizData, quizId, onComplete, accentColor = 'from-blue-500 to-cyan-500' }: QuizProps) {
+export default function Quiz({ quizData, quizId, onComplete, onFinish, accentColor = 'from-blue-500 to-cyan-500' }: QuizProps) {
   const { savedProgress, saveProgress, clearProgress, hasProgress } = useQuizProgress(quizId);
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -297,12 +298,21 @@ export default function Quiz({ quizData, quizId, onComplete, accentColor = 'from
               </div>
 
               {/* Actions */}
-              <button
-                onClick={handleRetakeQuiz}
-                className={`px-6 sm:px-8 py-2.5 sm:py-3 bg-gradient-to-r ${accentColor} text-white rounded-xl font-semibold hover:scale-105 transition-transform shadow-lg text-sm sm:text-base`}
-              >
-                Retake Quiz
-              </button>
+              {passed ? (
+                <button
+                  onClick={onFinish}
+                  className={`px-6 sm:px-8 py-2.5 sm:py-3 bg-gradient-to-r ${accentColor} text-white rounded-xl font-semibold hover:scale-105 transition-transform shadow-lg text-sm sm:text-base`}
+                >
+                  Finish
+                </button>
+              ) : (
+                <button
+                  onClick={handleRetakeQuiz}
+                  className={`px-6 sm:px-8 py-2.5 sm:py-3 bg-gradient-to-r ${accentColor} text-white rounded-xl font-semibold hover:scale-105 transition-transform shadow-lg text-sm sm:text-base`}
+                >
+                  Retake Quiz
+                </button>
+              )}
             </motion.div>
           </div>
         </div>

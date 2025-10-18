@@ -393,6 +393,7 @@ export default function ResourceItem({
                   quizData={quizData}
                   quizId={resourceId}
                   onComplete={handleQuizComplete}
+                  onFinish={() => setShowQuiz(false)}
                   accentColor={pathwayColor}
                 />
               </motion.div>
