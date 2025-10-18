@@ -161,10 +161,17 @@ export default function ResourceItem({
     }
   }, [initialCompletion, initialSubmissions]);
 
-  const isCompleted = completion?.status === 'completed' || completion?.status === 'reviewed';
-  const isSubmitted = completion?.status === 'submitted';
   const requiresUpload = resource.type === 'exercise' || resource.type === 'project';
   const latestSubmission = submissions[0]; // Submissions are ordered by created_at DESC
+
+  // Determine completion state:
+  // For upload resources: check if latest submission is approved
+  // For other resources: check completion status
+  const isCompleted = requiresUpload
+    ? (latestSubmission?.submission_status === 'approved')
+    : (completion?.status === 'completed' || completion?.status === 'reviewed');
+
+  const isSubmitted = completion?.status === 'submitted' && (!requiresUpload || latestSubmission?.submission_status === 'uploaded');
 
   return (
     <motion.div

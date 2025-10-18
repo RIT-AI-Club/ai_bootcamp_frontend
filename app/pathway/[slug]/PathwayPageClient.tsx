@@ -10,6 +10,7 @@ import BetaBadge from '@/components/BetaBadge';
 import { ProgressService } from '@/lib/progress/progress-service';
 import { useHydration } from '@/lib/hooks/useHydration';
 import MotionDiv from '@/components/MotionDiv';
+import { authService } from '@/lib/auth';
 
 interface PathwayPageClientProps {
   pathway: PathwayData;
@@ -21,7 +22,28 @@ export default function PathwayPageClient({ pathway: initialPathway }: PathwayPa
   const [selectedModule, setSelectedModule] = useState<Module | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoadingProgress, setIsLoadingProgress] = useState(false); // Don't show loading initially
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const isHydrated = useHydration();
+
+  // Auth check - redirect to landing if not authenticated
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const currentUser = await authService.getCurrentUser();
+        if (!currentUser) {
+          router.push('/landing');
+          return;
+        }
+      } catch (error) {
+        console.error('Auth check failed:', error);
+        router.push('/landing');
+      } finally {
+        setIsCheckingAuth(false);
+      }
+    };
+
+    checkAuth();
+  }, [router]);
 
   // Fetch progress data on client-side mount (after hydration)
   useEffect(() => {
@@ -130,13 +152,68 @@ export default function PathwayPageClient({ pathway: initialPathway }: PathwayPa
     }
   };
 
+  // Show loading screen while checking auth
+  if (isCheckingAuth) {
+    return (
+      <div className="min-h-screen w-full bg-gradient-to-br from-black via-neutral-900 to-neutral-800 flex items-center justify-center overflow-hidden">
+        <div className="relative flex flex-col items-center">
+          {/* Circle animation container */}
+          <div className="relative w-48 h-48 mb-8">
+            {/* Outer rotating rings */}
+            <div className="absolute top-1/2 left-1/2 w-32 h-32 -translate-x-16 -translate-y-16">
+              <div className="w-full h-full border-2 border-transparent border-t-blue-500 border-r-cyan-500 rounded-full animate-spin" style={{ animationDuration: '3s' }}></div>
+            </div>
+            <div className="absolute top-1/2 left-1/2 w-24 h-24 -translate-x-12 -translate-y-12">
+              <div className="w-full h-full border-2 border-transparent border-t-purple-500 border-l-pink-500 rounded-full animate-spin" style={{ animationDirection: 'reverse', animationDuration: '4s' }}></div>
+            </div>
+            <div className="absolute top-1/2 left-1/2 w-16 h-16 -translate-x-8 -translate-y-8">
+              <div className="w-full h-full border-2 border-transparent border-t-emerald-500 border-b-teal-500 rounded-full animate-spin" style={{ animationDuration: '5s' }}></div>
+            </div>
+
+            {/* Central pulsing orb */}
+            <div className="absolute top-1/2 left-1/2 w-8 h-8 -translate-x-4 -translate-y-4">
+              <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-white/20 rounded-full animate-pulse"></div>
+              <div className="absolute inset-1 bg-gradient-to-br from-blue-400 to-cyan-400 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+            </div>
+
+            {/* Expanding wave rings */}
+            <div className="absolute top-1/2 left-1/2 w-40 h-40 -translate-x-20 -translate-y-20">
+              <div className="w-full h-full border border-white/10 rounded-full animate-ping"></div>
+            </div>
+            <div className="absolute top-1/2 left-1/2 w-48 h-48 -translate-x-24 -translate-y-24">
+              <div className="w-full h-full border border-white/5 rounded-full animate-ping" style={{ animationDelay: '0.5s' }}></div>
+            </div>
+          </div>
+
+          {/* Loading text */}
+          <div className="text-center">
+            {/* Bouncing dots */}
+            <div className="flex items-center justify-center space-x-1 mb-3">
+              <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
+              <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+              <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+              <div className="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style={{ animationDelay: '0.3s' }}></div>
+            </div>
+
+            <div className="text-gray-100/90 text-xl font-bold tracking-wider mb-4">
+              AI BOOTCAMP
+            </div>
+            <div className="text-neutral-300 text-sm animate-pulse max-w-xs">
+              Loading pathway...
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
       <div className="min-h-screen w-full overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-black via-neutral-900 to-neutral-800">
           <div className="absolute inset-0 bg-gradient-to-t from-transparent via-neutral-800/20 to-neutral-600/10" />
         </div>
-        
+
         <div className="relative z-10 min-h-screen">
           {/* Header */}
           <MotionDiv
