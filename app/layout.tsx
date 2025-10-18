@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ToastProvider } from "@/lib/contexts/ToastContext";
 import CookieBanner from "@/components/CookieBanner";
+import FeedbackButton from "@/components/FeedbackButton";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -33,6 +34,7 @@ export default function RootLayout({
         <ToastProvider>
           {children}
           <CookieBanner />
+          <FeedbackButton />
         </ToastProvider>
       </body>
     </html>
