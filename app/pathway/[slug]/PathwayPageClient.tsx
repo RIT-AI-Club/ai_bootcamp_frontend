@@ -52,6 +52,16 @@ export default function PathwayPageClient({ pathway: initialPathway }: PathwayPa
     fetchProgress();
   }, [isHydrated, pathway.id]);
 
+  // Update selectedModule when pathway modules change (keeps modal in sync)
+  useEffect(() => {
+    if (selectedModule && isModalOpen) {
+      const updatedModule = pathway.modules.find(m => m.id === selectedModule.id);
+      if (updatedModule) {
+        setSelectedModule(updatedModule);
+      }
+    }
+  }, [pathway.modules, selectedModule, isModalOpen]);
+
   const handleModuleClick = (module: Module) => {
     setSelectedModule(module);
     setIsModalOpen(true);
@@ -67,22 +77,35 @@ export default function PathwayPageClient({ pathway: initialPathway }: PathwayPa
       // Mark module as complete in backend
       await ProgressService.markModuleComplete(pathway.id, moduleId);
 
-      // Update local state
-      setPathway(prevPathway => {
-        const updatedModules = prevPathway.modules.map(module =>
-          module.id === moduleId ? { ...module, completed: true } : module
-        );
+      // Refetch pathway progress to get updated module with approval_status
+      const pathwayProgress = await ProgressService.fetchPathwayProgress(pathway.id);
 
-        // Calculate new progress percentage
-        const completedCount = updatedModules.filter(m => m.completed).length;
-        const newProgress = Math.round((completedCount / updatedModules.length) * 100);
-
-        return {
-          ...prevPathway,
-          modules: updatedModules,
-          progress: newProgress
-        };
+      // Get full pathway data to merge with progress
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/v1/progress/pathways/${pathway.id}`, {
+        headers: {
+          'Authorization': `Bearer ${typeof window !== 'undefined' ? localStorage.getItem('access_token') : ''}`,
+          'Content-Type': 'application/json',
+        },
       });
+
+      if (response.ok) {
+        const data = await response.json();
+
+        // Update local state with full module data including approval_status
+        setPathway(prevPathway => ({
+          ...prevPathway,
+          modules: data.modules.map((backendModule: any) => {
+            const localModule = prevPathway.modules.find(m => m.id === backendModule.id);
+            return {
+              ...localModule,
+              completed: backendModule.completed,
+              approval_status: backendModule.approval_status,
+              review_comments: backendModule.review_comments
+            };
+          }),
+          progress: pathwayProgress.progress
+        }));
+      }
     } catch (error) {
       console.error('Failed to mark module complete:', error);
     }

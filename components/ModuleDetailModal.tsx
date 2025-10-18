@@ -27,33 +27,37 @@ export default function ModuleDetailModal({
   const [resourcesProgress, setResourcesProgress] = useState<Map<string, { completion?: ResourceCompletion; submissions: ResourceSubmission[] }>>(new Map());
   const [isLoadingProgress, setIsLoadingProgress] = useState(false);
 
-  // Fetch all resources progress when module opens - OPTIMIZED with single API call
+  // Fetch all resources progress - extracted as reusable function
+  const fetchAllProgress = async () => {
+    if (!module) return;
+
+    setIsLoadingProgress(true);
+
+    // SINGLE API call to get all resources with progress
+    const resourcesWithProgress = await ResourceService.getModuleResourcesWithProgress(module.id);
+
+    // Map to resource ID for easy lookup
+    const progressMap = new Map();
+    resourcesWithProgress.forEach((resource) => {
+      progressMap.set(resource.id, {
+        completion: resource.completion || null,
+        submissions: resource.submissions || []
+      });
+    });
+
+    setResourcesProgress(progressMap);
+    setIsLoadingProgress(false);
+  };
+
+  // Fetch all resources progress when module opens
   useEffect(() => {
     if (!module || !isOpen) return;
-
-    const fetchAllProgress = async () => {
-      setIsLoadingProgress(true);
-
-      // SINGLE API call to get all resources with progress
-      const resourcesWithProgress = await ResourceService.getModuleResourcesWithProgress(module.id);
-
-      // Map to resource ID for easy lookup
-      const progressMap = new Map();
-      resourcesWithProgress.forEach((resource) => {
-        progressMap.set(resource.id, {
-          completion: resource.completion || null,
-          submissions: resource.submissions || []
-        });
-      });
-
-      setResourcesProgress(progressMap);
-      setIsLoadingProgress(false);
-    };
-
     fetchAllProgress();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [module, isOpen]);
 
-  // Calculate if all resources are completed
+  // Calculate if all resources are completed (for showing "Submit for Review" button)
+  // This only checks if user has done their part - quizzes passed, files uploaded, articles marked
   const allResourcesComplete = useMemo(() => {
     if (!module || !module.resources || module.resources.length === 0) return true;
     if (isLoadingProgress) return false;
@@ -65,7 +69,7 @@ export default function ModuleDetailModal({
       const progressData = resourcesProgress.get(resourceId);
       const resource = module.resources[i];
 
-      // Check if resource is completed
+      // Check if resource is completed (or submitted for exercises/projects)
       if (!progressData?.completion ||
           !['completed', 'submitted', 'reviewed'].includes(progressData.completion.status)) {
         // Resource is not complete
@@ -75,14 +79,14 @@ export default function ModuleDetailModal({
       // For quiz resources - completion status already means they passed (80%+)
       // Quizzes only mark as complete if user passes, so no additional check needed
 
-      // Check if upload is required and submitted with at least one upload
+      // Check if upload is required and has at least one upload
       if ((resource.type === 'exercise' || resource.type === 'project')) {
         if (!progressData?.submissions || progressData.submissions.length === 0) {
           // Missing required upload
           return false;
         }
-        // Note: We check for uploads but don't require approval here
-        // Approval is checked at module completion by backend
+        // Note: We don't require approval here - just that they uploaded something
+        // The module can be submitted for review even if uploads are still pending
       }
     }
 
@@ -91,7 +95,9 @@ export default function ModuleDetailModal({
 
   if (!module) return null;
 
-  const handleResourceComplete = () => {
+  const handleResourceComplete = async () => {
+    // Refetch all resource progress to update the modal state
+    await fetchAllProgress();
     setResourceCompletedCount(prev => prev + 1);
   };
 

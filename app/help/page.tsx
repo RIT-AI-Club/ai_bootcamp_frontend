@@ -1,10 +1,14 @@
 'use client';
 
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
+import OnboardingModal from '@/components/OnboardingModal';
+import { authService } from '@/lib/auth';
 
 export default function HelpPage() {
   const router = useRouter();
+  const [showOnboarding, setShowOnboarding] = useState(false);
 
   return (
     <div className="min-h-screen w-full overflow-hidden">
@@ -109,6 +113,20 @@ export default function HelpPage() {
               </div>
             </div>
 
+            {/* Onboarding Section */}
+            <div className="mt-8 bg-purple-500/10 border border-purple-500/30 rounded-2xl p-6 md:p-8 shadow-2xl">
+              <h2 className="text-2xl font-bold text-gray-100 mb-3">New to the Platform?</h2>
+              <p className="text-neutral-300 mb-4">
+                Watch our onboarding tutorial to learn how to navigate the platform and get the most out of your learning experience.
+              </p>
+              <button
+                onClick={() => setShowOnboarding(true)}
+                className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400 text-white font-semibold tracking-wide rounded-lg transition-all duration-200 shadow-lg hover:shadow-purple-500/25"
+              >
+                VIEW ONBOARDING TUTORIAL
+              </button>
+            </div>
+
             {/* Thank You Message */}
             <div className="mt-8 text-center">
               <p className="text-neutral-400 italic">
@@ -118,6 +136,13 @@ export default function HelpPage() {
           </div>
         </div>
       </div>
+
+      {/* Onboarding Modal */}
+      <OnboardingModal
+        isOpen={showOnboarding}
+        onComplete={() => setShowOnboarding(false)}
+        onSkip={() => setShowOnboarding(false)}
+      />
     </div>
   );
 }

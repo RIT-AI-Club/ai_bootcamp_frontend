@@ -13,6 +13,7 @@ interface User {
   email_verified: boolean;
   created_at: string;
   account_status: string;
+  onboarding_completed: boolean;
 }
 
 class AuthService {
@@ -149,6 +150,25 @@ class AuthService {
 
   getAccessToken(): string | null {
     return this.accessToken;
+  }
+
+  async completeOnboarding(): Promise<User> {
+    if (!this.accessToken) {
+      throw new Error('Not authenticated');
+    }
+
+    const response = await fetch(`${API_URL}/api/v1/users/onboarding/complete`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${this.accessToken}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to complete onboarding');
+    }
+
+    return response.json();
   }
 }
 

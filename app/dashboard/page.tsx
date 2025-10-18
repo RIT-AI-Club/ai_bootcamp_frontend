@@ -6,12 +6,14 @@ import { authService, User } from '@/lib/auth';
 import PathwayGrid from '@/components/PathwayGrid';
 import AchievementIcon from '@/components/AchievementIcon';
 import AchievementsModal from '@/components/AchievementsModal';
+import OnboardingModal from '@/components/OnboardingModal';
 import BetaBadge from '@/components/BetaBadge';
 
 export default function DashboardPage() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [showAchievementsModal, setShowAchievementsModal] = useState(false);
+  const [showOnboarding, setShowOnboarding] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -26,6 +28,11 @@ export default function DashboardPage() {
         return;
       }
       setUser(currentUser);
+
+      // Show onboarding if not completed
+      if (!currentUser.onboarding_completed) {
+        setShowOnboarding(true);
+      }
     } catch (error) {
       console.error('Auth check failed:', error);
       router.push('/landing');
@@ -37,6 +44,30 @@ export default function DashboardPage() {
   const handleLogout = async () => {
     await authService.logout();
     router.push('/landing');
+  };
+
+  const handleOnboardingComplete = async () => {
+    try {
+      const updatedUser = await authService.completeOnboarding();
+      setUser(updatedUser);
+      setShowOnboarding(false);
+    } catch (error) {
+      console.error('Failed to complete onboarding:', error);
+      // Still close the modal even if API fails
+      setShowOnboarding(false);
+    }
+  };
+
+  const handleOnboardingSkip = async () => {
+    try {
+      const updatedUser = await authService.completeOnboarding();
+      setUser(updatedUser);
+      setShowOnboarding(false);
+    } catch (error) {
+      console.error('Failed to skip onboarding:', error);
+      // Still close the modal even if API fails
+      setShowOnboarding(false);
+    }
   };
 
   if (loading) {
@@ -142,6 +173,13 @@ export default function DashboardPage() {
       <AchievementsModal
         isOpen={showAchievementsModal}
         onClose={() => setShowAchievementsModal(false)}
+      />
+
+      {/* Onboarding Modal */}
+      <OnboardingModal
+        isOpen={showOnboarding}
+        onComplete={handleOnboardingComplete}
+        onSkip={handleOnboardingSkip}
       />
 
       {/* Beta Badge */}
