@@ -22,14 +22,14 @@
     "Build practical projects using advanced prompting"
   ],
   "tools": [
-    "Gemini",
-    "GPT (ChatGPT/OpenAI)",
-    "Claude",
-    "OpenAI CLI",
-    "Gemini CLI",
-    "Hugging Face Spaces",
-    "Colab for demos",
-    "Stable Diffusion Playground"
+    { "name": "Gemini", "url": "https://gemini.google.com/" },
+    { "name": "GPT (ChatGPT/OpenAI)", "url": "https://chat.openai.com/" },
+    { "name": "Claude", "url": "https://claude.ai/" },
+    { "name": "OpenAI CLI", "url": "https://openai.com/codex/" },
+    { "name": "Gemini CLI", "url": "https://github.com/google-gemini/gemini-cli" },
+    { "name": "Hugging Face Spaces", "url": "https://huggingface.co/spaces" },
+    { "name": "Colab for demos", "url": "https://colab.research.google.com/" },
+    { "name": "Stable Diffusion Playground", "url": "https://huggingface.co/spaces/stabilityai/stable-diffusion" }
   ],
   "modules": [
     {
