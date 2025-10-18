@@ -18,12 +18,12 @@
     {
       "id":"q2",
       "type":"true-false",
-      "question":"The model -- :contentReference[oaicite:7]{index=7} (Nano Banana) is especially strong at maintaining object or person consistency across edits.",
+      "question":"The model Nano Banana is especially strong at maintaining object or person consistency across edits.",
       "options":[
         {"id":"true","text":"True","isCorrect":true},
         {"id":"false","text":"False","isCorrect":false}
       ],
-      "explanation":"Google notes that Gemini 2.5 Flash Image enables character consistency across multiple edits. :contentReference[oaicite:8]{index=8}"
+      "explanation":"Google notes that Gemini 2.5 Flash Image enables character consistency across multiple edits."
     },
     {
       "id":"q3",
@@ -47,7 +47,7 @@
         {"id":"c","text":"Upload image → always use negative prompts to remove unwanted features","isCorrect":false},
         {"id":"d","text":"Upload image → avoid specifying lighting","isCorrect":false}
       ],
-      "explanation":"Edit prompts should refer to the subject and specify only the change desired, to maintain consistency. :contentReference[oaicite:9]{index=9}"
+      "explanation":"Edit prompts should refer to the subject and specify only the change desired, to maintain consistency. "
     },
     {
       "id":"q5",
@@ -59,7 +59,7 @@
         {"id":"c","text":"Using multiple models at once","isCorrect":false},
         {"id":"d","text":"Fusing images by overlaying logos","isCorrect":false}
       ],
-      "explanation":"Gemini 2.5 supports merging multiple images into one context via prompts. :contentReference[oaicite:10]{index=10}"
+      "explanation":"Gemini 2.5 supports merging multiple images into one context via prompts. "
     },
     {
       "id":"q6",
