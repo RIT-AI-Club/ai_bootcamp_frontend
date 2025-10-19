@@ -79,7 +79,7 @@ export default function LandingPage() {
             onClick={() => setShowWaitlist(true)}
             onMouseEnter={() => setIsHoveringWaitlist(true)}
             onMouseLeave={() => setIsHoveringWaitlist(false)}
-            className="mt-4 md:mt-6 text-gray-100/90 hover:text-gray-100/60 transition-colors duration-200 cursor-pointer text-lg md:text-xl lg:text-2xl font-semibold tracking-widest border border-gray-100/30 hover:border-gray-100/20 px-4 py-1"
+            className="mt-4 md:mt-6 text-gray-100/90 hover:text-gray-100/60 transition-colors duration-200 cursor-pointer text-lg md:text-xl lg:text-2xl font-semibold tracking-widest border border-gray-100/30 hover:border-gray-100/20 px-4 py-1 hidden"
           >
             JOIN WAITLIST
           </button>
