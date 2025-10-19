@@ -9,7 +9,7 @@ interface OnboardingModalProps {
   onSkip: () => void;
 }
 
-const YOUTUBE_VIDEO_ID = 'dQw4w9WgXcQ'; // Replace with actual video ID
+const YOUTUBE_VIDEO_ID = 'hx7hScUQDT0'; // AI Bootcamp Introduction Video
 
 export default function OnboardingModal({ isOpen, onComplete, onSkip }: OnboardingModalProps) {
   const [currentStep, setCurrentStep] = useState(0);
@@ -90,33 +90,33 @@ export default function OnboardingModal({ isOpen, onComplete, onSkip }: Onboardi
           </p>
           <div className="space-y-4">
             <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-20 text-center">
-                <div className="text-cyan-400 font-bold text-sm">TBA</div>
-                <div className="text-neutral-500 text-xs">Date TBA</div>
+              <div className="flex-shrink-0 w-24 text-center">
+                <div className="text-cyan-400 font-bold text-sm">Oct 25</div>
+                <div className="text-neutral-500 text-xs">Saturday</div>
               </div>
               <div className="flex-1 bg-neutral-800/50 rounded-lg p-4 border border-neutral-700/50">
-                <h4 className="text-gray-100 font-semibold mb-1">New Pathway Launch</h4>
-                <p className="text-neutral-400 text-sm">Advanced AI topics and specialized courses</p>
+                <h4 className="text-gray-100 font-semibold mb-1">Module Pathway Update</h4>
+                <p className="text-neutral-400 text-sm">New learning modules and pathway enhancements</p>
               </div>
             </div>
             <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-20 text-center">
-                <div className="text-cyan-400 font-bold text-sm">TBA</div>
-                <div className="text-neutral-500 text-xs">Date TBA</div>
+              <div className="flex-shrink-0 w-24 text-center">
+                <div className="text-cyan-400 font-bold text-sm">Mid Nov</div>
+                <div className="text-neutral-500 text-xs">2025</div>
               </div>
               <div className="flex-1 bg-neutral-800/50 rounded-lg p-4 border border-neutral-700/50">
-                <h4 className="text-gray-100 font-semibold mb-1">Interactive Labs</h4>
-                <p className="text-neutral-400 text-sm">Hands-on coding environments and exercises</p>
+                <h4 className="text-gray-100 font-semibold mb-1">Full Release</h4>
+                <p className="text-neutral-400 text-sm">Complete platform launch with all core features</p>
               </div>
             </div>
             <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-20 text-center">
-                <div className="text-cyan-400 font-bold text-sm">TBA</div>
-                <div className="text-neutral-500 text-xs">Date TBA</div>
+              <div className="flex-shrink-0 w-24 text-center">
+                <div className="text-cyan-400 font-bold text-sm">December</div>
+                <div className="text-neutral-500 text-xs">2025</div>
               </div>
               <div className="flex-1 bg-neutral-800/50 rounded-lg p-4 border border-neutral-700/50">
-                <h4 className="text-gray-100 font-semibold mb-1">Community Features</h4>
-                <p className="text-neutral-400 text-sm">Discussion forums and peer collaboration tools</p>
+                <h4 className="text-gray-100 font-semibold mb-1">Continual Updates</h4>
+                <p className="text-neutral-400 text-sm">Certificates and Professor pathways rollout</p>
               </div>
             </div>
           </div>
